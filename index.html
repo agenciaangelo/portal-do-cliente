@@ -269,6 +269,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="ni" onclick="cNav('calendario',this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class="nl">Calendário</span></div>
 <div class="ni" onclick="cNav('campanhas',this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><span class="nl">Campanhas</span></div>
 <div class="ni" onclick="cNav('drive',this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg><span class="nl">Arquivos</span></div>
+<div class="ni" onclick="cNav('briefing',this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span class="nl">Briefing</span></div>
 <div class="ni" onclick="cNav('preferencias',this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/></svg><span class="nl">Preferências</span></div>
 <div class="ni" onclick="cNav('support',this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="nl">Suporte</span></div>
 </nav>
@@ -287,6 +288,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="section" id="c-calendario"><div class="readonly-notice">🔒 Calendário editorial gerenciado pela Agência Ângelo.</div><div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px"><div class="ct-left" style="font-size:14px;font-weight:700;display:flex;gap:8px"><div class="ctd" style="margin-top:5px"></div><span id="calMonthLabel"></span></div><div style="display:flex;gap:6px"><button onclick="changeCalMonth(-1)" style="background:var(--card2);border:1px solid var(--border);color:var(--text);padding:5px 12px;border-radius:7px;cursor:pointer">‹</button><button onclick="changeCalMonth(1)" style="background:var(--card2);border:1px solid var(--border);color:var(--text);padding:5px 12px;border-radius:7px;cursor:pointer">›</button></div></div><div class="cal-header"><div class="cal-hd">Dom</div><div class="cal-hd">Seg</div><div class="cal-hd">Ter</div><div class="cal-hd">Qua</div><div class="cal-hd">Qui</div><div class="cal-hd">Sex</div><div class="cal-hd">Sáb</div></div><div class="cal-grid" id="calGrid"></div></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Eventos do Mês</div></div><div id="calEventList"></div></div></div>
 <div class="section" id="c-campanhas"><div class="readonly-notice">🔒 Campanhas gerenciadas pela Agência Ângelo.</div><div id="c-camp-list"></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>🎯 Metas de Campanhas</div></div><div id="c-camp-metas"></div></div></div>
 <div class="section" id="c-drive"><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Enviar Arquivo</div></div><div class="upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event)"><p>Arraste ou <strong>clique para selecionar</strong></p><p style="font-size:11px;margin-top:4px;color:var(--muted)">PDF, JPG, PNG, MP4, ZIP — suporte a arquivos grandes (upload chunked)</p></div><input type="file" id="fileInput" class="file-hidden" multiple onchange="handleFileSelect(this.files)"/><ul class="up-file-list" id="upList"></ul></div><div class="card"><div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:11px;background:var(--card2);border-radius:9px;border:1px solid var(--border);font-size:12px"><span style="color:var(--muted)">Pasta Drive:</span><span style="color:var(--blue);cursor:pointer;font-weight:600" id="driveFolderLabel" onclick="openClientDriveFolder()">Abrir minha pasta →</span></div><div class="tabs"><div class="tab active" onclick="filterFiles('all',this)">Todos</div><div class="tab" onclick="filterFiles('arte',this)">Artes</div><div class="tab" onclick="filterFiles('video',this)">Vídeos</div><div class="tab" onclick="filterFiles('doc',this)">Docs</div></div><div class="fg-grid" id="filesGrid"></div></div></div>
+<div class="section" id="c-briefing"><div class="info-card" id="briefingInfoCard">📋 Este é o <strong>Briefing da sua Marca</strong>. As informações aqui ajudam a agência a criar conteúdo alinhado com sua identidade. <span id="briefingReadonlyNote" style="display:none;color:var(--purple)">🔒 Você tem acesso somente leitura — peça ao owner para editar.</span></div><div id="briefingContainer"></div><div style="display:flex;gap:10px;margin-top:16px" id="briefingBtns"><button onclick="salvarBriefing()" class="btn-save" id="btnSaveBriefing">💾 Salvar Briefing</button><span id="briefingMeta" style="font-size:11px;color:var(--muted);align-self:center"></span></div></div>
 <div class="section" id="c-preferencias"><div class="pref-section"><div class="pref-title">🔔 Notificações</div><div class="toggle-row"><span>E-mail ao receber novo arquivo</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div><div class="toggle-row"><span>Alertas de prazo próximo</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div><div class="toggle-row"><span>Resumo semanal</span><div class="toggle" onclick="this.classList.toggle('on')"></div></div></div><div class="pref-section"><div class="pref-title">👤 Dados de Contato</div><div class="fr"><div class="fg2"><label>Nome</label><input id="prefNome"/></div><div class="fg2"><label>E-mail</label><input id="prefEmail"/></div></div><div class="fr"><div class="fg2"><label>WhatsApp</label><input id="prefWpp"/></div><div class="fg2"><label>Instagram</label><input id="prefInsta"/></div></div><button onclick="showToast('✅ Preferências salvas!')" class="btn-save">Salvar</button></div><div class="card" id="c-contrato-info"></div></div>
 <div class="section" id="c-support"><div class="g2"><div><div style="background:linear-gradient(135deg,var(--card2),var(--card));border-radius:13px;padding:22px;border:1px solid var(--border);text-align:center;margin-bottom:18px"><div style="width:60px;height:60px;background:linear-gradient(135deg,var(--orange),#9b1e6b);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;margin:0 auto 10px">A</div><div style="font-size:15px;font-weight:800;margin-bottom:3px">Adson Ângelo</div><div style="font-size:12px;color:var(--muted);margin-bottom:14px">Consultor de Marketing</div><div style="display:flex;gap:8px;justify-content:center"><button onclick="window.open('https://wa.me/5584991236489','_blank')" class="btn-save" style="width:auto;padding:9px 18px">WhatsApp</button><button onclick="showToast('contato@agenciaangelo.com')" style="background:var(--card2);border:1px solid var(--border);color:var(--text);padding:9px 18px;border-radius:8px;font-weight:700;font-size:12px;cursor:pointer">Email</button></div></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Mensagem</div></div><textarea placeholder="Sua dúvida..." style="width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-size:12px;resize:vertical;min-height:80px;margin-bottom:10px;font-family:inherit;outline:none"></textarea><button onclick="showToast('Mensagem enviada!')" class="btn-save" style="width:auto;padding:9px 20px;font-size:12px">Enviar</button></div></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>FAQ</div></div><div id="c-faq-list"></div></div></div></div>
 </div>
@@ -327,15 +329,15 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="g2"><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>🎯 Metas</div></div><div id="a-dash-metas"></div></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>📅 Próximos Eventos</div></div><div id="a-dash-events"></div></div></div>
 </div>
 <div class="asec" id="a-clients"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px"><div style="font-size:14px;color:var(--muted)">Gerenciar clientes</div><button onclick="openClientModal()" class="btn-add">+ Novo Cliente</button></div><div class="card"><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Nome</th><th>Usuário</th><th>Contrato</th><th>Aniversários</th><th>Renovação</th><th>Drive</th><th>Ações</th></tr></thead><tbody id="clientTable"></tbody></table></div></div></div>
-<div class="asec" id="a-demands"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Demandas — arraste cards entre colunas</div><button onclick="openADemandModal()" class="btn-add">+ Nova Demanda</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fDemCliente" onchange="renderADemands()"><option value="">Todos</option></select></div><div class="kanban-wrap" id="a-dem-kanban"></div></div>
-<div class="asec" id="a-activities"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Atividades — arraste cards entre colunas</div><button onclick="openActModal()" class="btn-add">+ Nova Atividade</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fActCliente" onchange="renderAActivities()"><option value="">Todos</option></select></div><div class="kanban-wrap" id="a-act-kanban"></div></div>
-<div class="asec" id="a-indicadores"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Indicadores</div><button onclick="openIndModal()" class="btn-add">+ Novo</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fIndCliente" onchange="renderAIndicadores()"><option value="">Todos</option></select></div><div class="kpi-grid" id="a-ind-kpis"></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Por Plataforma</div><button onclick="openPlatModal()" class="btn-add" style="font-size:11px;padding:5px 12px">+ Plataforma</button></div><div id="a-ind-chart"></div></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Top Conteúdos</div><button onclick="openTopModal()" class="btn-add" style="font-size:11px;padding:5px 12px">+ Conteúdo</button></div><div id="a-ind-top"></div></div></div>
-<div class="asec" id="a-relatorios"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Relatórios</div><button onclick="openRelModal()" class="btn-add">+ Novo</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fRelCliente" onchange="renderARelatorios()"><option value="">Todos</option></select></div><div class="card"><div class="tbl-wrap"><table><thead><tr><th>Título</th><th>Cliente</th><th>Data</th><th>Ações</th></tr></thead><tbody id="a-rel-table"></tbody></table></div></div></div>
-<div class="asec" id="a-mercado"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Mercado</div><button onclick="openMercModal()" class="btn-add">+ Adicionar</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fMercCliente" onchange="renderAMercado()"><option value="">Todos</option></select></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Tendências</div></div><div id="a-merc-list"></div></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Concorrentes</div></div><div id="a-conc-list"></div></div></div>
-<div class="asec" id="a-estrategias"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Estratégias</div><button onclick="openEstModal()" class="btn-add">+ Nova</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fEstCliente" onchange="renderAEstrategias()"><option value="">Todos</option></select></div><div class="card"><div id="a-est-list"></div></div></div>
-<div class="asec" id="a-calendario"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Calendário Editorial</div><button onclick="openCalModal()" class="btn-add">+ Novo Evento</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fCalCliente" onchange="renderACalendar()"><option value="">Todos</option></select></div><div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px"><div class="ct-left" style="font-size:14px;font-weight:700;display:flex;gap:8px"><div class="ctd" style="margin-top:5px"></div><span id="aCalMonthLabel"></span></div><div style="display:flex;gap:6px"><button onclick="changeACalMonth(-1)" style="background:var(--card2);border:1px solid var(--border);color:var(--text);padding:5px 12px;border-radius:7px;cursor:pointer">‹</button><button onclick="changeACalMonth(1)" style="background:var(--card2);border:1px solid var(--border);color:var(--text);padding:5px 12px;border-radius:7px;cursor:pointer">›</button></div></div><div class="cal-header"><div class="cal-hd">Dom</div><div class="cal-hd">Seg</div><div class="cal-hd">Ter</div><div class="cal-hd">Qua</div><div class="cal-hd">Qui</div><div class="cal-hd">Sex</div><div class="cal-hd">Sáb</div></div><div class="cal-grid" id="aCalGrid"></div></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Eventos do Mês</div></div><div id="aCalEventList"></div></div></div>
-<div class="asec" id="a-campanhas"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Campanhas</div><button onclick="openCampModal()" class="btn-add">+ Nova</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fCampCliente" onchange="renderACampanhas()"><option value="">Todos</option></select></div><div id="a-camp-list"></div></div>
-<div class="asec" id="a-metas"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Metas</div><button onclick="openMetaModal()" class="btn-add">+ Nova</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fMetaCliente" onchange="renderAMetas()"><option value="">Todos</option></select></div><div class="card"><div id="a-metas-list"></div></div></div>
+<div class="asec" id="a-demands"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Demandas — arraste cards entre colunas</div><button onclick="openADemandModal()" class="btn-add">+ Nova Demanda</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fDemCliente" onchange="renderADemands()"><option value="">Todos</option></select><label style="margin-left:8px">De:</label><input type="date" class="filter-sel" id="fDemFrom" onchange="renderADemands()" style="min-width:150px"/><label>Até:</label><input type="date" class="filter-sel" id="fDemTo" onchange="renderADemands()" style="min-width:150px"/><button onclick="document.getElementById('fDemFrom').value='';document.getElementById('fDemTo').value='';renderADemands()" class="btn-cancel" style="padding:6px 10px">Limpar</button></div><div class="kanban-wrap" id="a-dem-kanban"></div></div>
+<div class="asec" id="a-activities"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Atividades — arraste cards entre colunas</div><button onclick="openActModal()" class="btn-add">+ Nova Atividade</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fActCliente" onchange="renderAActivities()"><option value="">Todos</option></select><label style="margin-left:8px">De:</label><input type="date" class="filter-sel" id="fActFrom" onchange="renderAActivities()" style="min-width:150px"/><label>Até:</label><input type="date" class="filter-sel" id="fActTo" onchange="renderAActivities()" style="min-width:150px"/><button onclick="document.getElementById('fActFrom').value='';document.getElementById('fActTo').value='';renderAActivities()" class="btn-cancel" style="padding:6px 10px">Limpar</button></div><div class="kanban-wrap" id="a-act-kanban"></div></div>
+<div class="asec" id="a-indicadores"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Indicadores</div><button onclick="openIndModal()" class="btn-add">+ Novo</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fIndCliente" onchange="renderAIndicadores()"><option value="">Todos</option></select><label style="margin-left:8px">De:</label><input type="date" class="filter-sel" id="fIndFrom" onchange="renderAIndicadores()" style="min-width:150px"/><label>Até:</label><input type="date" class="filter-sel" id="fIndTo" onchange="renderAIndicadores()" style="min-width:150px"/><button onclick="document.getElementById('fIndFrom').value='';document.getElementById('fIndTo').value='';renderAIndicadores()" class="btn-cancel" style="padding:6px 10px">Limpar</button></div><div class="kpi-grid" id="a-ind-kpis"></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Por Plataforma</div><button onclick="openPlatModal()" class="btn-add" style="font-size:11px;padding:5px 12px">+ Plataforma</button></div><div id="a-ind-chart"></div></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Top Conteúdos</div><button onclick="openTopModal()" class="btn-add" style="font-size:11px;padding:5px 12px">+ Conteúdo</button></div><div id="a-ind-top"></div></div></div>
+<div class="asec" id="a-relatorios"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Relatórios</div><button onclick="openRelModal()" class="btn-add">+ Novo</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fRelCliente" onchange="renderARelatorios()"><option value="">Todos</option></select><label style="margin-left:8px">De:</label><input type="date" class="filter-sel" id="fRelFrom" onchange="renderARelatorios()" style="min-width:150px"/><label>Até:</label><input type="date" class="filter-sel" id="fRelTo" onchange="renderARelatorios()" style="min-width:150px"/><button onclick="document.getElementById('fRelFrom').value='';document.getElementById('fRelTo').value='';renderARelatorios()" class="btn-cancel" style="padding:6px 10px">Limpar</button></div><div class="card"><div class="tbl-wrap"><table><thead><tr><th>Título</th><th>Cliente</th><th>Data</th><th>Ações</th></tr></thead><tbody id="a-rel-table"></tbody></table></div></div></div>
+<div class="asec" id="a-mercado"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Mercado</div><button onclick="openMercModal()" class="btn-add">+ Adicionar</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fMercCliente" onchange="renderAMercado()"><option value="">Todos</option></select><label style="margin-left:8px">De:</label><input type="date" class="filter-sel" id="fMercFrom" onchange="renderAMercado()" style="min-width:150px"/><label>Até:</label><input type="date" class="filter-sel" id="fMercTo" onchange="renderAMercado()" style="min-width:150px"/><button onclick="document.getElementById('fMercFrom').value='';document.getElementById('fMercTo').value='';renderAMercado()" class="btn-cancel" style="padding:6px 10px">Limpar</button></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Tendências</div></div><div id="a-merc-list"></div></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Concorrentes</div></div><div id="a-conc-list"></div></div></div>
+<div class="asec" id="a-estrategias"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Estratégias</div><button onclick="openEstModal()" class="btn-add">+ Nova</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fEstCliente" onchange="renderAEstrategias()"><option value="">Todos</option></select><label style="margin-left:8px">De:</label><input type="date" class="filter-sel" id="fEstFrom" onchange="renderAEstrategias()" style="min-width:150px"/><label>Até:</label><input type="date" class="filter-sel" id="fEstTo" onchange="renderAEstrategias()" style="min-width:150px"/><button onclick="document.getElementById('fEstFrom').value='';document.getElementById('fEstTo').value='';renderAEstrategias()" class="btn-cancel" style="padding:6px 10px">Limpar</button></div><div class="card"><div id="a-est-list"></div></div></div>
+<div class="asec" id="a-calendario"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Calendário Editorial</div><button onclick="openCalModal()" class="btn-add">+ Novo Evento</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fCalCliente" onchange="renderACalendar()"><option value="">Todos</option></select><label style="margin-left:8px">De:</label><input type="date" class="filter-sel" id="fCalFrom" onchange="renderACalendar()" style="min-width:150px"/><label>Até:</label><input type="date" class="filter-sel" id="fCalTo" onchange="renderACalendar()" style="min-width:150px"/><button onclick="document.getElementById('fCalFrom').value='';document.getElementById('fCalTo').value='';renderACalendar()" class="btn-cancel" style="padding:6px 10px">Limpar</button></div><div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px"><div class="ct-left" style="font-size:14px;font-weight:700;display:flex;gap:8px"><div class="ctd" style="margin-top:5px"></div><span id="aCalMonthLabel"></span></div><div style="display:flex;gap:6px"><button onclick="changeACalMonth(-1)" style="background:var(--card2);border:1px solid var(--border);color:var(--text);padding:5px 12px;border-radius:7px;cursor:pointer">‹</button><button onclick="changeACalMonth(1)" style="background:var(--card2);border:1px solid var(--border);color:var(--text);padding:5px 12px;border-radius:7px;cursor:pointer">›</button></div></div><div class="cal-header"><div class="cal-hd">Dom</div><div class="cal-hd">Seg</div><div class="cal-hd">Ter</div><div class="cal-hd">Qua</div><div class="cal-hd">Qui</div><div class="cal-hd">Sex</div><div class="cal-hd">Sáb</div></div><div class="cal-grid" id="aCalGrid"></div></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Eventos do Mês</div></div><div id="aCalEventList"></div></div></div>
+<div class="asec" id="a-campanhas"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Campanhas</div><button onclick="openCampModal()" class="btn-add">+ Nova</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fCampCliente" onchange="renderACampanhas()"><option value="">Todos</option></select><label style="margin-left:8px">De:</label><input type="date" class="filter-sel" id="fCampFrom" onchange="renderACampanhas()" style="min-width:150px"/><label>Até:</label><input type="date" class="filter-sel" id="fCampTo" onchange="renderACampanhas()" style="min-width:150px"/><button onclick="document.getElementById('fCampFrom').value='';document.getElementById('fCampTo').value='';renderACampanhas()" class="btn-cancel" style="padding:6px 10px">Limpar</button></div><div id="a-camp-list"></div></div>
+<div class="asec" id="a-metas"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Metas</div><button onclick="openMetaModal()" class="btn-add">+ Nova</button></div><div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fMetaCliente" onchange="renderAMetas()"><option value="">Todos</option></select><label style="margin-left:8px">De:</label><input type="date" class="filter-sel" id="fMetaFrom" onchange="renderAMetas()" style="min-width:150px"/><label>Até:</label><input type="date" class="filter-sel" id="fMetaTo" onchange="renderAMetas()" style="min-width:150px"/><button onclick="document.getElementById('fMetaFrom').value='';document.getElementById('fMetaTo').value='';renderAMetas()" class="btn-cancel" style="padding:6px 10px">Limpar</button></div><div class="card"><div id="a-metas-list"></div></div></div>
 <div class="asec" id="a-alertas"><div style="margin-bottom:18px;font-size:14px;color:var(--muted)">Aniversários, renovações e vencimentos</div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>🎂 Aniversários da Empresa</div></div><div id="a-alerta-aniv"></div></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>👥 Colaboradores</div></div><div id="a-alerta-colabs"></div></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>🔄 Renovações</div></div><div id="a-alerta-renov"></div></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>📋 Vencimentos</div></div><div id="a-alerta-venc"></div></div></div>
 <div class="asec" id="a-upload"><div class="g2"><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Upload para Cliente</div></div><div id="scriptStatusBar" style="margin-bottom:14px;padding:10px 13px;border-radius:9px;font-size:12px"></div><div class="fg2"><label>Cliente</label><select class="client-select" id="upClientSel" onchange="onUpClientChange()"></select></div><div class="fg2"><label>Tipo</label><select class="client-select" id="upTypeSel"><option>Arte / Design</option><option>Vídeo / Reels</option><option>Gravação</option><option>Documento</option><option>Relatório</option></select></div><div class="upload-zone" id="adminDropZone" onclick="document.getElementById('adminFileInput').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleAdminDrop(event)"><p>Arraste ou <strong>clique</strong></p><p style="font-size:11px;margin-top:4px;color:var(--muted)">Suporte a arquivos grandes via chunked upload</p></div><input type="file" id="adminFileInput" class="file-hidden" multiple onchange="handleAdminFiles(this.files)"/><ul class="up-file-list" id="adminUpList"></ul><div id="openFolderBtn" style="display:none;margin-top:10px"><button onclick="openSelectedClientFolder()" style="background:var(--card2);border:1px solid var(--border);color:var(--blue);padding:8px 16px;border-radius:8px;font-size:12px;cursor:pointer;font-weight:600;width:100%">📂 Abrir pasta no Drive</button></div></div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>🧪 Diagnóstico</div></div><button onclick="testarBackend()" class="btn-save" style="width:100%">Testar conexão com Apps Script</button><div id="backendTestResult" style="margin-top:10px;font-size:11px;color:var(--muted);max-height:250px;overflow:auto;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px;font-family:monospace;white-space:pre-wrap;word-break:break-all"></div></div></div></div>
 </div>
@@ -343,7 +345,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
 </div>
 <div class="modal-bg" id="urlModal"><div class="modal"><h3>⚙️ Configurar Apps Script</h3><div class="info-box">Cole a URL do Apps Script publicado como App da Web.</div><div class="fg2"><label>URL</label><input id="urlInput" placeholder="https://script.google.com/macros/s/.../exec"/></div><div id="urlStatus" style="font-size:12px;margin-bottom:8px"></div><div class="modal-btns"><button class="btn-save" onclick="salvarUrl()">Salvar</button><button class="btn-cancel" onclick="closeModal('urlModal')">Cancelar</button><button class="btn-danger" onclick="removerUrl()">Remover</button></div></div></div>
 <div class="modal-bg" id="clientModal"><div class="modal"><h3 id="clientModalTitle">Novo Cliente</h3><input type="hidden" id="editClientIdx" value="-1"/><div class="section-sep">Dados Básicos</div><div class="fr"><div class="fg2"><label>Nome</label><input id="mNome"/></div><div class="fg2"><label>Usuário</label><input id="mUser"/></div></div><div class="fr"><div class="fg2"><label>Senha</label><input id="mPass"/></div><div class="fg2"><label>Empresa</label><input id="mEmp"/></div></div><div class="fr"><div class="fg2"><label>Plano</label><select id="mPlano"><option>Marketing 360°</option><option>Digital</option><option>Conteúdo</option><option>Offline</option></select></div><div class="fg2"><label>Status</label><select id="mStatus"><option>Ativo</option><option>Inativo</option><option>Negociação</option></select></div></div><div class="fg2"><label>ID Pasta Google Drive</label><input id="mDrive" placeholder="ID da pasta"/></div><div class="section-sep">📄 Contrato</div><div class="fr"><div class="fg2"><label>Início</label><input id="mContratoIni" type="date"/></div><div class="fg2"><label>Fim</label><input id="mContratoFim" type="date"/></div></div><div class="fr"><div class="fg2"><label>Renovação</label><input id="mRenovacao" type="date"/></div><div class="fg2"><label>Valor Mensal (R$)</label><input id="mValor" type="number"/></div></div><div class="fg2"><label>Upload Contrato</label><div class="upload-zone" style="padding:14px;margin-bottom:4px" id="contratoUpZone" onclick="document.getElementById('contratoFileIn').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="contratoFileDrop(event)"><p style="margin:0">📎 Arraste ou <strong>clique</strong></p></div><input type="file" id="contratoFileIn" class="file-hidden" onchange="contratoFileSelect(this.files)"><div id="contratoFileName" style="font-size:11px;color:var(--green);margin-top:4px"></div></div><div class="section-sep">🎂 Aniversários</div><div class="fr"><div class="fg2"><label>Aniversário da Empresa</label><input id="mAnivEmp" type="date"/></div><div class="fg2"><label>Ano de Fundação</label><input id="mFundacao" placeholder="2010"/></div></div><div class="fg2"><label>Colaboradores (Nome, DD/MM — um por linha)</label><textarea id="mColabs" style="min-height:80px"></textarea></div><div class="section-sep" id="usersSection">👥 Usuários deste cliente</div><div id="usersList" style="margin-bottom:10px"><div style="color:var(--muted);font-size:11px;padding:10px">Salve o cliente antes de adicionar usuários.</div></div><button id="btnAddUser" onclick="openUserModal()" class="btn-add" style="font-size:11px;display:none">+ Adicionar Usuário</button><div class="modal-btns"><button class="btn-save" onclick="saveClient()">Salvar</button><button class="btn-cancel" onclick="closeModal('clientModal')">Cancelar</button><button class="btn-danger" id="btnDeleteClient" onclick="deleteClient()" style="display:none">Remover</button></div></div></div>
-<div class="modal-bg" id="aDemandModal"><div class="modal"><h3 id="aDemandModalTitle">Nova Demanda</h3><input type="hidden" id="aDemEditId" value=""><div class="fg2"><label>Cliente</label><select id="aDemCliente" class="client-select"></select></div><div class="fr"><div class="fg2"><label>Título</label><input id="aDemTit"/></div><div class="fg2"><label>Tipo</label><select id="aDemTip"><option>Arte / Design</option><option>Vídeo / Reels</option><option>Gravação</option><option>Estratégia</option><option>Relatório</option><option>Outro</option></select></div></div><div class="fr"><div class="fg2"><label>Prazo</label><input id="aDemPra" type="date"/></div><div class="fg2"><label>Prioridade</label><select id="aDemPri"><option>Normal</option><option>Alta</option><option>Urgente</option></select></div></div><div class="fg2"><label>Status</label><select id="aDemStatus"><option>Novo</option><option>Em andamento</option><option>Revisão</option><option>Concluído</option></select></div><div class="fg2"><label>Descrição</label><textarea id="aDemDesc"></textarea></div><div class="modal-btns"><button class="btn-save" onclick="saveADemand()">Salvar</button><button class="btn-cancel" onclick="closeModal('aDemandModal')">Cancelar</button><button class="btn-danger" id="btnDeleteADemand" onclick="deleteADemand()" style="display:none">Remover</button></div></div></div>
+<div class="modal-bg" id="aDemandModal"><div class="modal"><h3 id="aDemandModalTitle">Nova Demanda</h3><input type="hidden" id="aDemEditId" value=""><div class="fg2"><label>Cliente</label><select id="aDemCliente" class="client-select"></select></div><div class="fr"><div class="fg2"><label>Título</label><input id="aDemTit"/></div><div class="fg2"><label>Tipo</label><select id="aDemTip"><option>Arte / Design</option><option>Vídeo / Reels</option><option>Gravação</option><option>Estratégia</option><option>Relatório</option><option>Outro</option></select></div></div><div class="fr"><div class="fg2"><label>Prazo</label><input id="aDemPra" type="date"/></div><div class="fg2"><label>Prioridade</label><select id="aDemPri"><option>Normal</option><option>Alta</option><option>Urgente</option></select></div></div><div class="fg2"><label>Status</label><select id="aDemStatus"><option>Novo</option><option>Em andamento</option><option>Revisão</option><option>Concluído</option></select></div><div class="fg2"><label>Descrição</label><textarea id="aDemDesc"></textarea></div><div class="fg2"><label>Anexar Arquivo (opcional — só para novas demandas)</label><div class="upload-zone" style="padding:14px" id="aDemUpZone" onclick="document.getElementById('aDemFileIn').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="aDemFileDrop(event)"><p>📎 Arraste ou <strong>clique para selecionar</strong></p></div><input type="file" id="aDemFileIn" class="file-hidden" onchange="aDemFileSelect(this.files)"><ul class="up-file-list" id="aDemUpList"></ul></div><div class="modal-btns"><button class="btn-save" onclick="saveADemand()">Salvar</button><button class="btn-cancel" onclick="closeModal('aDemandModal')">Cancelar</button><button class="btn-danger" id="btnDeleteADemand" onclick="deleteADemand()" style="display:none">Remover</button></div></div></div>
 <div class="modal-bg" id="actModal"><div class="modal"><h3 id="actModalTitle">Nova Atividade</h3><input type="hidden" id="actEditId" value=""><div class="fg2"><label>Cliente</label><select id="actCliente" class="client-select"></select></div><div class="fr"><div class="fg2"><label>Título</label><input id="actTit"/></div><div class="fg2"><label>Responsável</label><input id="actResp"/></div></div><div class="fr"><div class="fg2"><label>Prazo</label><input id="actPrazo" type="date"/></div><div class="fg2"><label>Progresso (%)</label><input id="actProg" type="number" min="0" max="100"/></div></div><div class="fg2"><label>Status</label><select id="actStatus"><option>Planejamento</option><option>Em andamento</option><option>Revisão</option><option>Concluído</option></select></div><div class="modal-btns"><button class="btn-save" onclick="saveActivity()">Salvar</button><button class="btn-cancel" onclick="closeModal('actModal')">Cancelar</button><button class="btn-danger" id="btnDeleteAct" onclick="deleteActivity()" style="display:none">Remover</button></div></div></div>
 <div class="modal-bg" id="indModal"><div class="modal"><h3 id="indModalTitle">Novo Indicador</h3><input type="hidden" id="indEditId" value=""><div class="fg2"><label>Cliente</label><select id="indCliente" class="client-select"></select></div><div class="fr"><div class="fg2"><label>Métrica</label><input id="indMetrica"/></div><div class="fg2"><label>Valor</label><input id="indValor"/></div></div><div class="fr"><div class="fg2"><label>Variação</label><input id="indVar" placeholder="+18%"/></div><div class="fg2"><label>Plataforma</label><select id="indPlat"><option>Instagram</option><option>TikTok</option><option>Facebook</option><option>Google Ads</option><option>LinkedIn</option><option>Geral</option></select></div></div><div class="fr"><div class="fg2"><label>% barra</label><input id="indPct" type="number" min="0" max="100"/></div><div class="fg2"><label>Cor</label><input id="indCor" type="color" value="#e1306c" style="height:42px;cursor:pointer"/></div></div><div class="modal-btns"><button class="btn-save" onclick="saveIndicador()">Salvar</button><button class="btn-cancel" onclick="closeModal('indModal')">Cancelar</button><button class="btn-danger" id="btnDeleteInd" onclick="deleteIndicador()" style="display:none">Remover</button></div></div></div>
 <div class="modal-bg" id="platModal"><div class="modal"><h3 id="platModalTitle">Plataforma</h3><input type="hidden" id="platEditId" value=""><div class="fr"><div class="fg2"><label>Nome</label><input id="platNome"/></div><div class="fg2"><label>%</label><input id="platPct" type="number" min="0" max="100"/></div></div><div class="fg2"><label>Cor</label><input id="platCor" type="color" value="#ff0000" style="height:42px;cursor:pointer"/></div><div class="modal-btns"><button class="btn-save" onclick="savePlat()">Salvar</button><button class="btn-cancel" onclick="closeModal('platModal')">Cancelar</button><button class="btn-danger" id="btnDeletePlat" onclick="deletePlat()" style="display:none">Remover</button></div></div></div>
@@ -351,7 +353,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="modal-bg" id="relModal"><div class="modal"><h3 id="relModalTitle">Relatório</h3><input type="hidden" id="relEditId" value=""><div class="fg2"><label>Título</label><input id="relTitulo"/></div><div class="fr"><div class="fg2"><label>Data</label><input id="relData" type="date"/></div><div class="fg2"><label>Cliente</label><select id="relCliente" class="client-select"></select></div></div><div class="fg2"><label>Link / URL</label><input id="relLink" placeholder="https://..."/></div><div class="modal-btns"><button class="btn-save" onclick="saveRelatorio()">Salvar</button><button class="btn-cancel" onclick="closeModal('relModal')">Cancelar</button><button class="btn-danger" id="btnDeleteRel" onclick="deleteRelatorio()" style="display:none">Remover</button></div></div></div>
 <div class="modal-bg" id="mercModal"><div class="modal"><h3 id="mercModalTitle">Tendência / Concorrente</h3><input type="hidden" id="mercEditId" value=""><div class="fg2"><label>Cliente</label><select id="mercCliente" class="client-select"></select></div><div class="fg2"><label>Título</label><input id="mercTit"/></div><div class="fg2"><label>Descrição</label><textarea id="mercDesc"></textarea></div><div class="fr"><div class="fg2"><label>Tipo</label><select id="mercTipo"><option>Tendência</option><option>Concorrente</option></select></div><div class="fg2"><label>Badge</label><input id="mercBadge"/></div></div><div class="modal-btns"><button class="btn-save" onclick="saveMercado()">Salvar</button><button class="btn-cancel" onclick="closeModal('mercModal')">Cancelar</button><button class="btn-danger" id="btnDeleteMerc" onclick="deleteMercado()" style="display:none">Remover</button></div></div></div>
 <div class="modal-bg" id="estModal"><div class="modal"><h3 id="estModalTitle">Estratégia</h3><input type="hidden" id="estEditId" value=""><div class="fg2"><label>Cliente</label><select id="estCliente" class="client-select"></select></div><div class="fg2"><label>Título</label><input id="estTit"/></div><div class="fg2"><label>Descrição</label><textarea id="estDesc"></textarea></div><div class="fr"><div class="fg2"><label>Categoria</label><select id="estCat"><option>Digital</option><option>Conteúdo</option><option>Offline</option><option>Outros</option></select></div><div class="fg2"><label>Status</label><select id="estStatus"><option>Ativo</option><option>Pausado</option><option>Planejamento</option></select></div></div><div class="modal-btns"><button class="btn-save" onclick="saveEstrategia()">Salvar</button><button class="btn-cancel" onclick="closeModal('estModal')">Cancelar</button><button class="btn-danger" id="btnDeleteEst" onclick="deleteEstrategia()" style="display:none">Remover</button></div></div></div>
-<div class="modal-bg" id="calModal"><div class="modal"><h3 id="calModalTitle">Evento</h3><input type="hidden" id="calEditId" value=""><div class="fg2"><label>Título</label><input id="calEvTitle"/></div><div class="fr"><div class="fg2"><label>Data</label><input id="calEvDate" type="date"/></div><div class="fg2"><label>Tipo</label><select id="calEvType"><option value="post">📸 Post</option><option value="video">🎬 Vídeo/Reels</option><option value="stories">💫 Stories</option><option value="campanha">🎯 Campanha</option><option value="reuniao">📅 Reunião</option></select></div></div><div class="fg2"><label>Cliente</label><select id="calEvClient" class="client-select"></select></div><div class="fg2"><label>Observação</label><textarea id="calEvObs"></textarea></div><div class="modal-btns"><button class="btn-save" onclick="saveCalEvent()">Salvar</button><button class="btn-cancel" onclick="closeModal('calModal')">Cancelar</button><button class="btn-danger" id="btnDeleteCal" onclick="deleteCalEvent()" style="display:none">Remover</button></div></div></div>
+<div class="modal-bg" id="calModal"><div class="modal"><h3 id="calModalTitle">Evento</h3><input type="hidden" id="calEditId" value=""><div class="fg2"><label>Título</label><input id="calEvTitle"/></div><div class="fr"><div class="fg2"><label>Data</label><input id="calEvDate" type="date"/></div><div class="fg2"><label>Tipo</label><select id="calEvType"><option value="post">📸 Post</option><option value="video">🎬 Vídeo/Reels</option><option value="stories">💫 Stories</option><option value="campanha">🎯 Campanha</option><option value="reuniao">📅 Reunião</option><option value="ideia">💡 Ideia</option><option value="demanda">📌 Demanda (criar em Demandas também)</option><option value="atividade">✅ Atividade (criar em Atividades também)</option></select></div></div><div class="fg2"><label>Cliente</label><select id="calEvClient" class="client-select"></select></div><div class="fg2"><label>Observação</label><textarea id="calEvObs"></textarea></div><div class="modal-btns"><button class="btn-save" onclick="saveCalEvent()">Salvar</button><button class="btn-cancel" onclick="closeModal('calModal')">Cancelar</button><button class="btn-danger" id="btnDeleteCal" onclick="deleteCalEvent()" style="display:none">Remover</button></div></div></div>
 <div class="modal-bg" id="campModal"><div class="modal"><h3 id="campModalTitle">Campanha</h3><input type="hidden" id="campEditId" value=""><div class="fg2"><label>Cliente</label><select id="campCliente" class="client-select"></select></div><div class="fg2"><label>Nome</label><input id="campNome"/></div><div class="fr"><div class="fg2"><label>Início</label><input id="campIni" type="date"/></div><div class="fg2"><label>Fim</label><input id="campFim" type="date"/></div></div><div class="fr"><div class="fg2"><label>Plataforma</label><input id="campPlat"/></div><div class="fg2"><label>Budget (R$)</label><input id="campBudget" type="number"/></div></div><div class="fr"><div class="fg2"><label>Alcance Real</label><input id="campAlcance"/></div><div class="fg2"><label>Cliques Reais</label><input id="campCliques"/></div></div><div class="fg2"><label>Status</label><select id="campStatus"><option>Ativa</option><option>Em captação</option><option>Planejamento</option><option>Encerrada</option></select></div><div class="section-sep">🎯 Meta da Campanha</div><div class="fr"><div class="fg2"><label>Meta (descrição)</label><input id="campMetaTit"/></div><div class="fg2"><label>Valor Meta</label><input id="campMetaTotal" type="number"/></div></div><div class="fr"><div class="fg2"><label>Unidade da Meta</label><input id="campMetaUnidade"/></div><div class="fg2"><label>Cor da Meta</label><input id="campMetaCor" type="color" value="#2ecc71" style="height:42px;cursor:pointer"/></div></div><div class="modal-btns"><button class="btn-save" onclick="saveCampanha()">Salvar</button><button class="btn-cancel" onclick="closeModal('campModal')">Cancelar</button><button class="btn-danger" id="btnDeleteCamp" onclick="deleteCampanha()" style="display:none">Remover</button></div></div></div>
 <div class="modal-bg" id="metaModal"><div class="modal"><h3 id="metaModalTitle">Meta</h3><input type="hidden" id="metaEditId" value=""><div class="fg2"><label>Cliente</label><select id="metaCliente" class="client-select"></select></div><div class="fg2"><label>Título</label><input id="metaTit"/></div><div class="fr"><div class="fg2"><label>Valor Atual</label><input id="metaAtual" type="number"/></div><div class="fg2"><label>Meta</label><input id="metaTotal" type="number"/></div></div><div class="fr"><div class="fg2"><label>Unidade</label><input id="metaUnidade" placeholder="impressões, R$, seguidores"/></div><div class="fg2"><label>Categoria</label><select id="metaCat"><option>Geral</option><option>Indicadores</option><option>Campanhas</option><option>Estratégia</option></select></div></div><div class="fg2"><label>Cor</label><input id="metaCor" type="color" value="#e8541a" style="height:42px;cursor:pointer"/></div><div class="modal-btns"><button class="btn-save" onclick="saveMeta()">Salvar</button><button class="btn-cancel" onclick="closeModal('metaModal')">Cancelar</button><button class="btn-danger" id="btnDeleteMeta" onclick="deleteMeta()" style="display:none">Remover</button></div></div></div>
 <div class="modal-bg" id="clientIndModal"><div class="modal"><h3 id="clientIndModalTitle">Meu Indicador</h3><input type="hidden" id="clientIndEditId" value=""><div class="fr"><div class="fg2"><label>Métrica</label><input id="clientIndMetrica"/></div><div class="fg2"><label>Valor</label><input id="clientIndValor"/></div></div><div class="fr"><div class="fg2"><label>Variação</label><input id="clientIndVar"/></div><div class="fg2"><label>Plataforma</label><select id="clientIndPlat"><option>Instagram</option><option>TikTok</option><option>Facebook</option><option>Google Ads</option><option>LinkedIn</option><option>Geral</option></select></div></div><div class="fr"><div class="fg2"><label>% barra</label><input id="clientIndPct" type="number" min="0" max="100"/></div><div class="fg2"><label>Cor</label><input id="clientIndCor" type="color" value="#e8541a" style="height:42px;cursor:pointer"/></div></div><div class="modal-btns"><button class="btn-save" onclick="saveClientInd()">Salvar</button><button class="btn-cancel" onclick="closeModal('clientIndModal')">Cancelar</button><button class="btn-danger" id="btnDeleteClientInd" onclick="deleteClientInd()" style="display:none">Remover</button></div></div></div>
@@ -558,7 +560,7 @@ async function loadAllFromSheets(){
   DB.platData     = (d.PlatData    ||[]).map(r=>({...r, id:toInt(r.id)||r.id, pct:toInt(r.pct)}));
   DB.topContents  = (d.TopContents ||[]).map(r=>({...r, id:toInt(r.id)||r.id}));
   DB.arquivos     = (d.Arquivos    ||[]).map(r=>({...r, id:toInt(r.id)||r.id}));
-  DB.notifications= (d.Notifications||[]).map(r=>({...r, id:toInt(r.id)||r.id, unread: String(r.unread).toUpperCase()!=='FALSE'}));
+  DB.notifications= (d.Notifications||[]).map(r=>({...r, id:r.id}));
   const all=[...DB.clients,...DB.demands,...DB.clientDemands,...DB.activities,...DB.indicadores,...DB.relatorios,...DB.mercado,...DB.estrategias,...DB.calEvents,...DB.campanhas,...DB.metas,...DB.platData,...DB.topContents,...DB.arquivos,...DB.notifications].map(x=>toInt(x.id));
   if(all.length) DB.nextId=Math.max(...all, DB.nextId)+1;
 }
@@ -670,7 +672,7 @@ function applyRolePermissions(){
   // Para role operacional/viewer, esconder aba Preferências (contrato/valor)
   const role = currentUser.role;
   const hide = (role==='operacional' || role==='viewer');
-  const prefNav = document.querySelectorAll('#clientApp .ni')[10]; // Preferências é o item 11 (índice 10)
+  const prefNav = document.querySelectorAll('#clientApp .ni')[11]; // Preferências é o item 12 (índice 11)
   if(prefNav){ prefNav.style.display = hide ? 'none':''; }
   // Viewer não pode criar demandas
   const demForm = document.getElementById('demFormWrap');
@@ -714,7 +716,7 @@ async function restoreSession(){
 /* ═══════════════════════════════════════════════════
    NAV (cliente e admin)
 ═══════════════════════════════════════════════════ */
-const cTitles={overview:'Visão Geral',activities:'Atividades',demands:'Demandas',indicadores:'Indicadores',relatorios:'Relatórios',mercado:'Mercado',estrategias:'Estratégias',calendario:'Calendário',campanhas:'Campanhas',drive:'Arquivos',preferencias:'Preferências',support:'Suporte'};
+const cTitles={overview:'Visão Geral',activities:'Atividades',demands:'Demandas',indicadores:'Indicadores',relatorios:'Relatórios',mercado:'Mercado',estrategias:'Estratégias',calendario:'Calendário',campanhas:'Campanhas',drive:'Arquivos',briefing:'Briefing da Marca',preferencias:'Preferências',support:'Suporte'};
 function cNav(id,el){
   document.querySelectorAll('#clientApp .section').forEach(s=>s.classList.remove('active'));
   const target = document.getElementById('c-'+id);
@@ -725,6 +727,7 @@ function cNav(id,el){
   if(id==='drive'){updateClientDriveLabel();renderClientFiles();}
   if(id==='demands') renderCDemandsKanban();
   if(id==='activities') renderCActivitiesKanban();
+  if(id==='briefing') renderCBriefing();
 }
 const aTitles={'a-dash':'Dashboard','a-clients':'Clientes','a-demands':'Demandas','a-activities':'Atividades','a-indicadores':'Indicadores','a-relatorios':'Relatórios','a-mercado':'Mercado','a-estrategias':'Estratégias','a-calendario':'Calendário','a-campanhas':'Campanhas','a-metas':'Metas','a-alertas':'Alertas','a-upload':'Upload'};
 function aNav(id,el){
@@ -747,7 +750,7 @@ function aGoTo(id){
   aNav(id, el);
 }
 function cGoTo(sectionId){
-  const map = {overview:0,activities:1,demands:2,indicadores:3,relatorios:4,mercado:5,estrategias:6,calendario:7,campanhas:8,drive:9,preferencias:10,support:11};
+  const map = {overview:0,activities:1,demands:2,indicadores:3,relatorios:4,mercado:5,estrategias:6,calendario:7,campanhas:8,drive:9,briefing:10,preferencias:11,support:12};
   const navItems = document.querySelectorAll('#clientApp .ni');
   const el = navItems[map[sectionId]];
   cNav(sectionId, el);
@@ -770,6 +773,34 @@ function populateAllSelects(){
   ['fDemCliente','fActCliente','fIndCliente','fRelCliente','fMercCliente','fEstCliente','fCalCliente','fCampCliente','fMetaCliente'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='<option value="">Todos os clientes</option>'+DB.clients.map(c=>`<option>${c.nome}</option>`).join('');});
 }
 function getFilter(id){return document.getElementById(id)?.value||'';}
+function getDateFilters(prefix){
+  // Retorna {from, to} onde prefix é tipo 'Dem', 'Act', 'Ind' etc
+  return {
+    from: document.getElementById('f'+prefix+'From')?.value || '',
+    to:   document.getElementById('f'+prefix+'To')?.value || ''
+  };
+}
+/**
+ * Filtra uma lista comparando um campo de data (ou múltiplos campos, pega o primeiro que tem valor).
+ * `fieldsPriority` é array com nomes de campos a checar em ordem (ex: ['prazo','data','ini']).
+ * Itens sem nenhum dos campos preenchidos passam livres.
+ */
+function filterByDate(list, fieldsPriority, filters){
+  const from = filters.from ? new Date(filters.from+'T00:00:00') : null;
+  const to = filters.to ? new Date(filters.to+'T23:59:59') : null;
+  if(!from && !to) return list;
+  return list.filter(item => {
+    let dateStr = '';
+    for(const f of fieldsPriority){
+      if(item[f]) { dateStr = String(item[f]); break; }
+    }
+    if(!dateStr) return true; // sem data = sempre aparece
+    const d = new Date(dateStr.split('T')[0]+'T12:00:00');
+    if(from && d < from) return false;
+    if(to && d > to) return false;
+    return true;
+  });
+}
 function myClientName(){
   if(!currentUser) return '';
   return currentUser.clientData?.nome || currentUser.nome || '';
@@ -883,9 +914,13 @@ function updateClientDriveLabel(){
   lbl.textContent = d?'Abrir minha pasta →':'Pasta não configurada';
 }
 let demAnexoTemp=null;
+let aDemAnexoTemp=null;
 function demFileDrop(e){e.preventDefault();document.getElementById('demUpZone').classList.remove('drag');demFileSelect(e.dataTransfer.files);}
 function demFileSelect(files){if(!files||!files[0])return;demAnexoTemp=files[0];const ul=document.getElementById('demUpList');ul.innerHTML='';const li=document.createElement('li');li.innerHTML=`<span style="flex:1">📎 ${demAnexoTemp.name}</span><span style="font-size:10px;color:var(--muted)">${fmtBytes(demAnexoTemp.size)}</span><button onclick="demRemoveAnexo()" style="background:none;border:none;color:var(--red);cursor:pointer">✕</button>`;ul.appendChild(li);}
 function demRemoveAnexo(){demAnexoTemp=null;document.getElementById('demUpList').innerHTML='';document.getElementById('demFileIn').value='';}
+function aDemFileDrop(e){e.preventDefault();document.getElementById('aDemUpZone').classList.remove('drag');aDemFileSelect(e.dataTransfer.files);}
+function aDemFileSelect(files){if(!files||!files[0])return;aDemAnexoTemp=files[0];const ul=document.getElementById('aDemUpList');ul.innerHTML='';const li=document.createElement('li');li.innerHTML=`<span style="flex:1">📎 ${aDemAnexoTemp.name}</span><span style="font-size:10px;color:var(--muted)">${fmtBytes(aDemAnexoTemp.size)}</span><button onclick="aDemRemoveAnexo()" style="background:none;border:none;color:var(--red);cursor:pointer">✕</button>`;ul.appendChild(li);}
+function aDemRemoveAnexo(){aDemAnexoTemp=null;document.getElementById('aDemUpList').innerHTML='';document.getElementById('aDemFileIn').value='';}
 let contratoTemp=null;
 function contratoFileDrop(e){e.preventDefault();document.getElementById('contratoUpZone').classList.remove('drag');contratoFileSelect(e.dataTransfer.files);}
 function contratoFileSelect(files){if(!files||!files[0])return;contratoTemp=files[0];const el=document.getElementById('contratoFileName');el.textContent=`Arquivo: ${contratoTemp.name} (${fmtBytes(contratoTemp.size)})`;}
@@ -932,7 +967,7 @@ function canDrag(item, itemType){
   if(currentUser.role==='admin') return true;
   if(currentUser.role==='viewer') return false;
   if(itemType==='demand'){
-    return item.clientUser === currentUser.user;
+    return String(item.clientUser||'') === String(currentUser.user||'');
   }
   return false; // cliente não arrasta atividades (só admin faz)
 }
@@ -940,93 +975,130 @@ function canDrop(item, targetStatus, itemType){
   if(!currentUser) return false;
   if(currentUser.role==='admin') return true;
   if(currentUser.role==='viewer') return false;
-  if(itemType==='demand' && item.clientUser === currentUser.user){
+  if(itemType==='demand' && String(item.clientUser||'') === String(currentUser.user||'')){
     const allowed = ['Novo','Em andamento'];
     return allowed.includes(targetStatus);
   }
   return false;
 }
 
-function renderKanbanBoard(containerId, items, columns, itemType, onCardClick){
+// Escolhe o status efetivo do item (usa default da 1ª coluna se vazio)
+function effectiveStatus(item, columns){
+  const s = String(item.status||'').trim();
+  if(!s) return columns[0].key;
+  // Normaliza pra ignorar case diferenças
+  const match = columns.find(c => c.key.toLowerCase() === s.toLowerCase());
+  return match ? match.key : columns[0].key;
+}
+
+function renderKanbanBoard(containerId, items, columns, itemType){
   const wrap = document.getElementById(containerId);
   if(!wrap) return;
   wrap.innerHTML = columns.map(col=>{
-    const colItems = items.filter(it => (it.status||columns[0].key) === col.key);
-    const countTxt = colItems.length;
+    const colItems = items.filter(it => effectiveStatus(it, columns) === col.key);
     const cards = colItems.map(it => renderKanbanCard(it, itemType)).join('') ||
-      '<div class="kanban-col-empty">Nenhum item aqui</div>';
+      '<div class="kanban-col-empty">Nenhum item</div>';
     return `<div class="kanban-col ${col.cls}" data-status="${col.key}" data-itemtype="${itemType}">
-      <div class="kanban-col-header"><div class="kanban-col-title" style="color:${col.color}">${col.label}</div><div class="kanban-col-count">${countTxt}</div></div>
+      <div class="kanban-col-header"><div class="kanban-col-title" style="color:${col.color}">${col.label}</div><div class="kanban-col-count">${colItems.length}</div></div>
       ${cards}
     </div>`;
   }).join('');
-  wireKanbanDragHandlers(wrap, items, itemType, onCardClick);
+  wireKanbanDragHandlers(wrap, items, itemType);
 }
 function renderKanbanCard(item, itemType){
   const draggable = canDrag(item, itemType) ? 'draggable="true"' : '';
+  const cursorStyle = canDrag(item, itemType) ? '' : 'style="cursor:pointer"';
   if(itemType==='demand'){
-    return `<div class="kanban-card" ${draggable} data-id="${item.id}" data-itemtype="demand" onclick="detailDemanda(${item.id})">
-      <div class="kanban-card-title">${item.titulo||'—'}</div>
+    const remocao = String(item.remocaoSolicitada||'').toUpperCase()==='SIM';
+    const badge = remocao ? '<span class="b bred" style="margin-left:4px">🗑️ Remoção</span>' : '';
+    return `<div class="kanban-card" ${draggable} ${cursorStyle} data-id="${item.id}" data-itemtype="demand">
+      <div class="kanban-card-title">${item.titulo||'—'}${badge}</div>
       <div class="kanban-card-meta">${item.cliente||'—'}${item.clientUser?' • 👤 '+item.clientUser:''} · 📅 ${fmtDate(item.prazo)}</div>
       <div class="kanban-card-foot"><span class="b ${prioColor(item.prioridade)}">${item.prioridade||'Normal'}</span><span class="b bbl">${item.tipo||'—'}</span></div>
     </div>`;
   }
   // activity
-  return `<div class="kanban-card" ${draggable} data-id="${item.id}" data-itemtype="activity" onclick="detailAtividade(${item.id})">
+  return `<div class="kanban-card" ${draggable} ${cursorStyle} data-id="${item.id}" data-itemtype="activity">
     <div class="kanban-card-title">${item.titulo||'—'}</div>
     <div class="kanban-card-meta">${item.cliente||'—'} · ${item.resp||'sem resp.'} · 📅 ${fmtDate(item.prazo)}</div>
     <div class="kanban-card-foot"><span class="b bor">${item.prog||0}%</span><div class="pb" style="flex:1;margin:0"><div class="pf" style="width:${item.prog||0}%"></div></div></div>
   </div>`;
 }
-function wireKanbanDragHandlers(wrap, items, itemType, onCardClick){
+function wireKanbanDragHandlers(wrap, items, itemType){
   let dragging = null;
-  wrap.querySelectorAll('.kanban-card[draggable="true"]').forEach(card=>{
+  let mouseDownPos = null;
+
+  wrap.querySelectorAll('.kanban-card').forEach(card=>{
+    // Clique -> abre detalhes. Mas só dispara se NÃO houve drag (via flag).
+    card.addEventListener('mousedown', e=>{
+      mouseDownPos = { x: e.clientX, y: e.clientY };
+    });
+    card.addEventListener('click', e=>{
+      // Se o drag foi iniciado, ignora o click (previne abrir modal logo depois de arrastar)
+      if(card._dragHappened){ card._dragHappened = false; return; }
+      const id = card.dataset.id;
+      const typ = card.dataset.itemtype;
+      if(typ === 'demand') detailDemanda(id);
+      else if(typ === 'activity') detailAtividade(id);
+    });
+
+    if(card.getAttribute('draggable') !== 'true') return;
+
     card.addEventListener('dragstart', e=>{
       dragging = card;
+      card._dragHappened = true;
       card.classList.add('dragging');
       e.dataTransfer.effectAllowed='move';
-      e.dataTransfer.setData('text/plain', card.dataset.id);
+      try { e.dataTransfer.setData('text/plain', card.dataset.id); } catch(_) {}
     });
     card.addEventListener('dragend', ()=>{
       card.classList.remove('dragging');
-      dragging=null;
-      wrap.querySelectorAll('.kanban-col').forEach(c=>{c.classList.remove('drag-over');c.classList.remove('drag-forbidden');});
+      dragging = null;
+      wrap.querySelectorAll('.kanban-col').forEach(c=>{
+        c.classList.remove('drag-over');
+        c.classList.remove('drag-forbidden');
+      });
     });
   });
+
   wrap.querySelectorAll('.kanban-col').forEach(col=>{
     col.addEventListener('dragover', e=>{
       if(!dragging) return;
-      e.preventDefault();
-      const id = +dragging.dataset.id;
-      const item = items.find(x=>+x.id===id);
+      const id = dragging.dataset.id;
+      const item = items.find(x => String(x.id) === String(id));
       const status = col.dataset.status;
       if(item && canDrop(item, status, itemType)){
+        e.preventDefault();
         col.classList.add('drag-over');
         col.classList.remove('drag-forbidden');
         e.dataTransfer.dropEffect='move';
       } else {
         col.classList.add('drag-forbidden');
         col.classList.remove('drag-over');
-        e.dataTransfer.dropEffect='none';
+        // NÃO chama preventDefault quando não pode dropar -> mostra ícone de proibido
       }
     });
-    col.addEventListener('dragleave', ()=>{col.classList.remove('drag-over');col.classList.remove('drag-forbidden');});
+    col.addEventListener('dragleave', ()=>{
+      col.classList.remove('drag-over');
+      col.classList.remove('drag-forbidden');
+    });
     col.addEventListener('drop', async e=>{
       e.preventDefault();
-      col.classList.remove('drag-over');col.classList.remove('drag-forbidden');
+      col.classList.remove('drag-over');
+      col.classList.remove('drag-forbidden');
       if(!dragging) return;
-      const id = +dragging.dataset.id;
+      const id = dragging.dataset.id;
       const newStatus = col.dataset.status;
-      const item = items.find(x=>+x.id===id);
-      if(!item) return;
+      const item = items.find(x => String(x.id) === String(id));
+      if(!item){ console.warn('kanban: item não encontrado id=', id); return; }
       if(!canDrop(item, newStatus, itemType)){
-        showToast('⚠️ Você não tem permissão para mover para esta coluna.','var(--red)');
+        showToast('⚠️ Movimento não permitido pra essa coluna.','var(--red)');
         return;
       }
-      if(item.status === newStatus) return;
+      if(String(item.status||'').toLowerCase() === String(newStatus).toLowerCase()) return;
       const oldStatus = item.status;
       item.status = newStatus;
-      // Rerender imediato (otimista)
+      // Re-render otimista
       if(itemType==='demand'){
         if(currentUser.role==='admin') renderADemands();
         else renderCDemandsKanban();
@@ -1072,8 +1144,8 @@ function dDesc(text){return text?`<div class="detail-desc-box">${text}</div>`:''
 function dProgress(label,pct,color='var(--orange)'){return `<div class="detail-progress"><div class="detail-field-label">${label}</div><div style="display:flex;align-items:center;gap:10px;margin-top:6px"><div class="detail-prog-bar" style="flex:1"><div class="detail-prog-fill" style="width:${pct}%;background:${color}"></div></div><span style="font-size:12px;font-weight:700;color:${color}">${pct}%</span></div></div>`;}
 function dBtn(label,cls,onclick){return `<button class="detail-action-btn ${cls}" onclick="${onclick}">${label}</button>`;}
 
-const calEvColors={post:'var(--blue)',video:'var(--orange)',stories:'var(--purple)',campanha:'var(--green)',reuniao:'var(--yellow)'};
-const calEvIcons={post:'📸',video:'🎬',stories:'💫',campanha:'🎯',reuniao:'📅'};
+const calEvColors={post:'var(--blue)',video:'var(--orange)',stories:'var(--purple)',campanha:'var(--green)',reuniao:'var(--yellow)',ideia:'#9b59b6',demanda:'#e8541a',atividade:'#4a9eff'};
+const calEvIcons={post:'📸',video:'🎬',stories:'💫',campanha:'🎯',reuniao:'📅',ideia:'💡',demanda:'📌',atividade:'✅'};
 
 function detailAtividade(id){
   const a=DB.activities.find(x=>String(x.id)===String(id));if(!a)return;
@@ -1085,19 +1157,94 @@ function detailAtividade(id){
 }
 function detailDemanda(id){
   const d=[...DB.demands,...DB.clientDemands].find(x=>String(x.id)===String(id));if(!d)return;
-  const body=dChips(`<span class="b ${prioColor(d.prioridade)}">${d.prioridade}</span>`,`<span class="b ${statusColor(d.status)}">${d.status}</span>`)+
-    dGrid(dField('Tipo',d.tipo),dField('Prazo',fmtDate(d.prazo)))+
-    dField('Cliente',d.cliente)+
-    (d.clientUser?dField('Criado por',d.clientUser):'')+
-    dDesc(d.desc);
+  const remocao = String(d.remocaoSolicitada||'').toUpperCase()==='SIM';
+  const alertaRemocao = remocao ? `
+    <div style="background:rgba(231,76,60,.12);border:1px solid var(--red);border-radius:10px;padding:12px;margin-bottom:14px;font-size:12px">
+      <div style="font-weight:800;color:var(--red);margin-bottom:4px">🗑️ Remoção solicitada pelo cliente</div>
+      ${d.remocaoMotivo ? `<div style="color:var(--muted);margin-bottom:3px"><strong>Motivo:</strong> ${d.remocaoMotivo}</div>` : ''}
+      ${d.remocaoEm ? `<div style="color:var(--muted)"><strong>Quando:</strong> ${new Date(d.remocaoEm).toLocaleString('pt-BR')}</div>` : ''}
+      ${d.remocaoPor ? `<div style="color:var(--muted)"><strong>Por:</strong> ${d.remocaoPor}</div>` : ''}
+    </div>` : '';
+  const body = alertaRemocao + dChips(
+    `<span class="b ${prioColor(d.prioridade)}">${d.prioridade}</span>`,
+    `<span class="b ${statusColor(d.status)}">${d.status}</span>`,
+    remocao ? '<span class="b bred">🗑️ Remoção solicitada</span>' : ''
+  ) + dGrid(dField('Tipo',d.tipo),dField('Prazo',fmtDate(d.prazo)))
+    + dField('Cliente',d.cliente)
+    + (d.clientUser?dField('Criado por',d.clientUser):'')
+    + dDesc(d.desc);
+
   let footer='';
   if(currentUser?.role==='admin'){
     footer = dBtn('✏️ Editar','primary',`closeDetail();openADemandModal(${d.id})`) +
              dBtn('💬 Avisar no WhatsApp','secondary',`closeDetail();avisarWhatsApp('demanda',${d.id})`);
-  } else if(d.clientUser===currentUser?.user){
+    if(remocao){
+      footer += dBtn('✅ Cancelar solicitação de remoção','secondary',`cancelarRemocaoDem('${d.id}')`);
+    }
+    footer += dBtn('🗑️ Remover demanda','secondary',`removeDemandAdmin('${d.id}')`);
+  } else if(String(d.clientUser||'')===String(currentUser?.user||'')){
     footer = dBtn('✏️ Editar','primary',`closeDetail();editClientDemand('${d.id}')`);
+    if(remocao){
+      footer += `<div style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px;padding:8px;background:var(--card2);border-radius:8px">⏳ Remoção já solicitada. Aguarde revisão do admin.</div>`;
+    } else {
+      footer += dBtn('🗑️ Solicitar remoção','secondary',`solicitarRemocao('${d.id}')`);
+    }
   }
   openDetail('📌',d.titulo,`Demanda • ${d.cliente}`,body,footer);
+}
+async function removeDemandAdmin(id){
+  if(!confirm('Remover esta demanda permanentemente? Esta ação não pode ser desfeita.'))return;
+  closeDetail();
+  showLoading('Removendo…');
+  DB.demands=DB.demands.filter(d=>String(d.id)!==String(id));
+  DB.clientDemands=DB.clientDemands.filter(d=>String(d.id)!==String(id));
+  await sheetsDelete('Demandas', id);
+  hideLoading();
+  renderADemands();renderDashAdmin();
+  showToast('✅ Demanda removida!');
+}
+async function solicitarRemocao(id){
+  const motivo = prompt('Qual o motivo da remoção? (opcional)\n\nUm email será enviado ao admin. A demanda só será removida após revisão.', '');
+  if(motivo === null) return; // cancelou
+  showLoading('Enviando solicitação…');
+  try {
+    const r = await sheetsPost({action:'solicitarRemocaoDem', id, motivo: motivo.trim()});
+    hideLoading();
+    if(!r.ok){showToast('❌ '+(r.msg||'Erro'),'var(--red)');return;}
+    // Atualiza localmente pra refletir
+    const demList = [...DB.demands, ...DB.clientDemands].filter(d=>String(d.id)===String(id));
+    demList.forEach(d=>{
+      d.remocaoSolicitada='SIM';
+      d.remocaoMotivo=motivo.trim();
+      d.remocaoEm=new Date().toISOString();
+      d.remocaoPor=currentUser.user;
+    });
+    closeDetail();
+    renderCDemandsKanban();
+    showToast('✅ Solicitação enviada!');
+  } catch(e){
+    hideLoading();
+    showToast('❌ '+e.message,'var(--red)');
+  }
+}
+async function cancelarRemocaoDem(id){
+  if(!confirm('Cancelar a solicitação de remoção? A demanda continuará normalmente.'))return;
+  showLoading('Cancelando…');
+  try {
+    const r = await sheetsPost({action:'cancelarRemocaoDem', id});
+    hideLoading();
+    if(!r.ok){showToast('❌ '+(r.msg||'Erro'),'var(--red)');return;}
+    // Atualiza localmente
+    [...DB.demands,...DB.clientDemands].filter(d=>String(d.id)===String(id)).forEach(d=>{
+      d.remocaoSolicitada=''; d.remocaoMotivo=''; d.remocaoEm=''; d.remocaoPor='';
+    });
+    closeDetail();
+    renderADemands();
+    showToast('✅ Cancelada!');
+  } catch(e){
+    hideLoading();
+    showToast('❌ '+e.message,'var(--red)');
+  }
 }
 function detailIndicador(id){
   const i=DB.indicadores.find(x=>String(x.id)===String(id));if(!i)return;
@@ -1175,15 +1322,22 @@ function avisarWhatsApp(tipo, id){
 ═══════════════════════════════════════════════════ */
 function getMyNotifications(){
   if(!currentUser) return [];
+  const all = DB.notifications || [];
   if(currentUser.role==='admin'){
-    // admin vê tudo que tem targetUserId 'admin' ou vazio
-    return DB.notifications.filter(n => !n.targetUserId || n.targetUserId==='admin' || String(n.targetUserId)==='0');
+    return all.filter(n => String(n.target||'') === 'admin');
   }
-  return DB.notifications.filter(n => String(n.targetUserId)===String(currentUser.id));
+  const myCliTarget = 'client:' + currentUser.clienteId;
+  return all.filter(n =>
+    String(n.target||'') === myCliTarget ||
+    String(n.userId||'') === String(currentUser.id)
+  );
+}
+function isUnread(n){
+  return String(n.lida||'').toUpperCase() !== 'SIM';
 }
 function updateNotifBadge(){
   const list = getMyNotifications();
-  const unread = list.filter(n=>n.unread).length;
+  const unread = list.filter(isUnread).length;
   ['cNotifBadge','aNotifBadge'].forEach(id=>{
     const el = document.getElementById(id);
     if(!el) return;
@@ -1197,14 +1351,16 @@ function updateNotifBadge(){
   });
 }
 function openNotifPanel(){
-  const list = getMyNotifications().sort((a,b)=>(b.criadoEm||'').localeCompare(a.criadoEm||''));
+  const list = getMyNotifications().sort((a,b)=>String(b.data||'').localeCompare(String(a.data||'')));
   const body = document.getElementById('notifBody');
   if(!list.length){
     body.innerHTML = '<div class="notif-empty">🔔<br><br>Nenhuma notificação ainda.<br><br><span style="font-size:11px">Avisos sobre novas demandas, arquivos e atualizações aparecem aqui.</span></div>';
   } else {
     body.innerHTML = list.map(n=>{
-      const ts = n.criadoEm ? new Date(n.criadoEm).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '';
-      return `<div class="notif-item ${n.unread?'unread':''}" onclick="markNotifRead(${n.id})">
+      const ts = n.data ? new Date(n.data).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '';
+      const unreadCls = isUnread(n) ? 'unread' : '';
+      // Escapa id pro onclick — IDs de notif são strings curtas
+      return `<div class="notif-item ${unreadCls}" onclick="onNotifClick('${String(n.id).replace(/'/g,"\\'")}')">
         <div class="notif-item-title">${n.titulo||'Notificação'}</div>
         <div class="notif-item-desc">${n.descricao||''}</div>
         <div class="notif-item-time">${ts}</div>
@@ -1214,15 +1370,90 @@ function openNotifPanel(){
   document.getElementById('notifPanelOverlay').classList.add('show');
 }
 function closeNotifPanel(){document.getElementById('notifPanelOverlay').classList.remove('show');}
-async function markNotifRead(id){
-  const n = DB.notifications.find(x=>+x.id===+id);
-  if(!n || !n.unread) return;
-  n.unread = false;
-  updateNotifBadge();
-  try { await sheetsGet({action:'markNotifRead', notifId: id, token: sessionToken}); } catch(e){}
-  // Re-render painel aberto
-  openNotifPanel();
+
+async function onNotifClick(notifId){
+  const n = DB.notifications.find(x=>String(x.id)===String(notifId));
+  if(!n) return;
+  // Marca como lida localmente e no backend
+  if(isUnread(n)){
+    n.lida = 'SIM';
+    updateNotifBadge();
+    try { await sheetsGet({action:'markNotifRead', notifId: notifId, token: sessionToken}); } catch(e){}
+  }
+  // Navega pro destino se tiver link
+  let link = null;
+  try { link = n.link ? JSON.parse(n.link) : null; } catch(e){}
+  if(link && link.type && link.id){
+    closeNotifPanel();
+    navegarParaDestinoNotif(link.type, link.id);
+  } else {
+    // Sem destino, só atualiza o painel
+    openNotifPanel();
+  }
 }
+
+function navegarParaDestinoNotif(type, id){
+  // Abre no painel apropriado baseado no role + navega
+  const isAdmin = currentUser?.role === 'admin';
+  switch(type){
+    case 'demand':
+      if(isAdmin) aGoTo('a-demands'); else cGoTo('demands');
+      setTimeout(()=>detailDemanda(id), 300);
+      break;
+    case 'activity':
+      if(isAdmin) aGoTo('a-activities'); else cGoTo('activities');
+      setTimeout(()=>detailAtividade(id), 300);
+      break;
+    case 'indicador':
+      if(isAdmin) aGoTo('a-indicadores'); else cGoTo('indicadores');
+      setTimeout(()=>detailIndicador(id), 300);
+      break;
+    case 'relatorio':
+      if(isAdmin) aGoTo('a-relatorios'); else cGoTo('relatorios');
+      setTimeout(()=>detailRelatorio(id), 300);
+      break;
+    case 'calevento':
+      if(isAdmin) aGoTo('a-calendario'); else cGoTo('calendario');
+      setTimeout(()=>detailCalEvento(id), 300);
+      break;
+    case 'campanha':
+      if(isAdmin) aGoTo('a-campanhas'); else cGoTo('campanhas');
+      setTimeout(()=>detailCampanha(id), 300);
+      break;
+    case 'arquivo':
+      if(isAdmin) aGoTo('a-upload'); else cGoTo('drive');
+      break;
+    case 'mercado':
+      if(isAdmin) aGoTo('a-mercado'); else cGoTo('mercado');
+      setTimeout(()=>detailMercado(id), 300);
+      break;
+    case 'estrategia':
+      if(isAdmin) aGoTo('a-estrategias'); else cGoTo('estrategias');
+      setTimeout(()=>detailEstrategia(id), 300);
+      break;
+    case 'meta':
+      if(isAdmin) aGoTo('a-metas');
+      setTimeout(()=>detailMeta(id), 300);
+      break;
+    case 'briefing':
+      if(isAdmin){
+        // Abre o modal do cliente X direto na seção Briefing
+        editClientModal(+id);
+        setTimeout(()=>{
+          const el = document.getElementById('briefingSection');
+          if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+        }, 400);
+      } else {
+        cGoTo('briefing');
+      }
+      break;
+    default:
+      openNotifPanel();
+  }
+}
+
+// Mantém compat com nome antigo
+async function markNotifRead(id){ return onNotifClick(id); }
 
 /* ═══════════════════════════════════════════════════
    CLIENT RENDER
@@ -1619,12 +1850,16 @@ function renderClientTable(){
 }
 function renderADemands(){
   const f=getFilter('fDemCliente');
-  const list=[...DB.demands,...DB.clientDemands].filter(d=>!f||d.cliente===f);
+  const df = getDateFilters('Dem');
+  let list=[...DB.demands,...DB.clientDemands].filter(d=>!f||d.cliente===f);
+  list = filterByDate(list, ['prazo'], df);
   renderKanbanBoard('a-dem-kanban', list, DEMAND_COLUMNS, 'demand');
 }
 function renderAActivities(){
   const f=getFilter('fActCliente');
-  const list=DB.activities.filter(a=>!f||a.cliente===f);
+  const df = getDateFilters('Act');
+  let list=DB.activities.filter(a=>!f||a.cliente===f);
+  list = filterByDate(list, ['prazo'], df);
   renderKanbanBoard('a-act-kanban', list, ACTIVITY_COLUMNS, 'activity');
 }
 function renderAIndicadores(){
@@ -1650,7 +1885,9 @@ function renderAIndicadores(){
 }
 function renderARelatorios(){
   const f=getFilter('fRelCliente');
-  const list=DB.relatorios.filter(r=>!f||r.cliente===f);
+  const df = getDateFilters('Rel');
+  let list=DB.relatorios.filter(r=>!f||r.cliente===f);
+  list = filterByDate(list, ['data'], df);
   document.getElementById('a-rel-table').innerHTML=list.map(r=>`
     <tr><td><strong>${r.titulo}</strong></td><td>${r.cliente}</td><td>${fmtDate(r.data)}</td>
     <td><button onclick="openRelModal(${r.id})" class="btn-edit">Editar</button> <button onclick="deleteRelatorioById(${r.id})" class="btn-rm">Remover</button>${r.link?` <a href="${r.link}" target="_blank" style="color:var(--blue);font-size:11px;margin-left:4px">Abrir</a>`:''}</td></tr>`).join('')||'<tr><td colspan="4" style="color:var(--muted);text-align:center;padding:16px;font-size:12px">Sem relatórios.</td></tr>';
@@ -1680,7 +1917,9 @@ function renderAEstrategias(){
 }
 function renderACampanhas(){
   const f=getFilter('fCampCliente');
-  const list=DB.campanhas.filter(c=>!f||c.cliente===f);
+  const df = getDateFilters('Camp');
+  let list=DB.campanhas.filter(c=>!f||c.cliente===f);
+  list = filterByDate(list, ['ini','fim'], df);
   document.getElementById('a-camp-list').innerHTML=list.map(c=>`
     <div class="camp-card" onclick="detailCampanha(${c.id})">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px"><div><div style="font-size:14px;font-weight:700">${c.nome}</div><div style="font-size:11px;color:var(--muted)">${c.cliente}</div></div><span class="b ${statusColor(c.status)}">${c.status}</span></div>
@@ -1929,6 +2168,9 @@ function openADemandModal(id){
   document.getElementById('aDemPri').selectedIndex=0;
   document.getElementById('aDemStatus').selectedIndex=0;
   document.getElementById('btnDeleteADemand').style.display='none';
+  aDemAnexoTemp=null;
+  document.getElementById('aDemUpList').innerHTML='';
+  document.getElementById('aDemFileIn').value='';
   if(id){
     const d=[...DB.demands,...DB.clientDemands].find(x=>x.id===id);
     if(d){
@@ -1966,6 +2208,18 @@ async function saveADemand(){
     else {ix=DB.clientDemands.findIndex(x=>x.id===editId);if(ix>=0){row.clientUser=DB.clientDemands[ix].clientUser;DB.clientDemands[ix]=row;}}
   } else DB.demands.push(row);
   await sheetsSave('Demandas',row,'admin');
+  // Se tem anexo E cliente com drive, faz upload
+  if(aDemAnexoTemp){
+    const cli = DB.clients.find(c=>c.nome===row.cliente);
+    if(cli?.drive){
+      showLoading('Enviando anexo…');
+      const r=await uploadFile(aDemAnexoTemp,{folderId:cli.drive,cliente:cli.nome,clientUser:cli.user,tipo:'Anexo de demanda',demandaId:row.id});
+      if(r.ok) DB.arquivos.push({id:nid(),nome:aDemAnexoTemp.name,cliente:cli.nome,link:r.link,fileId:r.fileId,tipo:'Anexo demanda',data:new Date().toISOString(),clientUser:cli.user,mimeType:aDemAnexoTemp.type});
+    }
+  }
+  aDemAnexoTemp=null;
+  document.getElementById('aDemUpList').innerHTML='';
+  document.getElementById('aDemFileIn').value='';
   hideLoading();
   closeModal('aDemandModal');
   renderADemands();renderDashAdmin();
@@ -2190,15 +2444,94 @@ function openCalModal(id){
 }
 async function saveCalEvent(){
   const editId=+document.getElementById('calEditId').value;
-  const row={id:editId||nid(),titulo:document.getElementById('calEvTitle').value,date:document.getElementById('calEvDate').value,tipo:document.getElementById('calEvType').value,cliente:document.getElementById('calEvClient').value,obs:document.getElementById('calEvObs').value};
+  const row={
+    id: editId||nid(),
+    titulo: document.getElementById('calEvTitle').value,
+    date: document.getElementById('calEvDate').value,
+    tipo: document.getElementById('calEvType').value,
+    cliente: document.getElementById('calEvClient').value,
+    obs: document.getElementById('calEvObs').value
+  };
   if(!row.titulo||!row.date){showToast('⚠️ Título e data obrigatórios.','var(--red)');return;}
   showLoading('Salvando…');
   if(editId){const ix=DB.calEvents.findIndex(x=>x.id===editId);if(ix>=0)DB.calEvents[ix]=row;}else DB.calEvents.push(row);
   await sheetsSave('Calendario',row,'admin');
-  hideLoading();closeModal('calModal');renderACalendar();renderDashAdmin();showToast('✅ Salvo!');
+
+  // Propagação: se tipo é 'demanda' ou 'atividade', cria também naquela aba
+  if(!editId && (row.tipo==='demanda' || row.tipo==='atividade')){
+    showLoading('Propagando…');
+    if(row.tipo === 'demanda'){
+      const dem = {
+        id: nid(),
+        cliente: row.cliente,
+        titulo: row.titulo,
+        tipo: 'Outro',
+        prazo: row.date,
+        prioridade: 'Normal',
+        status: 'Novo',
+        desc: row.obs || ('Criado pelo calendário em '+fmtDate(row.date)),
+        clientUser: '',
+        calEventId: row.id  // Liga demanda ao evento
+      };
+      DB.demands.push(dem);
+      await sheetsSave('Demandas', dem, 'admin');
+      // Guarda vínculo no evento do calendário
+      row.linkedId = dem.id;
+      row.linkedType = 'demand';
+      await sheetsSave('Calendario', row, 'admin');
+    } else if(row.tipo === 'atividade'){
+      const act = {
+        id: nid(),
+        cliente: row.cliente,
+        titulo: row.titulo,
+        resp: '',
+        prazo: row.date,
+        prog: 0,
+        status: 'Planejamento',
+        calEventId: row.id
+      };
+      DB.activities.push(act);
+      await sheetsSave('Atividades', act, 'admin');
+      row.linkedId = act.id;
+      row.linkedType = 'activity';
+      await sheetsSave('Calendario', row, 'admin');
+    }
+  }
+
+  hideLoading();closeModal('calModal');renderACalendar();renderDashAdmin();
+  // Também atualiza demandas/atividades se propagou
+  if(row.linkedType === 'demand') renderADemands();
+  else if(row.linkedType === 'activity') renderAActivities();
+  showToast('✅ Salvo!' + (row.linkedType ? ' Item criado também em '+(row.linkedType==='demand'?'Demandas':'Atividades')+'.' : ''));
 }
 async function deleteCalEvent(){const id=+document.getElementById('calEditId').value;if(id)await deleteCalEventById(id);closeModal('calModal');}
-async function deleteCalEventById(id){if(!confirm('Remover?'))return;showLoading('Removendo…');DB.calEvents=DB.calEvents.filter(e=>e.id!==id);await sheetsDelete('Calendario',id);hideLoading();renderACalendar();renderDashAdmin();showToast('✅ Removido!');}
+async function deleteCalEventById(id){
+  const ev = DB.calEvents.find(e=>String(e.id)===String(id));
+  let msg = 'Remover este evento?';
+  if(ev && ev.linkedType){
+    msg += '\n\n⚠️ Este evento está vinculado a um(a) '+(ev.linkedType==='demand'?'demanda':'atividade')+'. Deseja remover TAMBÉM o item vinculado?';
+  }
+  if(!confirm(msg))return;
+  showLoading('Removendo…');
+  DB.calEvents=DB.calEvents.filter(e=>String(e.id)!==String(id));
+  await sheetsDelete('Calendario',id);
+  // Remove item vinculado
+  if(ev && ev.linkedId){
+    if(ev.linkedType==='demand'){
+      DB.demands = DB.demands.filter(d=>String(d.id)!==String(ev.linkedId));
+      DB.clientDemands = DB.clientDemands.filter(d=>String(d.id)!==String(ev.linkedId));
+      await sheetsDelete('Demandas', ev.linkedId);
+    } else if(ev.linkedType==='activity'){
+      DB.activities = DB.activities.filter(a=>String(a.id)!==String(ev.linkedId));
+      await sheetsDelete('Atividades', ev.linkedId);
+    }
+  }
+  hideLoading();
+  renderACalendar();renderDashAdmin();
+  if(ev && ev.linkedType==='demand') renderADemands();
+  if(ev && ev.linkedType==='activity') renderAActivities();
+  showToast('✅ Removido!');
+}
 
 /* CAMPANHA */
 function openCampModal(id){
@@ -2305,6 +2638,229 @@ window.addEventListener('DOMContentLoaded', async ()=>{
     // mostra login normalmente
   }
 });
+
+/* ═══════════════════════════════════════════════════
+   BRIEFING DA MARCA
+═══════════════════════════════════════════════════ */
+
+// Estrutura do briefing — cada seção tem um conjunto de campos.
+const BRIEFING_SCHEMA = [
+  {
+    id: 'identidade',
+    title: '🎨 Identidade Visual',
+    fields: [
+      {id:'logoLink', label:'Logo (link do Drive, URL de imagem, ou vazio se vai fazer upload)', type:'text', placeholder:'https://... ou deixe vazio'},
+      {id:'logoUpload', label:'Ou fazer upload do logo', type:'upload'},
+      {id:'corPrimaria', label:'Cor primária (hex)', type:'color'},
+      {id:'corSecundaria', label:'Cor secundária (hex)', type:'color'},
+      {id:'corAccent', label:'Cor de destaque (hex)', type:'color'},
+      {id:'fontes', label:'Fontes', type:'textarea', placeholder:'ex: Montserrat (títulos), Lato (corpo)'},
+      {id:'tomDeVoz', label:'Tom de voz', type:'select', options:['Formal','Casual','Jovem','Técnico','Emocional','Misto']},
+      {id:'slogan', label:'Slogan / Tagline', type:'text'},
+      {id:'brandBook', label:'Link do Brand Book / Manual da Marca', type:'text', placeholder:'https://...'},
+      {id:'referenciasVisuais', label:'Referências visuais (descreva ou cole links)', type:'textarea'}
+    ]
+  },
+  {
+    id: 'empresa',
+    title: '🏢 Sobre a Empresa',
+    fields: [
+      {id:'areaAtuacao', label:'Área de atuação', type:'text'},
+      {id:'tempoMercado', label:'Tempo de mercado', type:'text', placeholder:'ex: 10 anos'},
+      {id:'diferenciais', label:'Diferenciais competitivos', type:'textarea'}
+    ]
+  },
+  {
+    id: 'publico',
+    title: '👥 Público-alvo e Produtos',
+    fields: [
+      {id:'demografia', label:'Demografia do público', type:'textarea', placeholder:'ex: Mulheres 30-50, classe B, região Sul'},
+      {id:'comportamento', label:'Comportamento do público', type:'textarea'},
+      {id:'produtosServicos', label:'Produtos/serviços principais', type:'textarea'}
+    ]
+  },
+  {
+    id: 'concorrentes',
+    title: '🥊 Concorrentes',
+    fields: [
+      {id:'concorrentesList', label:'Lista de concorrentes (um por linha — nome, observação)', type:'textarea', placeholder:'Clínica X - trabalha com mesmo público\nClínica Y - preço mais alto'}
+    ]
+  },
+  {
+    id: 'gostos',
+    title: '❤️ Gostos do Cliente',
+    fields: [
+      {id:'gostosAma', label:'O que o cliente AMA (estilo, temas, emoções)', type:'textarea'},
+      {id:'gostosOdeia', label:'O que o cliente ODEIA (nunca usar)', type:'textarea'},
+      {id:'campanhasCurtiu', label:'Campanhas/conteúdos que curtiu', type:'textarea'},
+      {id:'campanhasDetestou', label:'Campanhas/conteúdos que detestou', type:'textarea'}
+    ]
+  },
+  {
+    id: 'comunicacao',
+    title: '📝 Padrões de Comunicação',
+    fields: [
+      {id:'palavrasEvitar', label:'Palavras/temas a evitar', type:'textarea'},
+      {id:'hashtagsPadrao', label:'Hashtags padrão', type:'textarea', placeholder:'#marca #cidade #especialidade'},
+      {id:'contasMarcar', label:'Contas (@) que sempre marca/menciona', type:'textarea', placeholder:'@conta1\n@conta2'}
+    ]
+  },
+  {
+    id: 'observacoes',
+    title: '🗒️ Observações Gerais',
+    fields: [
+      {id:'obsGerais', label:'Observações importantes — coisas que ninguém pode esquecer', type:'textarea', placeholder:'Qualquer detalhe importante sobre briefing, cliente, cuidados especiais...'}
+    ]
+  }
+];
+
+// Cache do briefing atual carregado (pra render e save)
+let currentBriefing = {};
+let currentBriefingMeta = {};
+let briefingLogoUpload = null;
+
+function canEditBriefing(){
+  if(!currentUser) return false;
+  if(currentUser.role === 'admin') return true;
+  if(currentUser.role === 'owner') return true;
+  return false;
+}
+
+async function renderCBriefing(){
+  const container = document.getElementById('briefingContainer');
+  if(!container) return;
+  container.innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted)">Carregando briefing…</div>';
+
+  const readonly = !canEditBriefing();
+  document.getElementById('briefingReadonlyNote').style.display = readonly ? 'inline' : 'none';
+  document.getElementById('btnSaveBriefing').style.display = readonly ? 'none' : 'inline-block';
+
+  // Carrega do backend
+  try {
+    const cid = currentUser.clienteId;
+    const r = await sheetsPost({action:'loadBriefing', clienteId: cid});
+    if(r.ok){
+      currentBriefing = r.briefing || {};
+      currentBriefingMeta = {updatedAt: r.updatedAt, updatedBy: r.updatedBy};
+    } else {
+      currentBriefing = {};
+    }
+  } catch(e){
+    currentBriefing = {};
+  }
+
+  container.innerHTML = BRIEFING_SCHEMA.map(section => {
+    const fieldsHTML = section.fields.map(f => renderBriefingField(section.id, f, readonly)).join('');
+    return `<div class="c-row-wrap">
+      <div class="c-row" onclick="toggleAccordion(this)"><span class="c-row-arrow">▸</span><span style="font-size:13px;font-weight:700;flex:1">${section.title}</span></div>
+      <div class="accordion-body">${fieldsHTML}</div>
+    </div>`;
+  }).join('');
+
+  const meta = document.getElementById('briefingMeta');
+  if(currentBriefingMeta.updatedAt){
+    const when = new Date(currentBriefingMeta.updatedAt).toLocaleString('pt-BR');
+    meta.textContent = `Atualizado em ${when}${currentBriefingMeta.updatedBy ? ' por @'+currentBriefingMeta.updatedBy : ''}`;
+  } else {
+    meta.textContent = '';
+  }
+}
+
+function renderBriefingField(sectionId, field, readonly){
+  const key = sectionId+'.'+field.id;
+  const val = getBriefingValue(key);
+  const dis = readonly ? 'disabled' : '';
+  let input = '';
+  if(field.type === 'text'){
+    input = `<input id="bf_${sectionId}_${field.id}" ${dis} value="${escapeHtml(val)}" placeholder="${field.placeholder||''}"/>`;
+  } else if(field.type === 'textarea'){
+    input = `<textarea id="bf_${sectionId}_${field.id}" ${dis} placeholder="${field.placeholder||''}" style="min-height:70px">${escapeHtml(val)}</textarea>`;
+  } else if(field.type === 'color'){
+    const colorVal = val || '#e8541a';
+    input = `<div style="display:flex;gap:8px;align-items:center"><input id="bf_${sectionId}_${field.id}" ${dis} type="color" value="${colorVal}" style="width:60px;height:40px;cursor:${readonly?'default':'pointer'};border-radius:8px;border:1px solid var(--border)"/><span style="font-size:12px;font-family:monospace;color:var(--muted)">${colorVal}</span></div>`;
+  } else if(field.type === 'select'){
+    const opts = field.options.map(o=>`<option value="${o}"${val===o?' selected':''}>${o}</option>`).join('');
+    input = `<select id="bf_${sectionId}_${field.id}" ${dis}>${opts}</select>`;
+  } else if(field.type === 'upload'){
+    if(readonly){ input = '<div style="font-size:11px;color:var(--muted);padding:8px">Upload desabilitado em modo somente leitura.</div>'; }
+    else {
+      input = `<div class="upload-zone" style="padding:14px" onclick="document.getElementById('briefingLogoIn').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="briefingLogoDrop(event)"><p>📎 Arraste ou <strong>clique para selecionar</strong> (jpg/png/svg)</p></div>
+      <input type="file" id="briefingLogoIn" class="file-hidden" accept="image/*" onchange="briefingLogoSelect(this.files)"/>
+      <div id="briefingLogoPreview" style="font-size:11px;color:var(--green);margin-top:4px"></div>`;
+    }
+  }
+  return `<div class="fg2"><label>${field.label}</label>${input}</div>`;
+}
+function escapeHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function getBriefingValue(path){
+  const parts = path.split('.');
+  let v = currentBriefing;
+  for(const p of parts){ if(v && typeof v==='object') v = v[p]; else return ''; }
+  return v || '';
+}
+function briefingLogoDrop(e){e.preventDefault();briefingLogoSelect(e.dataTransfer.files);}
+function briefingLogoSelect(files){
+  if(!files || !files[0]) return;
+  briefingLogoUpload = files[0];
+  document.getElementById('briefingLogoPreview').textContent = `📎 ${files[0].name} (${fmtBytes(files[0].size)})`;
+}
+
+async function salvarBriefing(){
+  if(!canEditBriefing()){showToast('⚠️ Sem permissão.','var(--red)');return;}
+  // Monta o objeto a partir dos inputs
+  const data = {};
+  BRIEFING_SCHEMA.forEach(section => {
+    data[section.id] = {};
+    section.fields.forEach(f => {
+      if(f.type === 'upload') return; // upload é separado
+      const el = document.getElementById(`bf_${section.id}_${f.id}`);
+      if(el) data[section.id][f.id] = el.value;
+    });
+  });
+
+  // Se tem logo upload, envia pro Drive do cliente
+  showLoading('Salvando briefing…');
+  if(briefingLogoUpload){
+    const cli = currentUser.clientData;
+    if(cli?.drive){
+      showLoading('Enviando logo…');
+      const r = await uploadFile(briefingLogoUpload,{folderId:cli.drive,cliente:cli.nome,clientUser:currentUser.user,tipo:'Logo (Briefing)'});
+      if(r.ok){
+        data.identidade = data.identidade || {};
+        data.identidade.logoLink = r.link;
+        DB.arquivos.push({id:nid(),nome:briefingLogoUpload.name,cliente:cli.nome,link:r.link,fileId:r.fileId,tipo:'Logo (Briefing)',data:new Date().toISOString(),clientUser:currentUser.user,mimeType:briefingLogoUpload.type});
+      }
+    }
+  }
+
+  try {
+    const r = await sheetsPost({action:'saveBriefing', clienteId: currentUser.clienteId, briefing: data});
+    hideLoading();
+    if(!r.ok){showToast('❌ '+(r.msg||'Erro'),'var(--red)');return;}
+    currentBriefing = data;
+    briefingLogoUpload = null;
+    document.getElementById('briefingLogoPreview') && (document.getElementById('briefingLogoPreview').textContent='');
+    const previewEl = document.getElementById('briefingLogoPreview'); if(previewEl) previewEl.textContent='';
+    showToast('✅ Briefing salvo!');
+    // Atualiza metadata
+    renderCBriefing();
+  } catch(e){
+    hideLoading();
+    showToast('❌ '+e.message,'var(--red)');
+  }
+}
+
+// Versão do admin: abre o briefing de um cliente específico dentro do modal
+async function abrirBriefingAdmin(clienteId){
+  // TODO: no modal de edição do cliente adicionar uma aba/seção de briefing.
+  // Por enquanto, o admin vê/edita o briefing logando como owner OU via API direta.
+  // Implementação simples: navegar para o briefing do cliente selecionado usando clientData temporário
+  try {
+    const r = await sheetsPost({action:'loadBriefing', clienteId});
+    if(!r.ok){showToast('❌ '+(r.msg||'Erro'),'var(--red)');return;}
+    alert('Briefing de cliente #'+clienteId+':\n\n'+JSON.stringify(r.briefing||{}, null, 2));
+  } catch(e){showToast('❌ '+e.message,'var(--red)');}
+}
 
 console.log('🧡 Portal Agência Ângelo v3 — Multi-usuário, Kanban, Notificações');
 </script>

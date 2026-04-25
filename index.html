@@ -310,7 +310,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <body>
 <div id="syncBanner"></div>
 <div id="loadingOverlay"><div class="spinner"></div><div class="loading-msg" id="loadingMsg">Carregando dados...</div></div>
-<div class="detail-overlay" id="detailOverlay"><div class="detail-backdrop" onclick="closeDetail()"></div><div class="detail-panel" id="detailPanel"><div class="detail-header"><div class="detail-header-icon" id="detailIcon">📋</div><div class="detail-header-info"><div class="detail-header-title" id="detailTitle">Título</div><div class="detail-header-sub" id="detailSub">Subtítulo</div></div><button class="detail-close" onclick="closeDetail()">✕</button></div><div class="detail-body" id="detailBody"></div><div class="detail-footer" id="detailFooter"></div></div></div>
+<div class="detail-overlay" id="detailOverlay"><div class="detail-backdrop" onclick="closeDetail()"></div><div class="detail-panel" id="detailPanel"><div class="detail-header"><div class="detail-header-icon" id="detailIcon"></div><div class="detail-header-info"><div class="detail-header-title" id="detailTitle">Título</div><div class="detail-header-sub" id="detailSub">Subtítulo</div></div><button class="detail-close" onclick="closeDetail()">✕</button></div><div class="detail-body" id="detailBody"></div><div class="detail-footer" id="detailFooter"></div></div></div>
 <div id="loginScreen"><div class="login-box"><div class="login-brand">Agência Ângelo</div><div class="login-sub">Portal do Cliente</div><div class="field"><label>Usuário</label><input id="lu" type="text" placeholder="usuario ou admin"/></div><div class="field"><label>Senha</label><input id="lp" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div><button class="btn-primary" onclick="doLogin()">Entrar</button><div class="err" id="lerr">Usuário ou senha incorretos.</div></div></div>
 <div id="clientApp">
 <aside class="sidebar">
@@ -341,18 +341,20 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Demandas Recentes</div></div><div id="c-ov-dem-list"></div></div>
 <div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Score do Cliente</div></div><div class="sw" id="c-score-ring"><div style="width:68px;height:68px;background:var(--card);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900">78</div></div><div style="text-align:center;font-size:11px;color:var(--muted);margin-bottom:12px">Colaboração excelente</div><div id="c-score-rows"></div></div>
 </div>
-<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>🎯 Metas do Mês</div></div><div id="c-metas-list"></div></div>
+<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Metas do Mês</div></div><div id="c-metas-list"></div></div>
 </div>
 
 <div class="section" id="c-demands">
-<div class="info-card">💡 <strong>Demandas</strong> são solicitações e atividades relacionadas ao seu projeto. Você pode pedir novos conteúdos, acompanhar o trabalho em execução, anexar referências e dar feedback. Arraste cards entre as colunas "Novo" e "Em andamento". Admin gerencia Revisão e Concluído.</div>
+<div class="info-card"><strong>Demandas</strong> são solicitações e atividades relacionadas ao seu projeto. Você pode pedir novos conteúdos, acompanhar o trabalho em execução, anexar referências e dar feedback. Arraste cards entre as colunas "Novo" e "Em andamento". Admin gerencia Revisão e Concluído.</div>
 <div class="dem-form" id="demFormWrap">
-<h3 style="font-size:15px;font-weight:800;margin-bottom:4px" id="demFormTitle">➕ Nova Demanda</h3>
+<h3 style="font-size:15px;font-weight:800;margin-bottom:4px" id="demFormTitle">Nova Demanda</h3>
 <input type="hidden" id="demEditId" value="">
 <div class="fr"><div class="fg2"><label>Título</label><input id="dTit"/></div><div class="fg2"><label>Tipo</label><select id="dTip"><option value="">Selecione...</option><option>Arte / Design</option><option>Vídeo / Reels</option><option>Gravação</option><option>Estratégia</option><option>Relatório</option><option>Ideia</option><option>Evento</option><option>Outro</option></select></div></div>
 <div class="fr"><div class="fg2"><label>Prazo</label><input id="dPra" type="date"/></div><div class="fg2"><label>Prioridade</label><select id="dPri"><option>Normal</option><option>Alta</option><option>Urgente</option></select></div></div>
+<div class="fg2"><label>Esta demanda é uma publicação? (opcional)</label><select id="dPub"><option value="">Não é publicação</option><option value="feed">Post Feed (foto/imagem)</option><option value="reels">Reels / Vídeo curto</option><option value="stories">Stories</option><option value="carrossel">Carrossel</option><option value="video">Vídeo longo</option><option value="artigo">Artigo / Texto longo</option><option value="outro">Outro tipo de publicação</option></select></div>
 <div class="fg2"><label>Descrição</label><textarea id="dDes" placeholder="Detalhe cores, referências, medidas..."></textarea></div>
-<div class="fg2"><label>Anexar Arquivo (opcional)</label><div class="upload-zone" style="padding:16px" id="demUpZone" onclick="document.getElementById('demFileIn').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="demFileDrop(event)"><p>📎 Arraste ou <strong>clique para selecionar</strong></p></div><input type="file" id="demFileIn" class="file-hidden" onchange="demFileSelect(this.files)"><ul class="up-file-list" id="demUpList"></ul></div>
+<div class="fg2"><label>Link externo (Drive / Dropbox / WeTransfer / etc — opcional)</label><input id="dLink" type="url" placeholder="https://..."/></div>
+<div class="fg2"><label>Anexar Arquivo (opcional — só funciona se a empresa tem pasta no Drive)</label><div class="upload-zone" style="padding:16px" id="demUpZone" onclick="document.getElementById('demFileIn').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="demFileDrop(event)"><p>Arraste ou <strong>clique para selecionar</strong></p></div><input type="file" id="demFileIn" class="file-hidden" onchange="demFileSelect(this.files)"><ul class="up-file-list" id="demUpList"></ul></div>
 <div style="display:flex;gap:10px;margin-top:8px"><button onclick="salvarDemanda()" class="btn-save" id="demBtnSave">Enviar Demanda</button><button onclick="cancelarEditDemanda()" class="btn-cancel" id="demBtnCancel" style="display:none">Cancelar</button></div>
 </div>
 <div class="ct" style="margin-bottom:12px"><div class="ct-left"><div class="ctd"></div>Minhas Demandas (arraste entre Novo e Em Andamento)</div></div>
@@ -362,14 +364,14 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="section" id="c-indicadores">
 <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px">
 <div class="tabs" id="indPeriodTabs"><div class="tab active" onclick="setIndPeriod('7',this)">7 dias</div><div class="tab" onclick="setIndPeriod('30',this)">30 dias</div><div class="tab" onclick="setIndPeriod('90',this)">90 dias</div><div class="tab" onclick="setIndPeriod('mes',this)">Mês</div><div class="tab" onclick="setIndPeriod('trimestre',this)">Trimestre</div><div class="tab" onclick="setIndPeriod('ano',this)">Ano</div><div class="tab" onclick="setIndPeriod('all',this)">Todos</div></div>
-<div style="display:flex;gap:8px"><button onclick="openClientIndModal()" class="btn-add" style="font-size:12px">+ Indicador</button><button onclick="openClientMetaIndModal()" class="btn-add" style="font-size:12px;background:var(--blue)">🎯 + Meta</button><button onclick="openClientTopModal()" class="btn-add" style="font-size:12px;background:var(--purple)">⭐ + Top Conteúdo</button></div>
+<div style="display:flex;gap:8px"><button onclick="openClientIndModal()" class="btn-add" style="font-size:12px">+ Indicador</button><button onclick="openClientMetaIndModal()" class="btn-add" style="font-size:12px;background:var(--blue)">+ Meta</button><button onclick="openClientTopModal()" class="btn-add" style="font-size:12px;background:var(--purple)">+ Top Conteúdo</button></div>
 </div>
 <div class="kpi-grid" id="c-ind-kpis"></div>
 <div class="g2">
 <div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Por Plataforma (automático)</div></div><div id="c-ind-chart"></div></div>
-<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>⭐ Top Conteúdos</div></div><div id="c-ind-top"></div></div>
+<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Top Conteúdos</div></div><div id="c-ind-top"></div></div>
 </div>
-<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>🎯 Metas de Indicadores</div></div><div id="c-ind-metas"></div></div>
+<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Metas de Indicadores</div></div><div id="c-ind-metas"></div></div>
 </div>
 
 <div class="section" id="c-relatorios">
@@ -378,7 +380,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
 </div>
 
 <div class="section" id="c-mercado">
-<div class="readonly-notice">🔒 Análise de mercado.</div>
+<div class="readonly-notice">Análise de mercado.</div>
 <div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Tendências</div></div><div id="c-merc-list"></div></div>
 <div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Concorrentes</div></div><div id="c-conc-list"></div></div>
 </div>
@@ -386,11 +388,11 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="section" id="c-estrategias">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:13px;color:var(--muted)">Estratégias — suas e da agência</div><button onclick="openClientEstModal()" class="btn-add" style="font-size:12px">+ Nova Estratégia</button></div>
 <div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Estratégias Ativas</div></div><div id="c-est-list"></div></div>
-<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>🎯 Metas de Estratégia</div></div><div id="c-est-metas"></div></div>
+<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Metas de Estratégia</div></div><div id="c-est-metas"></div></div>
 </div>
 
 <div class="section" id="c-calendario">
-<div class="info-card">📅 Calendário editorial integrado. Eventos do tipo "Demanda" aparecem aqui automaticamente baseado no prazo.</div>
+<div class="info-card">Calendário editorial integrado. Eventos do tipo "Demanda" aparecem aqui automaticamente baseado no prazo.</div>
 <div class="card">
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px"><div class="ct-left" style="font-size:14px;font-weight:700;display:flex;gap:8px"><div class="ctd" style="margin-top:5px"></div><span id="calMonthLabel"></span></div><div style="display:flex;gap:6px"><button onclick="changeCalMonth(-1)" style="background:var(--card2);border:1px solid var(--border);color:var(--text);padding:5px 12px;border-radius:7px;cursor:pointer">‹</button><button onclick="changeCalMonth(1)" style="background:var(--card2);border:1px solid var(--border);color:var(--text);padding:5px 12px;border-radius:7px;cursor:pointer">›</button></div></div>
 <div class="cal-header"><div class="cal-hd">Dom</div><div class="cal-hd">Seg</div><div class="cal-hd">Ter</div><div class="cal-hd">Qua</div><div class="cal-hd">Qui</div><div class="cal-hd">Sex</div><div class="cal-hd">Sáb</div></div>
@@ -400,9 +402,9 @@ tr:hover td{background:rgba(255,255,255,.015)}
 </div>
 
 <div class="section" id="c-campanhas">
-<div class="readonly-notice">🔒 Campanhas gerenciadas pela Agência Ângelo.</div>
+<div class="readonly-notice">Campanhas gerenciadas pela Agência Ângelo.</div>
 <div id="c-camp-list"></div>
-<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>🎯 Metas de Campanhas</div></div><div id="c-camp-metas"></div></div>
+<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Metas de Campanhas</div></div><div id="c-camp-metas"></div></div>
 </div>
 
 <div class="section" id="c-drive">
@@ -413,14 +415,14 @@ tr:hover td{background:rgba(255,255,255,.015)}
 </div>
 
 <div class="section" id="c-briefing">
-<div class="info-card" id="briefingInfoCard">📋 Este é o <strong>Briefing da sua Marca</strong>. As informações aqui ajudam a agência a criar conteúdo alinhado com sua identidade. <span id="briefingReadonlyNote" style="display:none;color:var(--purple)">🔒 Você tem acesso somente leitura — peça ao owner para editar.</span></div>
+<div class="info-card" id="briefingInfoCard">Este é o <strong>Briefing da sua Marca</strong>. As informações aqui ajudam a agência a criar conteúdo alinhado com sua identidade. <span id="briefingReadonlyNote" style="display:none;color:var(--purple)">Você tem acesso somente leitura — peça ao owner para editar.</span></div>
 <div id="briefingContainer"></div>
-<div style="display:flex;gap:10px;margin-top:16px" id="briefingBtns"><button onclick="salvarBriefing()" class="btn-save" id="btnSaveBriefing">💾 Salvar Briefing</button><span id="briefingMeta" style="font-size:11px;color:var(--muted);align-self:center"></span></div>
+<div style="display:flex;gap:10px;margin-top:16px" id="briefingBtns"><button onclick="salvarBriefing()" class="btn-save" id="btnSaveBriefing">Salvar Briefing</button><span id="briefingMeta" style="font-size:11px;color:var(--muted);align-self:center"></span></div>
 </div>
 
 <div class="section" id="c-preferencias">
-<div class="pref-section"><div class="pref-title">🔔 Notificações</div><div class="toggle-row"><span>E-mail ao receber novo arquivo</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div><div class="toggle-row"><span>Alertas de prazo próximo</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div><div class="toggle-row"><span>Resumo semanal</span><div class="toggle" onclick="this.classList.toggle('on')"></div></div></div>
-<div class="pref-section"><div class="pref-title">👤 Dados de Contato</div><div class="fr"><div class="fg2"><label>Nome</label><input id="prefNome"/></div><div class="fg2"><label>E-mail</label><input id="prefEmail"/></div></div><div class="fr"><div class="fg2"><label>WhatsApp</label><input id="prefWpp"/></div><div class="fg2"><label>Instagram</label><input id="prefInsta"/></div></div><button onclick="showToast('✅ Preferências salvas!')" class="btn-save">Salvar</button></div>
+<div class="pref-section"><div class="pref-title">Notificações</div><div class="toggle-row"><span>E-mail ao receber novo arquivo</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div><div class="toggle-row"><span>Alertas de prazo próximo</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div><div class="toggle-row"><span>Resumo semanal</span><div class="toggle" onclick="this.classList.toggle('on')"></div></div></div>
+<div class="pref-section"><div class="pref-title">Dados de Contato</div><div class="fr"><div class="fg2"><label>Nome</label><input id="prefNome"/></div><div class="fg2"><label>E-mail</label><input id="prefEmail"/></div></div><div class="fr"><div class="fg2"><label>WhatsApp</label><input id="prefWpp"/></div><div class="fg2"><label>Instagram</label><input id="prefInsta"/></div></div><button onclick="showToast('Preferências salvas!')" class="btn-save">Salvar</button></div>
 <div class="card" id="c-contrato-info"></div>
 </div>
 
@@ -450,14 +452,15 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="ani" onclick="aNav('a-campanhas',this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><span>Campanhas</span></div>
 <div class="ani" onclick="aNav('a-metas',this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="2"/></svg><span>Metas</span></div>
 <div class="ani" onclick="aNav('a-agencia',this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h1M9 13h1M9 17h1M14 9h1M14 13h1M14 17h1"/></svg><span>Agência</span></div>
+<div class="ani" onclick="aNav('a-briefing',this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Briefing</span></div>
 <div class="ani" onclick="aNav('a-alertas',this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg><span>Alertas</span></div>
 <div class="ani" onclick="aNav('a-upload',this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Upload</span></div>
 </nav>
 <div style="padding:14px 18px;border-top:1px solid var(--border)">
 <div style="font-size:12px;color:var(--muted)">Admin</div>
 <div style="font-size:13px;font-weight:700;margin:2px 0">Adson Ângelo</div>
-<button onclick="openUrlModal()" style="background:var(--orange);border:none;color:#fff;padding:7px 14px;border-radius:7px;font-size:12px;cursor:pointer;margin-top:8px;width:100%;font-weight:700">⚙️ Apps Script</button>
-<button onclick="syncAll(true)" style="background:var(--card2);border:1px solid var(--border);color:var(--text);padding:7px 14px;border-radius:7px;font-size:12px;cursor:pointer;margin-top:6px;width:100%">🔄 Sincronizar Sheets</button>
+<button onclick="openUrlModal()" style="background:var(--orange);border:none;color:#fff;padding:7px 14px;border-radius:7px;font-size:12px;cursor:pointer;margin-top:8px;width:100%;font-weight:700">Apps Script</button>
+<button onclick="syncAll(true)" style="background:var(--card2);border:1px solid var(--border);color:var(--text);padding:7px 14px;border-radius:7px;font-size:12px;cursor:pointer;margin-top:6px;width:100%">Sincronizar Sheets</button>
 <button onclick="doLogout()" style="background:none;border:1px solid var(--border);color:var(--muted);padding:6px 14px;border-radius:7px;font-size:12px;cursor:pointer;margin-top:6px;width:100%">Sair</button>
 </div>
 </aside>
@@ -472,8 +475,8 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div><div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Demandas Recentes</div></div><div id="a-dash-demands"></div></div></div>
 </div>
 <div class="g2">
-<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>🎯 Metas</div></div><div id="a-dash-metas"></div></div>
-<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>📅 Próximos Eventos</div></div><div id="a-dash-events"></div></div>
+<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Metas</div></div><div id="a-dash-metas"></div></div>
+<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Próximos Eventos</div></div><div id="a-dash-events"></div></div>
 </div>
 </div>
 
@@ -489,12 +492,12 @@ tr:hover td{background:rgba(255,255,255,.015)}
 </div>
 
 <div class="asec" id="a-indicadores">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Indicadores — cadastro com cliente + canal + período</div><div style="display:flex;gap:8px"><button onclick="openIndModal()" class="btn-add">+ Indicador</button><button onclick="openTopModal()" class="btn-add" style="background:var(--purple)">⭐ + Top Conteúdo</button></div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Indicadores — cadastro com cliente + canal + período</div><div style="display:flex;gap:8px"><button onclick="openIndModal()" class="btn-add">+ Indicador</button><button onclick="openTopModal()" class="btn-add" style="background:var(--purple)">+ Top Conteúdo</button></div></div>
 <div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="fIndCliente" onchange="renderAIndicadores()"><option value="">Todos</option></select><label style="margin-left:8px">De:</label><input type="date" class="filter-sel" id="fIndFrom" onchange="renderAIndicadores()" style="min-width:150px"/><label>Até:</label><input type="date" class="filter-sel" id="fIndTo" onchange="renderAIndicadores()" style="min-width:150px"/><button onclick="document.getElementById('fIndFrom').value='';document.getElementById('fIndTo').value='';renderAIndicadores()" class="btn-cancel" style="padding:6px 10px">Limpar</button></div>
 <div class="kpi-grid" id="a-ind-kpis"></div>
 <div class="g2">
 <div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Por Plataforma (agregado automático)</div></div><div id="a-ind-chart"></div></div>
-<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>⭐ Top Conteúdos</div></div><div id="a-ind-top"></div></div>
+<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Top Conteúdos</div></div><div id="a-ind-top"></div></div>
 </div>
 </div>
 
@@ -537,26 +540,33 @@ tr:hover td{background:rgba(255,255,255,.015)}
 </div>
 
 <div class="asec" id="a-agencia">
-<div class="info-card">🏢 <strong>Aba Agência</strong> — Acompanhe a produtividade da agência: metas de produção de conteúdo por cliente e por tipo (feed/reels/stories/carrossel), com % concluído calculado automaticamente a partir das demandas.</div>
+<div class="info-card"><strong>Aba Agência</strong> — Acompanhe a produtividade da agência: metas de produção de conteúdo por cliente e por tipo (feed/reels/stories/carrossel), com % concluído calculado automaticamente a partir das demandas.</div>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><div style="font-size:14px;color:var(--muted)">Produtividade — ver metas mensais de posts</div><button onclick="openAgenciaModal()" class="btn-add">+ Nova Meta de Produção</button></div>
 <div class="filter-bar"><label>Mês/Ano:</label><input type="month" class="filter-sel" id="fAgenciaMes" onchange="renderAAgencia()" style="min-width:150px"/><button onclick="document.getElementById('fAgenciaMes').value='';renderAAgencia()" class="btn-cancel" style="padding:6px 10px">Limpar</button></div>
 <div class="kpi-grid" id="a-agencia-kpis"></div>
-<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>📊 Metas de Produção por Cliente</div></div><div id="a-agencia-cliente-list"></div></div>
-<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>📈 Produção por Tipo de Post (global)</div></div><div id="a-agencia-tipo-list"></div></div>
+<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Metas de Produção por Cliente</div></div><div id="a-agencia-cliente-list"></div></div>
+<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Produção por Tipo de Post (global)</div></div><div id="a-agencia-tipo-list"></div></div>
+</div>
+
+<div class="asec" id="a-briefing">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px"><div style="font-size:14px;color:var(--muted)">Briefing da Marca / Identidade Visual — Selecione um cliente para editar</div></div>
+<div class="filter-bar"><label>Cliente:</label><select class="filter-sel" id="aBriefClienteSel" onchange="loadAdminBriefing()" style="min-width:240px"><option value="">— Selecione —</option></select></div>
+<div id="aBriefingContainer"><p style="color:var(--muted);padding:30px;text-align:center">Selecione um cliente para visualizar e editar o Briefing dele.</p></div>
+<div id="aBriefingFooter" style="display:none;gap:10px;margin-top:16px;align-items:center"><button onclick="salvarAdminBriefing()" class="btn-save">Salvar Briefing</button><span id="aBriefingMeta" style="font-size:11px;color:var(--muted)"></span></div>
 </div>
 
 <div class="asec" id="a-alertas">
 <div style="margin-bottom:18px;font-size:14px;color:var(--muted)">Aniversários, renovações e vencimentos</div>
-<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>🎂 Aniversários da Empresa</div></div><div id="a-alerta-aniv"></div></div>
-<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>👥 Colaboradores</div></div><div id="a-alerta-colabs"></div></div>
-<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>🔄 Renovações</div></div><div id="a-alerta-renov"></div></div>
-<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>📋 Vencimentos</div></div><div id="a-alerta-venc"></div></div>
+<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Aniversários da Empresa</div></div><div id="a-alerta-aniv"></div></div>
+<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Colaboradores</div></div><div id="a-alerta-colabs"></div></div>
+<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Renovações</div></div><div id="a-alerta-renov"></div></div>
+<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Vencimentos</div></div><div id="a-alerta-venc"></div></div>
 </div>
 
 <div class="asec" id="a-upload">
 <div class="g2">
-<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Upload para Cliente</div></div><div id="scriptStatusBar" style="margin-bottom:14px;padding:10px 13px;border-radius:9px;font-size:12px"></div><div class="fg2"><label>Cliente</label><select class="client-select" id="upClientSel" onchange="onUpClientChange()"></select></div><div class="fg2"><label>Tipo</label><select class="client-select" id="upTypeSel"><option>Arte / Design</option><option>Vídeo / Reels</option><option>Gravação</option><option>Documento</option><option>Relatório</option></select></div><div class="upload-zone" id="adminDropZone" onclick="document.getElementById('adminFileInput').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleAdminDrop(event)"><p>Arraste ou <strong>clique</strong></p><p style="font-size:11px;margin-top:4px;color:var(--muted)">Suporte a arquivos grandes via chunked upload</p></div><input type="file" id="adminFileInput" class="file-hidden" multiple onchange="handleAdminFiles(this.files)"/><ul class="up-file-list" id="adminUpList"></ul><div id="openFolderBtn" style="display:none;margin-top:10px"><button onclick="openSelectedClientFolder()" style="background:var(--card2);border:1px solid var(--border);color:var(--blue);padding:8px 16px;border-radius:8px;font-size:12px;cursor:pointer;font-weight:600;width:100%">📂 Abrir pasta no Drive</button></div></div>
-<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>🧪 Diagnóstico</div></div><button onclick="testarBackend()" class="btn-save" style="width:100%">Testar conexão com Apps Script</button><div id="backendTestResult" style="margin-top:10px;font-size:11px;color:var(--muted);max-height:250px;overflow:auto;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px;font-family:monospace;white-space:pre-wrap;word-break:break-all"></div></div>
+<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Upload para Cliente</div></div><div id="scriptStatusBar" style="margin-bottom:14px;padding:10px 13px;border-radius:9px;font-size:12px"></div><div class="fg2"><label>Cliente</label><select class="client-select" id="upClientSel" onchange="onUpClientChange()"></select></div><div class="fg2"><label>Tipo</label><select class="client-select" id="upTypeSel"><option>Arte / Design</option><option>Vídeo / Reels</option><option>Gravação</option><option>Documento</option><option>Relatório</option></select></div><div class="upload-zone" id="adminDropZone" onclick="document.getElementById('adminFileInput').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleAdminDrop(event)"><p>Arraste ou <strong>clique</strong></p><p style="font-size:11px;margin-top:4px;color:var(--muted)">Suporte a arquivos grandes via chunked upload</p></div><input type="file" id="adminFileInput" class="file-hidden" multiple onchange="handleAdminFiles(this.files)"/><ul class="up-file-list" id="adminUpList"></ul><div id="openFolderBtn" style="display:none;margin-top:10px"><button onclick="openSelectedClientFolder()" style="background:var(--card2);border:1px solid var(--border);color:var(--blue);padding:8px 16px;border-radius:8px;font-size:12px;cursor:pointer;font-weight:600;width:100%">Abrir pasta no Drive</button></div></div>
+<div class="card"><div class="ct"><div class="ct-left"><div class="ctd"></div>Diagnóstico</div></div><button onclick="testarBackend()" class="btn-save" style="width:100%">Testar conexão com Apps Script</button><div id="backendTestResult" style="margin-top:10px;font-size:11px;color:var(--muted);max-height:250px;overflow:auto;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px;font-family:monospace;white-space:pre-wrap;word-break:break-all"></div></div>
 </div>
 </div>
 
@@ -569,7 +579,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
 
 <!-- URL do Apps Script -->
 <div class="modal-bg" id="urlModal">
-<div class="modal"><h3>⚙️ URL do Apps Script</h3>
+<div class="modal"><h3>URL do Apps Script</h3>
 <div class="fg2"><label>URL do deploy /exec</label><input id="urlInput" placeholder="https://script.google.com/macros/s/.../exec"/></div>
 <div style="font-size:11px;color:var(--muted);margin-top:8px">Dica: Deploy → Gerenciar implantações → Editar (ícone lápis) → Nova versão → Implantar. Copie o Web App URL.</div>
 <div class="modal-btns"><button class="btn-save" onclick="salvarUrl()">Salvar</button><button class="btn-cancel" onclick="closeModal('urlModal')">Cancelar</button></div>
@@ -591,13 +601,13 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="section-sep">Drive</div>
 <div class="fg2"><label>Folder ID (Pasta no Drive Compartilhado)</label><input id="cmFolderId" placeholder="1abc...XYZ"/></div>
 <div style="font-size:11px;color:var(--muted);margin-top:4px">Pegue o ID da URL da pasta. Ex: drive.google.com/drive/folders/<strong>1abcXYZ</strong></div>
-<div class="section-sep">👥 Usuários do Cliente</div>
+<div class="section-sep">Usuários do Cliente</div>
 <div id="clientUsersSection" style="background:var(--card2);border-radius:9px;padding:12px;border:1px solid var(--border);margin-bottom:10px">
   <div style="font-size:11px;color:var(--muted);margin-bottom:10px">Gerencie quem tem acesso a esta empresa. Salve o cliente antes de adicionar usuários.</div>
   <div id="clientUsersList" style="margin-bottom:10px"></div>
   <button id="btnAddUserToClient" onclick="openUserModalForClient()" class="btn-add" style="font-size:11px;display:none">+ Adicionar Usuário</button>
 </div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarCliente()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('clientModal')">Cancelar</button><button class="btn-danger" onclick="deletarCliente()" id="cmDelBtn" style="display:none">🗑️ Remover</button></div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarCliente()">Salvar</button><button class="btn-cancel" onclick="closeModal('clientModal')">Cancelar</button><button class="btn-danger" onclick="deletarCliente()" id="cmDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- Usuário -->
@@ -609,7 +619,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="fr"><div class="fg2"><label>Usuário (login)*</label><input id="umUser" placeholder="ex: maria.silva"/></div><div class="fg2"><label>Senha</label><input id="umPass" type="text" placeholder="em branco = manter atual"/></div></div>
 <div class="fr"><div class="fg2"><label>Permissão*</label><select id="umRole"><option value="owner">Owner (dono — pode tudo)</option><option value="operacional">Operacional (edita dia-a-dia)</option><option value="viewer">Viewer (somente leitura)</option></select></div><div class="fg2"><label>Ativo</label><select id="umAtivo"><option value="SIM">Sim</option><option value="NAO">Não</option></select></div></div>
 <div class="info-box" style="font-size:11px"><strong>Owner:</strong> pode gerenciar contrato, editar briefing, ver valores.<br><strong>Operacional:</strong> edita demandas, indicadores, etc. Não vê valores.<br><strong>Viewer:</strong> só lê.</div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarUsuario()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('userModal')">Cancelar</button><button class="btn-danger" onclick="deletarUsuario()" id="umDelBtn" style="display:none">🗑️ Remover</button></div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarUsuario()">Salvar</button><button class="btn-cancel" onclick="closeModal('userModal')">Cancelar</button><button class="btn-danger" onclick="deletarUsuario()" id="umDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- Demanda (admin) -->
@@ -620,9 +630,11 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="fg2"><label>Título*</label><input id="adTitulo"/></div>
 <div class="fr"><div class="fg2"><label>Prazo (vai pro Calendário)</label><input id="adPrazo" type="date"/></div><div class="fg2"><label>Prioridade</label><select id="adPrioridade"><option>Normal</option><option>Alta</option><option>Urgente</option></select></div></div>
 <div class="fr"><div class="fg2"><label>Status</label><select id="adStatus"><option>Novo</option><option>Em andamento</option><option>Revisão</option><option>Concluído</option></select></div><div class="fg2"><label>Responsável</label><input id="adResp" placeholder="Ex: Equipe de Design"/></div></div>
-<div class="fg2"><label>Progresso (%)</label><input id="adProg" type="number" min="0" max="100" value="0"/></div>
+<div class="fr"><div class="fg2"><label>Progresso (%)</label><input id="adProg" type="number" min="0" max="100" value="0"/></div><div class="fg2"><label>Esta demanda é uma publicação?</label><select id="adPublicacao"><option value="">Não é publicação</option><option value="feed">Post Feed (foto/imagem)</option><option value="reels">Reels / Vídeo curto</option><option value="stories">Stories</option><option value="carrossel">Carrossel</option><option value="video">Vídeo longo</option><option value="artigo">Artigo / Texto longo</option><option value="outro">Outro tipo de publicação</option></select></div></div>
 <div class="fg2"><label>Descrição</label><textarea id="adDesc"></textarea></div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarADemanda()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('aDemandModal')">Cancelar</button><button class="btn-danger" onclick="deletarADemanda()" id="adDelBtn" style="display:none">🗑️</button></div>
+<div class="fg2"><label>Link externo (Drive / Dropbox / WeTransfer / etc — opcional)</label><input id="adLink" type="url" placeholder="https://..."/></div>
+<div class="info-box" style="font-size:11px">Demandas marcadas como publicação contam automaticamente nas Metas de Produção da aba Agência (no mês do prazo, quando estiverem com status Concluído).</div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarADemanda()">Salvar</button><button class="btn-cancel" onclick="closeModal('aDemandModal')">Cancelar</button><button class="btn-danger" onclick="deletarADemanda()" id="adDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- Indicador (admin) -->
@@ -633,19 +645,19 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="fr"><div class="fg2"><label>Métrica*</label><input id="imMetrica" placeholder="Ex: Alcance, Seguidores, Engajamento"/></div><div class="fg2"><label>Período</label><select id="imPeriodo"><option value="7d">7 dias</option><option value="30d">30 dias</option><option value="90d">90 dias</option><option value="mes">Mês atual</option><option value="trimestre">Trimestre</option><option value="ano">Ano</option></select></div></div>
 <div class="fr"><div class="fg2"><label>Valor*</label><input id="imValor" placeholder="Ex: 12.4k, 85%"/></div><div class="fg2"><label>Variação</label><input id="imVar" placeholder="Ex: +18% ou -5%"/></div></div>
 <div class="fr"><div class="fg2"><label>% Meta (opcional)</label><input id="imPct" type="number" min="0" max="100"/></div><div class="fg2"><label>Cor</label><select id="imCor"><option value="orange">Laranja</option><option value="green">Verde</option><option value="blue">Azul</option><option value="yellow">Amarelo</option><option value="purple">Roxo</option><option value="red">Vermelho</option></select></div></div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarIndicador()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('indModal')">Cancelar</button><button class="btn-danger" onclick="deletarIndicador()" id="imDelBtn" style="display:none">🗑️</button></div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarIndicador()">Salvar</button><button class="btn-cancel" onclick="closeModal('indModal')">Cancelar</button><button class="btn-danger" onclick="deletarIndicador()" id="imDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- Top Conteúdo (admin) -->
 <div class="modal-bg" id="topModal">
-<div class="modal"><h3 id="topModalTitle">⭐ Top Conteúdo</h3>
+<div class="modal"><h3 id="topModalTitle">Top Conteúdo</h3>
 <input type="hidden" id="tmId"/>
 <div class="fg2"><label>Cliente</label><select id="tmCliente"></select></div>
 <div class="fg2"><label>Link do post*</label><input id="tmLink" placeholder="https://instagram.com/p/..."/></div>
 <div class="fg2"><label>Título*</label><input id="tmTitulo" placeholder="Resumo do conteúdo"/></div>
 <div class="fg2"><label>Métrica em destaque</label><input id="tmMetrica" placeholder="Ex: 12.4k alcance, 890 curtidas"/></div>
 <div class="fg2"><label>Observações</label><textarea id="tmObs" placeholder="Por que esse conteúdo foi destaque? Insights..."></textarea></div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarTopContent()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('topModal')">Cancelar</button><button class="btn-danger" onclick="deletarTopContent()" id="tmDelBtn" style="display:none">🗑️</button></div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarTopContent()">Salvar</button><button class="btn-cancel" onclick="closeModal('topModal')">Cancelar</button><button class="btn-danger" onclick="deletarTopContent()" id="tmDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- Relatório (admin) -->
@@ -656,7 +668,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="fg2"><label>Título*</label><input id="rmTitulo"/></div>
 <div class="fg2"><label>Link do arquivo (Drive)</label><input id="rmLink" placeholder="https://..."/></div>
 <div class="fg2"><label>Resumo</label><textarea id="rmResumo"></textarea></div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarRelatorio()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('relModal')">Cancelar</button><button class="btn-danger" onclick="deletarRelatorio()" id="rmDelBtn" style="display:none">🗑️</button></div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarRelatorio()">Salvar</button><button class="btn-cancel" onclick="closeModal('relModal')">Cancelar</button><button class="btn-danger" onclick="deletarRelatorio()" id="rmDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- Mercado (admin) -->
@@ -667,7 +679,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="fg2"><label>Título*</label><input id="mmTitulo"/></div>
 <div class="fg2"><label>Descrição</label><textarea id="mmDesc"></textarea></div>
 <div class="fg2"><label>Link (opcional)</label><input id="mmLink"/></div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarMercado()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('mercModal')">Cancelar</button><button class="btn-danger" onclick="deletarMercado()" id="mmDelBtn" style="display:none">🗑️</button></div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarMercado()">Salvar</button><button class="btn-cancel" onclick="closeModal('mercModal')">Cancelar</button><button class="btn-danger" onclick="deletarMercado()" id="mmDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- Estratégia (admin) -->
@@ -678,7 +690,8 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="fg2"><label>Título*</label><input id="emTitulo"/></div>
 <div class="fg2"><label>Descrição / Plano</label><textarea id="emDesc"></textarea></div>
 <div class="fr"><div class="fg2"><label>Progresso %</label><input id="emProg" type="number" min="0" max="100"/></div><div class="fg2"><label>Data Início</label><input id="emIni" type="date"/></div></div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarEstrategia()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('estModal')">Cancelar</button><button class="btn-danger" onclick="deletarEstrategia()" id="emDelBtn" style="display:none">🗑️</button></div>
+<div class="fg2"><label>Link externo (Drive / Notion / etc — opcional)</label><input id="emLink" type="url" placeholder="https://..."/></div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarEstrategia()">Salvar</button><button class="btn-cancel" onclick="closeModal('estModal')">Cancelar</button><button class="btn-danger" onclick="deletarEstrategia()" id="emDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- Calendário (admin) -->
@@ -689,8 +702,8 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="fg2"><label>Título*</label><input id="kmTitulo"/></div>
 <div class="fr"><div class="fg2"><label>Data*</label><input id="kmData" type="date"/></div><div class="fg2"><label>Hora</label><input id="kmHora" type="time"/></div></div>
 <div class="fg2"><label>Descrição</label><textarea id="kmDesc"></textarea></div>
-<div class="info-box" style="font-size:11px">💡 Demandas com prazo aparecem automaticamente no calendário. Use esse formulário para eventos adicionais (reuniões, campanhas, datas comemorativas, etc).</div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarEvento()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('calModal')">Cancelar</button><button class="btn-danger" onclick="deletarEvento()" id="kmDelBtn" style="display:none">🗑️</button></div>
+<div class="info-box" style="font-size:11px">Demandas com prazo aparecem automaticamente no calendário. Use esse formulário para eventos adicionais (reuniões, campanhas, datas comemorativas, etc).</div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarEvento()">Salvar</button><button class="btn-cancel" onclick="closeModal('calModal')">Cancelar</button><button class="btn-danger" onclick="deletarEvento()" id="kmDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- Campanha (admin) -->
@@ -702,7 +715,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="fg2"><label>Descrição / Objetivo</label><textarea id="cpDesc"></textarea></div>
 <div class="fr"><div class="fg2"><label>Orçamento (R$)</label><input id="cpOrcamento" type="number" step="0.01"/></div><div class="fg2"><label>Plataforma</label><select id="cpPlat"><option>Meta Ads</option><option>Google Ads</option><option>TikTok Ads</option><option>LinkedIn Ads</option><option>Orgânico</option><option>Outro</option></select></div></div>
 <div class="fr"><div class="fg2"><label>Início</label><input id="cpIni" type="date"/></div><div class="fg2"><label>Fim</label><input id="cpFim" type="date"/></div></div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarCampanha()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('campModal')">Cancelar</button><button class="btn-danger" onclick="deletarCampanha()" id="cpDelBtn" style="display:none">🗑️</button></div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarCampanha()">Salvar</button><button class="btn-cancel" onclick="closeModal('campModal')">Cancelar</button><button class="btn-danger" onclick="deletarCampanha()" id="cpDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- Meta (admin) -->
@@ -713,18 +726,18 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="fg2"><label>Título*</label><input id="mtTitulo"/></div>
 <div class="fr"><div class="fg2"><label>Valor Alvo</label><input id="mtAlvo" placeholder="Ex: 10000"/></div><div class="fg2"><label>Valor Atual</label><input id="mtAtual" placeholder="Ex: 7500"/></div></div>
 <div class="fr"><div class="fg2"><label>Progresso %</label><input id="mtProg" type="number" min="0" max="100"/></div><div class="fg2"><label>Prazo</label><input id="mtPrazo" type="date"/></div></div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarMeta()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('metaModal')">Cancelar</button><button class="btn-danger" onclick="deletarMeta()" id="mtDelBtn" style="display:none">🗑️</button></div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarMeta()">Salvar</button><button class="btn-cancel" onclick="closeModal('metaModal')">Cancelar</button><button class="btn-danger" onclick="deletarMeta()" id="mtDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- Meta de produção (admin — aba Agência) -->
 <div class="modal-bg" id="agenciaModal">
-<div class="modal"><h3 id="agenciaModalTitle">🏢 Meta de Produção</h3>
+<div class="modal"><h3 id="agenciaModalTitle">Meta de Produção</h3>
 <input type="hidden" id="agId"/>
 <div class="fr"><div class="fg2"><label>Cliente</label><select id="agCliente"></select></div><div class="fg2"><label>Mês/Ano</label><input id="agMes" type="month"/></div></div>
 <div class="fr"><div class="fg2"><label>Tipo de Post</label><select id="agTipo"><option value="feed">Feed</option><option value="reels">Reels</option><option value="stories">Stories</option><option value="carrossel">Carrossel</option><option value="total">Total (geral)</option></select></div><div class="fg2"><label>Quantidade (meta)</label><input id="agMeta" type="number" min="0" placeholder="Ex: 12"/></div></div>
 <div class="fg2"><label>Cor</label><select id="agCor"><option value="orange">Laranja</option><option value="green">Verde</option><option value="blue">Azul</option><option value="yellow">Amarelo</option><option value="purple">Roxo</option></select></div>
-<div class="info-box" style="font-size:11px">💡 O % concluído é calculado automaticamente contando as demandas do cliente no mês cujo tipo corresponde (Arte/Design → feed, Vídeo/Reels → reels, etc) e que estão com status "Concluído".</div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarAgenciaMeta()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('agenciaModal')">Cancelar</button><button class="btn-danger" onclick="deletarAgenciaMeta()" id="agDelBtn" style="display:none">🗑️</button></div>
+<div class="info-box" style="font-size:11px">O % concluído é calculado automaticamente contando as demandas do cliente no mês cujo tipo corresponde (Arte/Design → feed, Vídeo/Reels → reels, etc) e que estão com status "Concluído".</div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarAgenciaMeta()">Salvar</button><button class="btn-cancel" onclick="closeModal('agenciaModal')">Cancelar</button><button class="btn-danger" onclick="deletarAgenciaMeta()" id="agDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- ═════════════════ MODAIS DO CLIENTE ═════════════════ -->
@@ -736,28 +749,28 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="fr"><div class="fg2"><label>Canal / Plataforma</label><select id="ciPlat"><option>Instagram</option><option>Facebook</option><option>TikTok</option><option>YouTube</option><option>LinkedIn</option><option>Google Ads</option><option>Site</option><option>Outro</option></select></div><div class="fg2"><label>Período</label><select id="ciPeriodo"><option value="7d">7 dias</option><option value="30d">30 dias</option><option value="90d">90 dias</option><option value="mes">Mês atual</option><option value="trimestre">Trimestre</option><option value="ano">Ano</option></select></div></div>
 <div class="fr"><div class="fg2"><label>Métrica*</label><input id="ciMetrica" placeholder="Ex: Seguidores"/></div><div class="fg2"><label>Valor*</label><input id="ciValor" placeholder="Ex: 12.4k"/></div></div>
 <div class="fg2"><label>Variação</label><input id="ciVar" placeholder="Ex: +18%"/></div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarClientInd()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('clientIndModal')">Cancelar</button><button class="btn-danger" onclick="deletarClientInd()" id="ciDelBtn" style="display:none">🗑️</button></div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarClientInd()">Salvar</button><button class="btn-cancel" onclick="closeModal('clientIndModal')">Cancelar</button><button class="btn-danger" onclick="deletarClientInd()" id="ciDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- Cliente cadastra meta de indicador -->
 <div class="modal-bg" id="clientMetaIndModal">
-<div class="modal"><h3>🎯 Minha Meta de Indicador</h3>
+<div class="modal"><h3>Minha Meta de Indicador</h3>
 <input type="hidden" id="cmiId"/>
 <div class="fg2"><label>Título da Meta*</label><input id="cmiTitulo" placeholder="Ex: Atingir 20k seguidores Instagram"/></div>
 <div class="fr"><div class="fg2"><label>Valor Alvo</label><input id="cmiAlvo" placeholder="Ex: 20000"/></div><div class="fg2"><label>Valor Atual</label><input id="cmiAtual" placeholder="Ex: 15200"/></div></div>
 <div class="fr"><div class="fg2"><label>Progresso %</label><input id="cmiProg" type="number" min="0" max="100"/></div><div class="fg2"><label>Prazo</label><input id="cmiPrazo" type="date"/></div></div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarClientMetaInd()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('clientMetaIndModal')">Cancelar</button><button class="btn-danger" onclick="deletarClientMetaInd()" id="cmiDelBtn" style="display:none">🗑️</button></div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarClientMetaInd()">Salvar</button><button class="btn-cancel" onclick="closeModal('clientMetaIndModal')">Cancelar</button><button class="btn-danger" onclick="deletarClientMetaInd()" id="cmiDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- Cliente cadastra top conteúdo -->
 <div class="modal-bg" id="clientTopModal">
-<div class="modal"><h3>⭐ Meu Top Conteúdo</h3>
+<div class="modal"><h3>Meu Top Conteúdo</h3>
 <input type="hidden" id="ctId"/>
 <div class="fg2"><label>Link do post*</label><input id="ctLink" placeholder="https://instagram.com/p/..."/></div>
 <div class="fg2"><label>Título*</label><input id="ctTitulo" placeholder="Resumo do conteúdo"/></div>
 <div class="fg2"><label>Métrica em destaque</label><input id="ctMetrica" placeholder="Ex: 12.4k alcance, 890 curtidas"/></div>
 <div class="fg2"><label>Observações</label><textarea id="ctObs" placeholder="Por que esse conteúdo foi destaque?"></textarea></div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarClientTop()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('clientTopModal')">Cancelar</button><button class="btn-danger" onclick="deletarClientTop()" id="ctDelBtn" style="display:none">🗑️</button></div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarClientTop()">Salvar</button><button class="btn-cancel" onclick="closeModal('clientTopModal')">Cancelar</button><button class="btn-danger" onclick="deletarClientTop()" id="ctDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- Cliente cadastra relatório -->
@@ -768,7 +781,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="fg2"><label>Data</label><input id="crData" type="date"/></div>
 <div class="fg2"><label>Link do arquivo (Drive/Dropbox)</label><input id="crLink" placeholder="https://..."/></div>
 <div class="fg2"><label>Resumo</label><textarea id="crResumo"></textarea></div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarClientRel()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('clientRelModal')">Cancelar</button><button class="btn-danger" onclick="deletarClientRel()" id="crDelBtn" style="display:none">🗑️</button></div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarClientRel()">Salvar</button><button class="btn-cancel" onclick="closeModal('clientRelModal')">Cancelar</button><button class="btn-danger" onclick="deletarClientRel()" id="crDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- Cliente cadastra estratégia -->
@@ -779,12 +792,13 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="fg2"><label>Descrição / Plano</label><textarea id="ceDesc"></textarea></div>
 <div class="fr"><div class="fg2"><label>Status</label><select id="ceStatus"><option>Ativa</option><option>Pausada</option><option>Concluída</option></select></div><div class="fg2"><label>Progresso %</label><input id="ceProg" type="number" min="0" max="100"/></div></div>
 <div class="fg2"><label>Data Início</label><input id="ceIni" type="date"/></div>
-<div class="modal-btns"><button class="btn-save" onclick="salvarClientEst()">💾 Salvar</button><button class="btn-cancel" onclick="closeModal('clientEstModal')">Cancelar</button><button class="btn-danger" onclick="deletarClientEst()" id="ceDelBtn" style="display:none">🗑️</button></div>
+<div class="fg2"><label>Link externo (Drive / Notion / etc — opcional)</label><input id="ceLink" type="url" placeholder="https://..."/></div>
+<div class="modal-btns"><button class="btn-save" onclick="salvarClientEst()">Salvar</button><button class="btn-cancel" onclick="closeModal('clientEstModal')">Cancelar</button><button class="btn-danger" onclick="deletarClientEst()" id="ceDelBtn" style="display:none">Remover</button></div>
 </div></div>
 
 <!-- Modal solicitação de remoção -->
 <div class="modal-bg" id="remModal">
-<div class="modal" style="max-width:500px"><h3>🗑️ Solicitar Remoção</h3>
+<div class="modal" style="max-width:500px"><h3>Solicitar Remoção</h3>
 <input type="hidden" id="remDemId"/>
 <p style="font-size:12px;color:var(--muted);margin-bottom:14px">Sua solicitação será enviada ao admin. A demanda continua visível até o admin aprovar.</p>
 <div class="fg2"><label>Motivo da remoção</label><textarea id="remMotivo" placeholder="Por que quer remover?"></textarea></div>
@@ -792,7 +806,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
 </div></div>
 
 <!-- Painel de notificações -->
-<div class="notif-panel-overlay" id="notifPanel"><div class="notif-backdrop" onclick="closeNotifPanel()"></div><div class="notif-panel"><div class="notif-header"><div class="notif-header-title">🔔 Notificações</div><button class="detail-close" onclick="closeNotifPanel()">✕</button></div><div class="notif-body" id="notifBody"></div></div></div>
+<div class="notif-panel-overlay" id="notifPanel"><div class="notif-backdrop" onclick="closeNotifPanel()"></div><div class="notif-panel"><div class="notif-header"><div class="notif-header-title">Notificações</div><button class="detail-close" onclick="closeNotifPanel()">✕</button></div><div class="notif-body" id="notifBody"></div></div></div>
 
 <div class="toast" id="toast">Salvo!</div>
 <script>
@@ -811,7 +825,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1ScpL355Qo8bBqad7SCPrKtcXB2sskDhLDlPscDXaRRpvO3fRTYJSYvyH733PvbTg/exec';
 const UPLOAD_CHUNK = 5 * 1024 * 1024;
 const SIMPLE_UPLOAD_LIMIT = 40 * 1024 * 1024;
-const LOADING_MESSAGES = ['🔗 Conectando...','📦 Carregando dados...','🎨 Preparando tela...','✨ Quase lá...'];
+const LOADING_MESSAGES = ['Conectando...','Carregando dados...','Preparando tela...','Quase lá...'];
 
 // ═══ ESTADO GLOBAL ═══
 let currentUser = null;
@@ -901,7 +915,7 @@ async function doLogin(){
   const errEl = document.getElementById('lerr');
   errEl.style.display='none';
   if(!u || !p){ errEl.textContent='Preencha usuário e senha'; errEl.style.display='block'; return; }
-  showLoading('🔐 Autenticando...');
+  showLoading('Autenticando...');
   try {
     const r = await appsFetch({action:'login', user:u, pass:p});
     if(!r.ok){
@@ -941,7 +955,7 @@ async function restoreSession(){
 }
 
 async function loadAndEnter(){
-  showLoading('📦 Carregando dados...');
+  showLoading('Carregando dados...');
   try {
     const r = await appsFetch({action:'loadAll', token:currentToken});
     if(!r.ok){ throw new Error(r.msg || 'Erro ao carregar'); }
@@ -1083,7 +1097,7 @@ const aTitles = {
   'a-dash':'Dashboard Geral','a-clients':'Clientes','a-demands':'Demandas',
   'a-indicadores':'Indicadores','a-relatorios':'Relatórios','a-mercado':'Mercado',
   'a-estrategias':'Estratégias','a-calendario':'Calendário','a-campanhas':'Campanhas',
-  'a-metas':'Metas','a-agencia':'Agência — Produtividade','a-alertas':'Alertas',
+  'a-metas':'Metas','a-agencia':'Agência — Produtividade','a-briefing':'Briefing da Marca','a-alertas':'Alertas',
   'a-upload':'Upload'
 };
 function aNav(sec, el){
@@ -1104,13 +1118,14 @@ function aNav(sec, el){
   else if(sec==='a-campanhas') { populateClientFilters(); renderACampanhas(); }
   else if(sec==='a-metas') { populateClientFilters(); renderAMetas(); }
   else if(sec==='a-agencia') renderAAgencia();
+  else if(sec==='a-briefing') renderABriefing();
   else if(sec==='a-calendario') { populateClientFilters(); renderACalendar(); }
   else if(sec==='a-alertas') renderAlertas();
   else if(sec==='a-upload') renderUpload();
 }
 function aGoTo(sec){
   const items = document.querySelectorAll('#adminApp .ani');
-  const order = ['a-dash','a-clients','a-demands','a-indicadores','a-relatorios','a-mercado','a-estrategias','a-calendario','a-campanhas','a-metas','a-agencia','a-alertas','a-upload'];
+  const order = ['a-dash','a-clients','a-demands','a-indicadores','a-relatorios','a-mercado','a-estrategias','a-calendario','a-campanhas','a-metas','a-agencia','a-briefing','a-alertas','a-upload'];
   const idx = order.indexOf(sec);
   aNav(sec, items[idx]);
 }
@@ -1179,28 +1194,28 @@ function closeModal(id){
 async function sheetsSave(aba, row){
   if(!backendOk || !SCRIPT_URL){ return {ok:false, msg:'Backend offline'}; }
   try {
-    setSyncBanner('warn','⏳ Salvando no Sheets...');
+    setSyncBanner('warn','Salvando no Sheets...');
     const r = await appsFetch(null, true, {action:'saveRow', token:currentToken, aba:aba, row:row});
-    if(r.ok){ setSyncBanner('ok','✅ Salvo'); } else { setSyncBanner('err','❌ '+(r.msg||'falhou')); }
+    if(r.ok){ setSyncBanner('ok','Salvo'); } else { setSyncBanner('err','Erro: '+(r.msg||'falhou')); }
     return r;
-  } catch(e){ setSyncBanner('err','❌ '+e.message); return {ok:false, msg:e.message}; }
+  } catch(e){ setSyncBanner('err','Erro: '+e.message); return {ok:false, msg:e.message}; }
 }
 async function sheetsDelete(aba, id){
   if(!backendOk || !SCRIPT_URL){ return {ok:false, msg:'Backend offline'}; }
   try {
-    setSyncBanner('warn','⏳ Removendo...');
+    setSyncBanner('warn','Removendo...');
     const r = await appsFetch(null, true, {action:'deleteRow', token:currentToken, aba:aba, id:id});
-    if(r.ok){ setSyncBanner('ok','✅ Removido'); } else { setSyncBanner('err','❌ '+(r.msg||'falhou')); }
+    if(r.ok){ setSyncBanner('ok','Removido'); } else { setSyncBanner('err','Erro: '+(r.msg||'falhou')); }
     return r;
-  } catch(e){ setSyncBanner('err','❌ '+e.message); return {ok:false, msg:e.message}; }
+  } catch(e){ setSyncBanner('err','Erro: '+e.message); return {ok:false, msg:e.message}; }
 }
 async function syncAll(force){
   if(!backendOk) return;
   try {
-    if(force) showLoading('🔄 Sincronizando...');
+    if(force) showLoading('Sincronizando...');
     const r = await appsFetch({action:'loadAll', token:currentToken});
-    if(r.ok){ mapDbFromApi(r.data || {}); reRenderCurrent(); setSyncBanner('ok','✅ Sincronizado'); }
-  } catch(e){ setSyncBanner('err','❌ '+e.message); }
+    if(r.ok){ mapDbFromApi(r.data || {}); reRenderCurrent(); setSyncBanner('ok','Sincronizado'); }
+  } catch(e){ setSyncBanner('err','Erro: '+e.message); }
   finally { if(force) hideLoading(); }
 }
 function reRenderCurrent(){
@@ -1225,7 +1240,7 @@ function salvarUrl(){
 // ═══ DETAIL OVERLAY (genérico) ═══
 function closeDetail(){ document.getElementById('detailOverlay').classList.remove('show'); }
 function openDetailPanel(opts){
-  const { icon='📋', iconBg='rgba(232,84,26,.15)', iconColor='var(--orange)', title, sub='', bodyHtml='', footerHtml='' } = opts || {};
+  const { icon='', iconBg='rgba(232,84,26,.15)', iconColor='var(--orange)', title, sub='', bodyHtml='', footerHtml='' } = opts || {};
   document.getElementById('detailIcon').textContent = icon;
   document.getElementById('detailIcon').style.background = iconBg;
   document.getElementById('detailIcon').style.color = iconColor;
@@ -1244,6 +1259,7 @@ function detailDemanda(id){
   if(d.status) chips.push(`<span class="b b${statusColor(d.status).slice(0,2)==='gr'?'gr':statusColor(d.status).slice(0,2)==='bl'?'bl':statusColor(d.status).slice(0,2)==='pu'?'pu':'or'}">${esc(d.status)}</span>`);
   if(d.prioridade) chips.push(`<span class="b b${priorityColor(d.prioridade).slice(0,2)==='ye'?'ye':priorityColor(d.prioridade).slice(0,2)==='re'?'red':'bl'}">${esc(d.prioridade)}</span>`);
   if(d.tipo) chips.push(`<span class="b bor">${esc(d.tipo)}</span>`);
+  if(d.publicacao){ chips.push(`<span class="b bpu">Publicação: ${esc(publicacaoLabel(d.publicacao))}</span>`); }
   const prog = Number(d.prog || 0);
   let body = `<div class="detail-chip-row">${chips.join('')}</div>`;
   if(d.desc){ body += `<div class="detail-desc-box">${esc(d.desc)}</div>`; }
@@ -1256,22 +1272,25 @@ function detailDemanda(id){
   if(prog > 0){
     body += `<div class="detail-progress"><div style="font-size:11px;color:var(--muted);margin-bottom:4px">Progresso: ${prog}%</div><div class="detail-prog-bar"><div class="detail-prog-fill" style="width:${prog}%;background:var(--orange)"></div></div></div>`;
   }
+  if(d.link){
+    body += `<a href="${esc(d.link)}" target="_blank" class="detail-action-btn secondary" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px">Abrir link externo</a>`;
+  }
   let footer = '';
   if(currentUser.role === 'admin'){
     if(d.remocaoSolicitada === 'SIM'){
-      footer = `<div style="background:rgba(231,76,60,.1);border:1px solid var(--red);border-radius:9px;padding:10px;margin-bottom:10px;font-size:11px">🗑️ <strong>Cliente solicitou remoção.</strong><br>Motivo: ${esc(d.remocaoMotivo||'—')}</div>
-      <button class="detail-action-btn primary" style="background:var(--red);color:#fff" onclick="confirmarRemocao('${esc(d.id)}')">✅ Confirmar remoção</button>
+      footer = `<div style="background:rgba(231,76,60,.1);border:1px solid var(--red);border-radius:9px;padding:10px;margin-bottom:10px;font-size:11px"><strong>Cliente solicitou remoção.</strong><br>Motivo: ${esc(d.remocaoMotivo||'—')}</div>
+      <button class="detail-action-btn primary" style="background:var(--red);color:#fff" onclick="confirmarRemocao('${esc(d.id)}')">Confirmar remoção</button>
       <button class="detail-action-btn secondary" onclick="cancelarRemocao('${esc(d.id)}')">Cancelar solicitação</button>`;
     }
-    footer += `<button class="detail-action-btn primary" onclick="openADemandModal('${esc(d.id)}')">✏️ Editar</button>
-    <button class="detail-action-btn secondary" onclick="deletarDemandaDireto('${esc(d.id)}')">🗑️ Remover</button>`;
+    footer += `<button class="detail-action-btn primary" onclick="openADemandModal('${esc(d.id)}')">Editar</button>
+    <button class="detail-action-btn secondary" onclick="deletarDemandaDireto('${esc(d.id)}')">Remover</button>`;
   } else {
     if(d.clientUser === currentUser.user || (d.status==='Novo' || d.status==='Em andamento')){
-      footer = `<button class="detail-action-btn secondary" onclick="solicitarRemocao('${esc(d.id)}')">🗑️ Solicitar remoção</button>`;
+      footer = `<button class="detail-action-btn secondary" onclick="solicitarRemocao('${esc(d.id)}')">Solicitar remoção</button>`;
     }
   }
   openDetailPanel({
-    icon: d.tipo && d.tipo.toLowerCase().indexOf('vídeo')>=0 ? '🎬' : (d.tipo && d.tipo.toLowerCase().indexOf('ideia')>=0 ? '💡' : (d.tipo && d.tipo.toLowerCase().indexOf('evento')>=0 ? '📆' : '📋')),
+    icon: '',
     iconBg: 'rgba(232,84,26,.15)',
     title: d.titulo,
     sub: `${esc(d.cliente||'—')} • criada por ${esc(d.clientUser||'admin')}`,
@@ -1292,11 +1311,11 @@ function detailIndicador(id){
   </div>`;
   let footer = '';
   if(currentUser.role === 'admin'){
-    footer = `<button class="detail-action-btn primary" onclick="openIndModal('${esc(ind.id)}')">✏️ Editar</button>`;
+    footer = `<button class="detail-action-btn primary" onclick="openIndModal('${esc(ind.id)}')">Editar</button>`;
   } else if(ind.clientUser === currentUser.user) {
-    footer = `<button class="detail-action-btn primary" onclick="openClientIndModal('${esc(ind.id)}')">✏️ Editar</button>`;
+    footer = `<button class="detail-action-btn primary" onclick="openClientIndModal('${esc(ind.id)}')">Editar</button>`;
   }
-  openDetailPanel({icon:'📊', title:ind.metrica, sub:`${esc(ind.cliente||'—')} • ${esc(ind.plat||'—')}`, bodyHtml:body, footerHtml:footer});
+  openDetailPanel({icon:'', title:ind.metrica, sub:`${esc(ind.cliente||'—')} • ${esc(ind.plat||'—')}`, bodyHtml:body, footerHtml:footer});
 }
 function detailRelatorio(id){
   const r = DB.reports.find(x => String(x.id) === String(id));
@@ -1309,9 +1328,9 @@ function detailRelatorio(id){
   if(r.link){ body += `<div class="detail-field"><div class="detail-field-label">Link</div><div class="detail-field-value"><a href="${esc(r.link)}" target="_blank" style="color:var(--blue)">${esc(r.link)}</a></div></div>`; }
   const origem = r.clientUser ? ('Cliente: ' + esc(r.clientUser)) : 'Agência';
   let footer = '';
-  if(currentUser.role === 'admin'){ footer = `<button class="detail-action-btn primary" onclick="openRelModal('${esc(r.id)}')">✏️ Editar</button>`; }
-  else if(r.clientUser === currentUser.user){ footer = `<button class="detail-action-btn primary" onclick="openClientRelModal('${esc(r.id)}')">✏️ Editar</button>`; }
-  openDetailPanel({icon:'📄', title:r.titulo, sub:`${esc(r.cliente||'—')} • ${origem}`, bodyHtml:body, footerHtml:footer});
+  if(currentUser.role === 'admin'){ footer = `<button class="detail-action-btn primary" onclick="openRelModal('${esc(r.id)}')">Editar</button>`; }
+  else if(r.clientUser === currentUser.user){ footer = `<button class="detail-action-btn primary" onclick="openClientRelModal('${esc(r.id)}')">Editar</button>`; }
+  openDetailPanel({icon:'', title:r.titulo, sub:`${esc(r.cliente||'—')} • ${origem}`, bodyHtml:body, footerHtml:footer});
 }
 function detailMercado(id){
   const m = DB.market.find(x => String(x.id) === String(id));
@@ -1320,8 +1339,8 @@ function detailMercado(id){
   if(m.desc){ body += `<div class="detail-desc-box">${esc(m.desc)}</div>`; }
   if(m.link){ body += `<div class="detail-field"><div class="detail-field-label">Link</div><div class="detail-field-value"><a href="${esc(m.link)}" target="_blank" style="color:var(--blue)">${esc(m.link)}</a></div></div>`; }
   let footer = '';
-  if(currentUser.role === 'admin'){ footer = `<button class="detail-action-btn primary" onclick="openMercModal('${esc(m.id)}')">✏️ Editar</button>`; }
-  openDetailPanel({icon:m.tipo==='Concorrente'?'🎯':'📈', title:m.titulo, sub:esc(m.cliente||'—'), bodyHtml:body, footerHtml:footer});
+  if(currentUser.role === 'admin'){ footer = `<button class="detail-action-btn primary" onclick="openMercModal('${esc(m.id)}')">Editar</button>`; }
+  openDetailPanel({icon:'', title:m.titulo, sub:esc(m.cliente||'—'), bodyHtml:body, footerHtml:footer});
 }
 function detailEstrategia(id){
   const s = DB.strategies.find(x => String(x.id) === String(id));
@@ -1336,10 +1355,13 @@ function detailEstrategia(id){
   if(prog > 0){
     body += `<div class="detail-progress"><div style="font-size:11px;color:var(--muted);margin-bottom:4px">Progresso: ${prog}%</div><div class="detail-prog-bar"><div class="detail-prog-fill" style="width:${prog}%;background:var(--green)"></div></div></div>`;
   }
+  if(s.link){
+    body += `<a href="${esc(s.link)}" target="_blank" class="detail-action-btn secondary" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px">Abrir link externo</a>`;
+  }
   let footer = '';
-  if(currentUser.role === 'admin'){ footer = `<button class="detail-action-btn primary" onclick="openEstModal('${esc(s.id)}')">✏️ Editar</button>`; }
-  else if(s.clientUser === currentUser.user){ footer = `<button class="detail-action-btn primary" onclick="openClientEstModal('${esc(s.id)}')">✏️ Editar</button>`; }
-  openDetailPanel({icon:'🎯', title:s.titulo, sub:esc(s.cliente||'—'), bodyHtml:body, footerHtml:footer});
+  if(currentUser.role === 'admin'){ footer = `<button class="detail-action-btn primary" onclick="openEstModal('${esc(s.id)}')">Editar</button>`; }
+  else if(s.clientUser === currentUser.user){ footer = `<button class="detail-action-btn primary" onclick="openClientEstModal('${esc(s.id)}')">Editar</button>`; }
+  openDetailPanel({icon:'', title:s.titulo, sub:esc(s.cliente||'—'), bodyHtml:body, footerHtml:footer});
 }
 function detailCalEvento(id){
   const e = DB.calEvents.find(x => String(x.id) === String(id));
@@ -1351,8 +1373,8 @@ function detailCalEvento(id){
     <div class="detail-field"><div class="detail-field-label">Data</div><div class="detail-field-value">${fmtDate(e.data)||'—'} ${e.hora?esc(e.hora):''}</div></div>
   </div>`;
   let footer = '';
-  if(currentUser.role === 'admin'){ footer = `<button class="detail-action-btn primary" onclick="openCalModal('${esc(e.id)}')">✏️ Editar</button>`; }
-  openDetailPanel({icon:'📅', title:e.titulo, sub:esc(e.cliente||'—'), bodyHtml:body, footerHtml:footer});
+  if(currentUser.role === 'admin'){ footer = `<button class="detail-action-btn primary" onclick="openCalModal('${esc(e.id)}')">Editar</button>`; }
+  openDetailPanel({icon:'', title:e.titulo, sub:esc(e.cliente||'—'), bodyHtml:body, footerHtml:footer});
 }
 function detailCampanha(id){
   const c = DB.campaigns.find(x => String(x.id) === String(id));
@@ -1366,8 +1388,8 @@ function detailCampanha(id){
     <div class="detail-field"><div class="detail-field-label">Fim</div><div class="detail-field-value">${fmtDate(c.fim)||'—'}</div></div>
   </div>`;
   let footer = '';
-  if(currentUser.role === 'admin'){ footer = `<button class="detail-action-btn primary" onclick="openCampModal('${esc(c.id)}')">✏️ Editar</button>`; }
-  openDetailPanel({icon:'📣', title:c.titulo, sub:esc(c.cliente||'—'), bodyHtml:body, footerHtml:footer});
+  if(currentUser.role === 'admin'){ footer = `<button class="detail-action-btn primary" onclick="openCampModal('${esc(c.id)}')">Editar</button>`; }
+  openDetailPanel({icon:'', title:c.titulo, sub:esc(c.cliente||'—'), bodyHtml:body, footerHtml:footer});
 }
 function detailMeta(id){
   const m = DB.goals.find(x => String(x.id) === String(id));
@@ -1382,8 +1404,8 @@ function detailMeta(id){
   </div>
   <div class="detail-progress"><div class="detail-prog-bar"><div class="detail-prog-fill" style="width:${prog}%;background:var(--orange)"></div></div></div>`;
   let footer = '';
-  if(currentUser.role === 'admin'){ footer = `<button class="detail-action-btn primary" onclick="openMetaModal('${esc(m.id)}')">✏️ Editar</button>`; }
-  openDetailPanel({icon:'🎯', title:m.titulo, sub:esc(m.cliente||'—'), bodyHtml:body, footerHtml:footer});
+  if(currentUser.role === 'admin'){ footer = `<button class="detail-action-btn primary" onclick="openMetaModal('${esc(m.id)}')">Editar</button>`; }
+  openDetailPanel({icon:'', title:m.titulo, sub:esc(m.cliente||'—'), bodyHtml:body, footerHtml:footer});
 }
 function detailTopContent(id){
   const t = DB.topContents.find(x => String(x.id) === String(id));
@@ -1395,9 +1417,9 @@ function detailTopContent(id){
   if(t.observacoes){ body += `<div class="detail-desc-box">${esc(t.observacoes)}</div>`; }
   if(t.link){ body += `<div class="detail-field"><div class="detail-field-label">Link</div><div class="detail-field-value"><a href="${esc(t.link)}" target="_blank" style="color:var(--blue);word-break:break-all">${esc(t.link)}</a></div></div>`; }
   let footer = '';
-  if(currentUser.role === 'admin'){ footer = `<button class="detail-action-btn primary" onclick="openTopModal('${esc(t.id)}')">✏️ Editar</button>`; }
-  else if(t.clientUser === currentUser.user){ footer = `<button class="detail-action-btn primary" onclick="openClientTopModal('${esc(t.id)}')">✏️ Editar</button>`; }
-  openDetailPanel({icon:'⭐', title:t.titulo, sub:esc(t.cliente||'—'), bodyHtml:body, footerHtml:footer});
+  if(currentUser.role === 'admin'){ footer = `<button class="detail-action-btn primary" onclick="openTopModal('${esc(t.id)}')">Editar</button>`; }
+  else if(t.clientUser === currentUser.user){ footer = `<button class="detail-action-btn primary" onclick="openClientTopModal('${esc(t.id)}')">Editar</button>`; }
+  openDetailPanel({icon:'', title:t.titulo, sub:esc(t.cliente||'—'), bodyHtml:body, footerHtml:footer});
 }
 </script>
 <script>
@@ -1415,10 +1437,10 @@ function renderCOverview(){
   const myGoals = DB.goals.filter(g => g.cliente === nome);
 
   const kpis = [
-    { l:'Demandas Abertas', v: abertas, c: kColor('orange'), i:'📋' },
-    { l:'Em Revisão', v: emRevisao, c: kColor('blue'), i:'👀' },
-    { l:'Indicadores', v: myInds.length, c: kColor('green'), i:'📊' },
-    { l:'Metas Ativas', v: myGoals.length, c: kColor('purple'), i:'🎯' }
+    { l:'Demandas Abertas', v: abertas, c: kColor('orange'), i:'' },
+    { l:'Em Revisão', v: emRevisao, c: kColor('blue'), i:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>` },
+    { l:'Indicadores', v: myInds.length, c: kColor('green'), i:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>` },
+    { l:'Metas Ativas', v: myGoals.length, c: kColor('purple'), i:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="2"/></svg>` }
   ];
   document.getElementById('c-kpi-overview').innerHTML = kpis.map(k => `
     <div class="kcard"><div class="kico" style="background:${k.c}22;color:${k.c}">${k.i}</div>
@@ -1428,7 +1450,7 @@ function renderCOverview(){
   document.getElementById('c-ov-dem-list').innerHTML = recent.length ? recent.map(d => `
     <div class="di" onclick="detailDemanda('${esc(d.id)}')">
       <div class="dh"><div style="font-weight:700;font-size:13px">${esc(d.titulo)}</div><span class="b b${statusColor(d.status).slice(0,2)==='gr'?'gr':statusColor(d.status).slice(0,2)==='bl'?'bl':statusColor(d.status).slice(0,2)==='pu'?'pu':'or'}">${esc(d.status||'Novo')}</span></div>
-      <div class="df"><span>${d.prazo?'📅 '+fmtDate(d.prazo):''}</span><span>${esc(d.tipo||'')}</span></div>
+      <div class="df"><span>${d.prazo?''+fmtDate(d.prazo):''}</span><span>${esc(d.tipo||'')}</span></div>
     </div>`).join('') : '<p style="font-size:12px;color:var(--muted);padding:10px">Nenhuma demanda ainda. Vá em "Demandas" e crie a primeira!</p>';
 
   document.getElementById('c-score-rows').innerHTML = `
@@ -1479,17 +1501,21 @@ function canDrop(item, targetStatus){
 
 function buildKanbanCard(item, isAdmin){
   const draggable = canDrag(item);
-  const remChip = item.remocaoSolicitada === 'SIM' ? `<span class="b bred">🗑️ remoção solicitada</span>` : '';
+  const remChip = item.remocaoSolicitada === 'SIM' ? `<span class="b bred">remoção solicitada</span>` : '';
   const resp = item.resp ? `<span>${esc(item.resp)}</span>` : '';
   const prog = Number(item.prog || 0);
+  const pubChip = item.publicacao ? `<span class="b bpu">${esc(publicacaoLabel(item.publicacao))}</span>` : '';
+  const linkChip = item.link ? `<span style="font-size:10px;color:var(--blue)">link</span>` : '';
   return `<div class="kanban-card" draggable="${draggable}" data-id="${esc(item.id)}" data-status="${esc(item.status||'Novo')}">
     <div class="kanban-card-title">${esc(item.titulo || '(sem título)')}</div>
-    <div class="kanban-card-meta">${isAdmin ? esc(item.cliente||'') + ' • ' : ''}${item.prazo?'📅 '+fmtDate(item.prazo):''}</div>
+    <div class="kanban-card-meta">${isAdmin ? esc(item.cliente||'') + ' • ' : ''}${item.prazo?''+fmtDate(item.prazo):''}</div>
     ${prog > 0 ? `<div style="margin-bottom:6px"><div style="height:4px;background:var(--border);border-radius:3px;overflow:hidden"><div style="height:100%;width:${prog}%;background:var(--orange);border-radius:3px"></div></div></div>` : ''}
     <div class="kanban-card-foot">
       ${item.prioridade ? `<span class="b b${priorityColor(item.prioridade).slice(0,2)==='ye'?'ye':(priorityColor(item.prioridade).slice(0,2)==='re'?'red':'bl')}">${esc(item.prioridade)}</span>` : ''}
       ${item.tipo ? `<span style="font-size:10px;color:var(--muted)">${esc(item.tipo)}</span>` : ''}
+      ${pubChip}
       ${resp}
+      ${linkChip}
       ${remChip}
     </div>
   </div>`;
@@ -1559,7 +1585,7 @@ function wireKanbanDrag(container, items, isAdmin){
       const item = items.find(x => String(x.id) === id);
       if(!item) return;
       const newStatus = col.dataset.status;
-      if(!canDrop(item, newStatus)){ showToast('🚫 Você não pode mover pra essa coluna'); return; }
+      if(!canDrop(item, newStatus)){ showToast('Você não pode mover pra essa coluna'); return; }
       if((item.status || 'Novo') === newStatus) return;
       const old = item.status;
       item.status = newStatus;
@@ -1567,8 +1593,8 @@ function wireKanbanDrag(container, items, isAdmin){
       if(viewMode === 'cliente') renderCDemandsKanban();
       else renderADemands();
       const r = await sheetsSave('Demandas', item);
-      if(!r.ok){ item.status = old; showToast('❌ Falhou: '+(r.msg||'erro')); renderCDemandsKanban(); renderADemands(); }
-      else { showToast('✅ Movido pra '+newStatus); }
+      if(!r.ok){ item.status = old; showToast('Falhou: '+(r.msg||'erro')); renderCDemandsKanban(); renderADemands(); }
+      else { showToast('Movido pra '+newStatus); }
     });
   });
 }
@@ -1588,8 +1614,10 @@ async function salvarDemanda(){
   const tip = document.getElementById('dTip').value;
   const pra = document.getElementById('dPra').value;
   const pri = document.getElementById('dPri').value;
+  const pub = document.getElementById('dPub').value;
   const des = document.getElementById('dDes').value.trim();
-  if(!tit){ showToast('❌ Título obrigatório'); return; }
+  const link = document.getElementById('dLink').value.trim();
+  if(!tit){ showToast('Título obrigatório'); return; }
   const editId = document.getElementById('demEditId').value;
   const existing = editId ? DB.demands.find(d => String(d.id) === String(editId)) : null;
   const row = existing || {
@@ -1599,7 +1627,9 @@ async function salvarDemanda(){
   row.tipo = tip;
   row.prazo = pra;
   row.prioridade = pri;
+  row.publicacao = pub;
   row.desc = des;
+  row.link = link;
   row.clientUser = currentUser.user;
   const r = await sheetsSave('Demandas', row);
   if(r.ok){
@@ -1609,15 +1639,17 @@ async function salvarDemanda(){
     document.getElementById('dTip').value='';
     document.getElementById('dPra').value='';
     document.getElementById('dPri').value='Normal';
+    document.getElementById('dPub').value='';
     document.getElementById('dDes').value='';
+    document.getElementById('dLink').value='';
     document.getElementById('demEditId').value='';
-    document.getElementById('demFormTitle').textContent = '➕ Nova Demanda';
+    document.getElementById('demFormTitle').textContent = 'Nova Demanda';
     document.getElementById('demBtnSave').textContent = 'Enviar Demanda';
     document.getElementById('demBtnCancel').style.display='none';
     demandAttachments = [];
     document.getElementById('demUpList').innerHTML='';
     renderCDemandsKanban();
-    showToast('✅ Demanda salva');
+    showToast('Demanda salva');
   }
 }
 
@@ -1626,9 +1658,11 @@ function cancelarEditDemanda(){
   document.getElementById('dTip').value='';
   document.getElementById('dPra').value='';
   document.getElementById('dPri').value='Normal';
+  document.getElementById('dPub').value='';
   document.getElementById('dDes').value='';
+  document.getElementById('dLink').value='';
   document.getElementById('demEditId').value='';
-  document.getElementById('demFormTitle').textContent = '➕ Nova Demanda';
+  document.getElementById('demFormTitle').textContent = 'Nova Demanda';
   document.getElementById('demBtnSave').textContent = 'Enviar Demanda';
   document.getElementById('demBtnCancel').style.display='none';
 }
@@ -1658,7 +1692,7 @@ function renderCIndicadores(){
   // KPIs (top 4)
   document.getElementById('c-ind-kpis').innerHTML = filtered.slice(0,4).map(i => `
     <div class="kcard" onclick="detailIndicador('${esc(i.id)}')">
-      <div class="kico" style="background:${kColor(i.cor)}22;color:${kColor(i.cor)}">📊</div>
+      <div class="kico" style="background:${kColor(i.cor)}22;color:${kColor(i.cor)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
       <div class="kl">${esc(i.metrica)}</div>
       <div class="kv" style="color:${kColor(i.cor)}">${esc(i.valor)}</div>
       <div class="kc ${String(i.variacao||'').startsWith('-')?'dn':'up'}">${esc(i.variacao||'')}</div>
@@ -1677,10 +1711,10 @@ function renderCIndicadores(){
   const myTops = DB.topContents.filter(t => t.cliente === nome);
   document.getElementById('c-ind-top').innerHTML = myTops.length ? myTops.map(t => `
     <div class="topcontent-card" onclick="detailTopContent('${esc(t.id)}')">
-      <div style="font-size:13px;font-weight:700;margin-bottom:4px">⭐ ${esc(t.titulo)}</div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:4px">${esc(t.titulo)}</div>
       <div style="font-size:11px;color:var(--muted);margin-bottom:4px">${esc(t.metrica||'')}</div>
       ${t.link?`<div class="topcontent-link">${esc(t.link)}</div>`:''}
-    </div>`).join('') : '<p style="font-size:12px;color:var(--muted)">Clique em "⭐ + Top Conteúdo" pra destacar posts.</p>';
+    </div>`).join('') : '<p style="font-size:12px;color:var(--muted)">Clique em "+ Top Conteúdo" pra destacar posts.</p>';
 
   // Metas
   const myMetas = DB.goals.filter(g => g.cliente === nome && g.categoria === 'Indicador');
@@ -1691,7 +1725,7 @@ function renderCIndicadores(){
       <div class="meta-bar-track"><div class="meta-bar-fill" style="width:${prog}%;background:var(--orange)"></div></div>
       <div style="font-size:11px;color:var(--muted);margin-top:4px">Alvo: ${esc(m.alvo||'—')} • Atual: ${esc(m.atual||'—')}</div>
     </div>`;
-  }).join('') : '<p style="font-size:12px;color:var(--muted)">Nenhuma meta. Clique em "🎯 + Meta".</p>';
+  }).join('') : '<p style="font-size:12px;color:var(--muted)">Nenhuma meta. Clique em "+ Meta".</p>';
 }
 
 // ═════════════════════════════════════════════════════════════════
@@ -1705,7 +1739,7 @@ function renderCRelatorios(){
     const origem = r.clientUser ? `<span class="b bpu">Seu</span>` : `<span class="b bor">Agência</span>`;
     return `<div class="di" onclick="detailRelatorio('${esc(r.id)}')">
       <div class="dh"><div style="font-weight:700;font-size:13px">${esc(r.titulo)}</div>${origem}</div>
-      <div class="df"><span>📅 ${fmtDate(r.data)||'—'}</span></div>
+      <div class="df"><span>${fmtDate(r.data)||'—'}</span></div>
     </div>`;
   }).join('') : '<p style="font-size:12px;color:var(--muted);padding:20px">Nenhum relatório ainda.</p>';
 }
@@ -1749,7 +1783,7 @@ function renderCCampanhas(){
     <div class="camp-card" onclick="detailCampanha('${esc(c.id)}')">
       <div style="display:flex;justify-content:space-between;margin-bottom:6px"><div style="font-weight:700;font-size:14px">${esc(c.titulo)}</div><span class="b b${c.status==='Ativa'?'gr':'ye'}">${esc(c.status)}</span></div>
       <div style="font-size:12px;color:var(--muted);margin-bottom:8px">${esc((c.desc||'').slice(0,120))}</div>
-      <div style="display:flex;gap:12px;font-size:11px;color:var(--muted)"><span>📣 ${esc(c.plat||'—')}</span>${c.orcamento?`<span>💰 ${moneyBR(c.orcamento)}</span>`:''}${c.ini?`<span>📅 ${fmtDate(c.ini)}</span>`:''}</div>
+      <div style="display:flex;gap:12px;font-size:11px;color:var(--muted)"><span>${esc(c.plat||'—')}</span>${c.orcamento?`<span>${moneyBR(c.orcamento)}</span>`:''}${c.ini?`<span>${fmtDate(c.ini)}</span>`:''}</div>
     </div>`).join('') : '<p style="font-size:12px;color:var(--muted);padding:20px">Nenhuma campanha ativa.</p>';
   const metas = DB.goals.filter(g => g.cliente === nome && g.categoria === 'Campanha');
   document.getElementById('c-camp-metas').innerHTML = metas.length ? metas.map(m => {
@@ -1767,7 +1801,7 @@ function renderCPreferencias(){
   const cc = document.getElementById('c-contrato-info');
   if(!cc) return;
   if(currentUser.role === 'owner' && currentClient && (currentClient.contratoIni || currentClient.contratoFim || currentClient.valor)){
-    cc.innerHTML = `<div class="ct"><div class="ct-left"><div class="ctd"></div>📋 Contrato</div></div>
+    cc.innerHTML = `<div class="ct"><div class="ct-left"><div class="ctd"></div>Contrato</div></div>
       <div class="detail-grid">
         <div class="detail-field"><div class="detail-field-label">Valor</div><div class="detail-field-value">${currentClient.valor?moneyBR(currentClient.valor):'—'}</div></div>
         <div class="detail-field"><div class="detail-field-label">Início</div><div class="detail-field-value">${fmtDate(currentClient.contratoIni)||'—'}</div></div>
@@ -1801,6 +1835,28 @@ function renderCFaq(){
 //   RENDERS DO ADMIN
 // ═════════════════════════════════════════════════════════════════
 
+// Helpers de navegação a partir do dashboard (KPIs clicáveis)
+function dashGoToDemandsAbertas(){
+  aGoTo('a-demands');
+  setTimeout(() => {
+    // Sem filtro de cliente, datas amplas, mas o usuário verá todas (status concluído fica em coluna separada)
+  }, 100);
+}
+function dashGoToCampanhasAtivas(){
+  aGoTo('a-campanhas');
+}
+function dashGoToDemandsRemocao(){
+  aGoTo('a-demands');
+  setTimeout(() => {
+    // Filtra apenas com solicitação de remoção
+    showToast('Filtrando demandas com solicitação de remoção');
+    _filterDemandsByRemocao = true;
+    renderADemands();
+  }, 100);
+}
+
+let _filterDemandsByRemocao = false;
+
 // PATCH FASE 1: dashboard admin SEM slice(0,5) — mostra TODOS os clientes
 function renderDashAdmin(){
   const totalClientes = DB.clients.length;
@@ -1810,14 +1866,29 @@ function renderDashAdmin(){
   const totalCamp = DB.campaigns.filter(c => c.status === 'Ativa').length;
   const remSolicitadas = DB.demands.filter(d => d.remocaoSolicitada === 'SIM').length;
 
+  // Calcula produção do mês atual
+  const mesAtual = new Date().toISOString().slice(0,7);
+  const metasMes = (DB.producaoAgencia || []).filter(p => p.mes === mesAtual);
+  const totalMeta = metasMes.reduce((s,p) => s + Number(p.meta||0), 0);
+  let totalConcl = 0;
+  metasMes.forEach(p => { totalConcl += contarConcluidasNoMes(p.cliente, p.tipo, p.mes); });
+  const pctProducao = totalMeta > 0 ? Math.round(totalConcl / totalMeta * 100) : 0;
+
+  const SVG_USERS = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>`;
+  const SVG_LIST = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/></svg>`;
+  const SVG_MEGA = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`;
+  const SVG_TRASH = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>`;
+  const SVG_BARS = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>`;
+
   const kpis = [
-    { l:'Clientes Ativos', v: ativos+'/'+totalClientes, c: kColor('orange'), i:'👥' },
-    { l:'Demandas Abertas', v: demAbertas, c: kColor('blue'), i:'📋' },
-    { l:'Campanhas Ativas', v: totalCamp, c: kColor('green'), i:'📣' },
-    { l:'Solicitações Remoção', v: remSolicitadas, c: kColor('red'), i:'🗑️' }
+    { l:'Clientes Ativos', v: ativos+'/'+totalClientes, c: kColor('orange'), i: SVG_USERS, action: "aGoTo('a-clients')" },
+    { l:'Demandas Abertas', v: demAbertas, c: kColor('blue'), i: SVG_LIST, action: "dashGoToDemandsAbertas()" },
+    { l:'Produção do Mês', v: pctProducao+'%', c: kColor('purple'), i: SVG_BARS, action: "aGoTo('a-agencia')" },
+    { l:'Campanhas Ativas', v: totalCamp, c: kColor('green'), i: SVG_MEGA, action: "dashGoToCampanhasAtivas()" },
+    { l:'Solicitações Remoção', v: remSolicitadas, c: kColor('red'), i: SVG_TRASH, action: "dashGoToDemandsRemocao()" }
   ];
   document.getElementById('a-dash-kpis').innerHTML = kpis.map(k => `
-    <div class="kcard"><div class="kico" style="background:${k.c}22;color:${k.c}">${k.i}</div>
+    <div class="kcard" onclick="${k.action}"><div class="kico" style="background:${k.c}22;color:${k.c}">${k.i}</div>
     <div class="kl">${k.l}</div><div class="kv">${k.v}</div></div>`).join('');
 
   // PATCH FASE 1 (sem slice(0,5)): lista TODOS os clientes
@@ -1882,7 +1953,24 @@ function renderADemands(){
   const from = document.getElementById('fDemFrom').value;
   const to = document.getElementById('fDemTo').value;
   let items = filterByClientAndDate(DB.demands, cli, from, to, 'prazo');
+  if(_filterDemandsByRemocao){
+    items = items.filter(d => d.remocaoSolicitada === 'SIM');
+  }
   renderKanbanBoard(document.getElementById('a-dem-kanban'), items, true);
+  // Mostra/oculta indicador do filtro de remoção
+  let bar = document.getElementById('demRemFilterBar');
+  if(_filterDemandsByRemocao){
+    if(!bar){
+      bar = document.createElement('div');
+      bar.id = 'demRemFilterBar';
+      bar.style = 'background:rgba(231,76,60,.1);border:1px solid var(--red);color:var(--red);padding:8px 14px;border-radius:8px;margin-bottom:12px;font-size:12px;display:flex;justify-content:space-between;align-items:center';
+      bar.innerHTML = '<span>Mostrando apenas demandas com solicitação de remoção pendente</span><button onclick="_filterDemandsByRemocao=false;renderADemands()" style="background:transparent;border:1px solid var(--red);color:var(--red);padding:4px 12px;border-radius:6px;cursor:pointer;font-size:11px">Limpar filtro</button>';
+      const kanban = document.getElementById('a-dem-kanban');
+      kanban.parentNode.insertBefore(bar, kanban);
+    }
+  } else if(bar){
+    bar.remove();
+  }
 }
 
 function renderAIndicadores(){
@@ -1893,7 +1981,7 @@ function renderAIndicadores(){
   let items = (DB.indicators || []).filter(i => !cli || i.cliente === cli);
   document.getElementById('a-ind-kpis').innerHTML = items.slice(0,4).map(i => `
     <div class="kcard" onclick="detailIndicador('${esc(i.id)}')">
-      <div class="kico" style="background:${kColor(i.cor)}22;color:${kColor(i.cor)}">📊</div>
+      <div class="kico" style="background:${kColor(i.cor)}22;color:${kColor(i.cor)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
       <div class="kl">${esc(i.cliente)} • ${esc(i.metrica)}</div>
       <div class="kv" style="color:${kColor(i.cor)}">${esc(i.valor)}</div>
       <div class="kc ${String(i.variacao||'').startsWith('-')?'dn':'up'}">${esc(i.variacao||'')}</div>
@@ -1912,7 +2000,7 @@ function renderAIndicadores(){
   let tops = (DB.topContents || []).filter(t => !cli || t.cliente === cli);
   document.getElementById('a-ind-top').innerHTML = tops.length ? tops.map(t => `
     <div class="topcontent-card" onclick="detailTopContent('${esc(t.id)}')">
-      <div style="font-size:13px;font-weight:700;margin-bottom:4px">⭐ ${esc(t.titulo)}</div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:4px">${esc(t.titulo)}</div>
       <div style="font-size:11px;color:var(--muted);margin-bottom:4px">${esc(t.cliente||'')} • ${esc(t.metrica||'')}</div>
       ${t.link?`<div class="topcontent-link">${esc(t.link)}</div>`:''}
     </div>`).join('') : '<p style="font-size:12px;color:var(--muted)">Nenhum top conteúdo cadastrado</p>';
@@ -1970,7 +2058,7 @@ function renderACampanhas(){
     <div class="camp-card" onclick="detailCampanha('${esc(c.id)}')">
       <div style="display:flex;justify-content:space-between;margin-bottom:6px"><div style="font-weight:700;font-size:14px">${esc(c.cliente)} — ${esc(c.titulo)}</div><span class="b b${c.status==='Ativa'?'gr':'ye'}">${esc(c.status)}</span></div>
       <div style="font-size:12px;color:var(--muted);margin-bottom:8px">${esc((c.desc||'').slice(0,140))}</div>
-      <div style="display:flex;gap:12px;font-size:11px;color:var(--muted)"><span>📣 ${esc(c.plat||'—')}</span>${c.orcamento?`<span>💰 ${moneyBR(c.orcamento)}</span>`:''}${c.ini?`<span>📅 ${fmtDate(c.ini)} → ${c.fim?fmtDate(c.fim):'—'}</span>`:''}</div>
+      <div style="display:flex;gap:12px;font-size:11px;color:var(--muted)"><span>${esc(c.plat||'—')}</span>${c.orcamento?`<span>${moneyBR(c.orcamento)}</span>`:''}${c.ini?`<span>${fmtDate(c.ini)} → ${c.fim?fmtDate(c.fim):'—'}</span>`:''}</div>
     </div>`).join('') : '<p style="font-size:12px;color:var(--muted);padding:20px">Nenhuma campanha</p>';
 }
 
@@ -1994,17 +2082,27 @@ function renderAMetas(){
 //   % concluído = demandas concluídas do mês cujo tipo bate com a meta
 // ═════════════════════════════════════════════════════════════════
 
-function tipoDemandaParaCategoria(tipoDem){
-  const t = String(tipoDem||'').toLowerCase();
-  if(t.indexOf('arte')>=0 || t.indexOf('design')>=0 || t.indexOf('feed')>=0) return 'feed';
-  if(t.indexOf('vídeo')>=0 || t.indexOf('video')>=0 || t.indexOf('reels')>=0) return 'reels';
-  if(t.indexOf('stories')>=0) return 'stories';
-  if(t.indexOf('carrossel')>=0) return 'carrossel';
-  return 'outro';
+// Categorias de publicação suportadas (independem da rede social)
+// Demandas só contam na produção se tiverem o campo "publicacao" preenchido
+// com um destes valores. Se "publicacao" for vazio ou "nao", não conta.
+const PUBLICACAO_TIPOS = [
+  { v: 'feed',      label: 'Post Feed (foto/imagem)' },
+  { v: 'reels',     label: 'Reels / Vídeo curto' },
+  { v: 'stories',   label: 'Stories' },
+  { v: 'carrossel', label: 'Carrossel' },
+  { v: 'video',     label: 'Vídeo longo (YouTube/IGTV)' },
+  { v: 'artigo',    label: 'Artigo / Texto longo' },
+  { v: 'outro',     label: 'Outro tipo de publicação' }
+];
+
+function publicacaoLabel(v){
+  const m = PUBLICACAO_TIPOS.find(t => t.v === v);
+  return m ? m.label : v;
 }
 
 function contarConcluidasNoMes(cliente, tipoMeta, mesAno){
   // mesAno = 'YYYY-MM'
+  // Conta demandas concluídas do mês cujo CAMPO publicacao bate com tipoMeta
   if(!mesAno) return 0;
   return DB.demands.filter(d => {
     if(d.cliente !== cliente) return false;
@@ -2012,8 +2110,10 @@ function contarConcluidasNoMes(cliente, tipoMeta, mesAno){
     if(!d.prazo) return false;
     const mes = String(d.prazo).slice(0,7);
     if(mes !== mesAno) return false;
+    const pub = String(d.publicacao || '').toLowerCase();
+    if(!pub || pub === 'nao' || pub === 'não') return false; // só conta se for publicação
     if(tipoMeta === 'total') return true;
-    return tipoDemandaParaCategoria(d.tipo) === tipoMeta;
+    return pub === tipoMeta;
   }).length;
 }
 
@@ -2032,10 +2132,10 @@ function renderAAgencia(){
 
   // KPIs
   const kpis = [
-    { l:'Meta Global do Mês', v: totalMeta, c: kColor('orange'), i:'🎯' },
-    { l:'Concluídas', v: totalConcl, c: kColor('green'), i:'✅' },
-    { l:'% Atingido', v: pctGlobal+'%', c: kColor('blue'), i:'📈' },
-    { l:'Clientes c/ Meta', v: new Set(metasDoMes.map(p=>p.cliente)).size, c: kColor('purple'), i:'👥' }
+    { l:'Meta Global do Mês', v: totalMeta, c: kColor('orange'), i:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="2"/></svg>` },
+    { l:'Concluídas', v: totalConcl, c: kColor('green'), i:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="20 6 9 17 4 12"/></svg>` },
+    { l:'% Atingido', v: pctGlobal+'%', c: kColor('blue'), i:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>` },
+    { l:'Clientes c/ Meta', v: new Set(metasDoMes.map(p=>p.cliente)).size, c: kColor('purple'), i:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>` }
   ];
   document.getElementById('a-agencia-kpis').innerHTML = kpis.map(k => `
     <div class="kcard"><div class="kico" style="background:${k.c}22;color:${k.c}">${k.i}</div>
@@ -2092,22 +2192,22 @@ function renderAlertas(){
   hoje.setHours(0,0,0,0);
   const diff = (a,b) => Math.round((new Date(a)-b)/86400000);
   const anivs = DB.clients.filter(c => c.anivEmp).map(c => ({nome:c.nome, data:c.anivEmp, dias:diff(c.anivEmp, hoje)}));
-  document.getElementById('a-alerta-aniv').innerHTML = anivs.length ? anivs.map(a => `<div class="alert-card birthday">🎂 <strong>${esc(a.nome)}</strong> — ${fmtDate(a.data)} ${a.dias>=0?`(em ${a.dias} dias)`:`(há ${Math.abs(a.dias)} dias)`}</div>`).join('') : '<p style="font-size:12px;color:var(--muted)">Nada cadastrado</p>';
+  document.getElementById('a-alerta-aniv').innerHTML = anivs.length ? anivs.map(a => `<div class="alert-card birthday"><strong>${esc(a.nome)}</strong> — ${fmtDate(a.data)} ${a.dias>=0?`(em ${a.dias} dias)`:`(há ${Math.abs(a.dias)} dias)`}</div>`).join('') : '<p style="font-size:12px;color:var(--muted)">Nada cadastrado</p>';
 
   document.getElementById('a-alerta-colabs').innerHTML = '<p style="font-size:12px;color:var(--muted)">Cadastre datas de colaboradores no perfil de cada cliente</p>';
 
   const renovs = DB.clients.filter(c => c.renovacao).map(c => ({nome:c.nome, data:c.renovacao, dias:diff(c.renovacao, hoje)})).sort((a,b)=>a.dias-b.dias);
-  document.getElementById('a-alerta-renov').innerHTML = renovs.length ? renovs.map(r => `<div class="alert-card renewal">🔄 <strong>${esc(r.nome)}</strong> — ${fmtDate(r.data)} ${r.dias>=0?`(em ${r.dias} dias)`:`(vencida há ${Math.abs(r.dias)} dias)`}</div>`).join('') : '<p style="font-size:12px;color:var(--muted)">Nada cadastrado</p>';
+  document.getElementById('a-alerta-renov').innerHTML = renovs.length ? renovs.map(r => `<div class="alert-card renewal"><strong>${esc(r.nome)}</strong> — ${fmtDate(r.data)} ${r.dias>=0?`(em ${r.dias} dias)`:`(vencida há ${Math.abs(r.dias)} dias)`}</div>`).join('') : '<p style="font-size:12px;color:var(--muted)">Nada cadastrado</p>';
 
   const vencs = DB.clients.filter(c => c.contratoFim).map(c => ({nome:c.nome, data:c.contratoFim, dias:diff(c.contratoFim, hoje)})).sort((a,b)=>a.dias-b.dias);
-  document.getElementById('a-alerta-venc').innerHTML = vencs.length ? vencs.map(v => `<div class="alert-card contract">📋 <strong>${esc(v.nome)}</strong> — vence em ${fmtDate(v.data)} ${v.dias>=0?`(em ${v.dias} dias)`:`(há ${Math.abs(v.dias)} dias)`}</div>`).join('') : '<p style="font-size:12px;color:var(--muted)">Nada cadastrado</p>';
+  document.getElementById('a-alerta-venc').innerHTML = vencs.length ? vencs.map(v => `<div class="alert-card contract"> <strong>${esc(v.nome)}</strong> — vence em ${fmtDate(v.data)} ${v.dias>=0?`(em ${v.dias} dias)`:`(há ${Math.abs(v.dias)} dias)`}</div>`).join('') : '<p style="font-size:12px;color:var(--muted)">Nada cadastrado</p>';
 }
 
 function renderUpload(){
   const sel = document.getElementById('upClientSel');
   if(!sel) return;
   sel.innerHTML = '<option value="">— Selecione um cliente —</option>' + DB.clients.map(c => `<option value="${esc(c.id)}">${esc(c.nome)}</option>`).join('');
-  document.getElementById('scriptStatusBar').innerHTML = backendOk ? '<span style="color:var(--green)">✅ Conectado ao Apps Script</span>' : '<span style="color:var(--red)">❌ Sem conexão</span>';
+  document.getElementById('scriptStatusBar').innerHTML = backendOk ? '<span style="color:var(--green)">Conectado ao Apps Script</span>' : '<span style="color:var(--red)">Sem conexão</span>';
 }
 function onUpClientChange(){
   const id = document.getElementById('upClientSel').value;
@@ -2251,11 +2351,11 @@ async function salvarUsuario(){
   try {
     const r = await appsFetch(null, true, {action:'saveUser', token:currentToken, user:u});
     if(r.ok){
-      showToast('✅ Usuário salvo');
+      showToast('Usuário salvo');
       closeModal('userModal');
       listarUsuariosDoCliente(u.clienteId);
-    } else { showToast('❌ '+(r.msg||'falhou')); }
-  } catch(e){ showToast('❌ '+e.message); }
+    } else { showToast(''+(r.msg||'falhou')); }
+  } catch(e){ showToast(''+e.message); }
 }
 
 async function deletarUsuario(){
@@ -2265,9 +2365,9 @@ async function deletarUsuario(){
   if(!confirm('Remover este usuário?')) return;
   try {
     const r = await appsFetch(null, true, {action:'deleteUser', token:currentToken, id:id});
-    if(r.ok){ showToast('✅ Removido'); closeModal('userModal'); listarUsuariosDoCliente(cid); }
-    else { showToast('❌ '+(r.msg||'falhou')); }
-  } catch(e){ showToast('❌ '+e.message); }
+    if(r.ok){ showToast('Removido'); closeModal('userModal'); listarUsuariosDoCliente(cid); }
+    else { showToast(''+(r.msg||'falhou')); }
+  } catch(e){ showToast(''+e.message); }
 }
 
 async function salvarCliente(){
@@ -2295,7 +2395,7 @@ async function salvarCliente(){
     const idx = DB.clients.findIndex(x => String(x.id) === String(c.id));
     if(idx >= 0) DB.clients[idx] = Object.assign({}, DB.clients[idx], c);
     else DB.clients.unshift(c);
-    showToast('✅ Cliente salvo');
+    showToast('Cliente salvo');
     document.getElementById('cmId').value = c.id;
     document.getElementById('btnAddUserToClient').style.display = 'inline-block';
     if(_editClientId !== c.id){ _editClientId = c.id; listarUsuariosDoCliente(c.id); }
@@ -2311,7 +2411,7 @@ async function deletarCliente(){
   if(r.ok){
     DB.clients = DB.clients.filter(c => String(c.id) !== String(id));
     closeModal('clientModal');
-    showToast('✅ Removido');
+    showToast('Removido');
     renderClientTable(); renderDashAdmin();
   }
 }
@@ -2333,6 +2433,8 @@ function openADemandModal(id){
   document.getElementById('adStatus').value = d ? d.status || 'Novo' : 'Novo';
   document.getElementById('adResp').value = d ? d.resp || '' : '';
   document.getElementById('adProg').value = d ? d.prog || 0 : 0;
+  document.getElementById('adPublicacao').value = d ? d.publicacao || '' : '';
+  document.getElementById('adLink').value = d ? d.link || '' : '';
   document.getElementById('adDesc').value = d ? d.desc || '' : '';
   document.getElementById('adDelBtn').style.display = d ? 'inline-block' : 'none';
   closeDetail();
@@ -2350,6 +2452,8 @@ async function salvarADemanda(){
     status: document.getElementById('adStatus').value,
     resp: document.getElementById('adResp').value.trim(),
     prog: Number(document.getElementById('adProg').value || 0),
+    publicacao: document.getElementById('adPublicacao').value,
+    link: document.getElementById('adLink').value.trim(),
     desc: document.getElementById('adDesc').value.trim()
   };
   if(!row.titulo){ showToast('Título obrigatório'); return; }
@@ -2359,7 +2463,7 @@ async function salvarADemanda(){
     if(idx >= 0) DB.demands[idx] = Object.assign({}, DB.demands[idx], row);
     else DB.demands.unshift(row);
     closeModal('aDemandModal');
-    showToast('✅ Salvo');
+    showToast('Salvo');
     renderADemands();
   }
 }
@@ -2372,7 +2476,7 @@ async function deletarADemanda(){
   if(r.ok){
     DB.demands = DB.demands.filter(d => String(d.id) !== String(id));
     closeModal('aDemandModal');
-    showToast('✅ Removido');
+    showToast('Removido');
     renderADemands();
   }
 }
@@ -2383,7 +2487,7 @@ async function deletarDemandaDireto(id){
   if(r.ok){
     DB.demands = DB.demands.filter(d => String(d.id) !== String(id));
     closeDetail();
-    showToast('✅ Removida');
+    showToast('Removida');
     renderADemands();
     renderDashAdmin();
   }
@@ -2395,7 +2499,7 @@ async function confirmarRemocao(id){
   if(r.ok){
     DB.demands = DB.demands.filter(d => String(d.id) !== String(id));
     closeDetail();
-    showToast('✅ Removida');
+    showToast('Removida');
     renderADemands();
   }
 }
@@ -2406,9 +2510,9 @@ async function cancelarRemocao(id){
     if(r.ok){
       const d = DB.demands.find(x => String(x.id) === String(id));
       if(d){ d.remocaoSolicitada=''; d.remocaoMotivo=''; d.remocaoEm=''; d.remocaoPor=''; }
-      closeDetail(); showToast('✅ Solicitação cancelada'); renderADemands();
+      closeDetail(); showToast('Solicitação cancelada'); renderADemands();
     }
-  } catch(e){ showToast('❌ '+e.message); }
+  } catch(e){ showToast(''+e.message); }
 }
 
 // ═════════════════════════════════════════════════════════════════
@@ -2451,7 +2555,7 @@ async function salvarIndicador(){
     const idx = DB.indicators.findIndex(x => String(x.id) === String(row.id));
     if(idx >= 0) DB.indicators[idx] = row;
     else DB.indicators.unshift(row);
-    closeModal('indModal'); showToast('✅ Salvo');
+    closeModal('indModal'); showToast('Salvo');
     if(currentSec === 'a-indicadores') renderAIndicadores();
   }
 }
@@ -2462,7 +2566,7 @@ async function deletarIndicador(){
   const r = await sheetsDelete('Indicadores', id);
   if(r.ok){
     DB.indicators = DB.indicators.filter(x => String(x.id) !== String(id));
-    closeModal('indModal'); showToast('✅ Removido');
+    closeModal('indModal'); showToast('Removido');
     if(currentSec === 'a-indicadores') renderAIndicadores();
   }
 }
@@ -2474,7 +2578,7 @@ async function deletarIndicador(){
 function openTopModal(id){
   popularSelectClientes('tmCliente');
   const t = id ? DB.topContents.find(x => String(x.id) === String(id)) : null;
-  document.getElementById('topModalTitle').textContent = t ? 'Editar Top Conteúdo' : '⭐ Novo Top Conteúdo';
+  document.getElementById('topModalTitle').textContent = t ? 'Editar Top Conteúdo' : 'Novo Top Conteúdo';
   document.getElementById('tmId').value = t ? t.id : '';
   document.getElementById('tmCliente').value = t ? t.cliente : '';
   document.getElementById('tmLink').value = t ? t.link || '' : '';
@@ -2500,7 +2604,7 @@ async function salvarTopContent(){
   if(r.ok){
     const idx = DB.topContents.findIndex(x => String(x.id) === String(row.id));
     if(idx >= 0) DB.topContents[idx] = row; else DB.topContents.unshift(row);
-    closeModal('topModal'); showToast('✅ Salvo');
+    closeModal('topModal'); showToast('Salvo');
     if(currentSec === 'a-indicadores') renderAIndicadores();
   }
 }
@@ -2511,7 +2615,7 @@ async function deletarTopContent(){
   const r = await sheetsDelete('TopContents', id);
   if(r.ok){
     DB.topContents = DB.topContents.filter(x => String(x.id) !== String(id));
-    closeModal('topModal'); showToast('✅ Removido');
+    closeModal('topModal'); showToast('Removido');
     if(currentSec === 'a-indicadores') renderAIndicadores();
   }
 }
@@ -2549,7 +2653,7 @@ async function salvarRelatorio(){
   if(r.ok){
     const idx = DB.reports.findIndex(x => String(x.id) === String(row.id));
     if(idx >= 0) DB.reports[idx] = row; else DB.reports.unshift(row);
-    closeModal('relModal'); showToast('✅ Salvo');
+    closeModal('relModal'); showToast('Salvo');
     if(currentSec === 'a-relatorios') renderARelatorios();
   }
 }
@@ -2560,7 +2664,7 @@ async function deletarRelatorio(){
   const r = await sheetsDelete('Relatorios', id);
   if(r.ok){
     DB.reports = DB.reports.filter(x => String(x.id) !== String(id));
-    closeModal('relModal'); showToast('✅ Removido');
+    closeModal('relModal'); showToast('Removido');
     if(currentSec === 'a-relatorios') renderARelatorios();
   }
 }
@@ -2598,7 +2702,7 @@ async function salvarMercado(){
   if(r.ok){
     const idx = DB.market.findIndex(x => String(x.id) === String(row.id));
     if(idx >= 0) DB.market[idx] = row; else DB.market.unshift(row);
-    closeModal('mercModal'); showToast('✅ Salvo');
+    closeModal('mercModal'); showToast('Salvo');
     if(currentSec === 'a-mercado') renderAMercado();
   }
 }
@@ -2609,7 +2713,7 @@ async function deletarMercado(){
   const r = await sheetsDelete('Mercado', id);
   if(r.ok){
     DB.market = DB.market.filter(x => String(x.id) !== String(id));
-    closeModal('mercModal'); showToast('✅ Removido');
+    closeModal('mercModal'); showToast('Removido');
     if(currentSec === 'a-mercado') renderAMercado();
   }
 }
@@ -2629,6 +2733,7 @@ function openEstModal(id){
   document.getElementById('emDesc').value = s ? s.desc || '' : '';
   document.getElementById('emProg').value = s ? s.prog || 0 : 0;
   document.getElementById('emIni').value = s && s.ini ? toISODate(s.ini) : '';
+  document.getElementById('emLink').value = s ? s.link || '' : '';
   document.getElementById('emDelBtn').style.display = s ? 'inline-block' : 'none';
   closeDetail();
   openModal('estModal');
@@ -2642,14 +2747,15 @@ async function salvarEstrategia(){
     titulo: document.getElementById('emTitulo').value.trim(),
     desc: document.getElementById('emDesc').value.trim(),
     prog: Number(document.getElementById('emProg').value || 0),
-    ini: document.getElementById('emIni').value
+    ini: document.getElementById('emIni').value,
+    link: document.getElementById('emLink').value.trim()
   };
   if(!row.titulo){ showToast('Título obrigatório'); return; }
   const r = await sheetsSave('Estrategias', row);
   if(r.ok){
     const idx = DB.strategies.findIndex(x => String(x.id) === String(row.id));
     if(idx >= 0) DB.strategies[idx] = row; else DB.strategies.unshift(row);
-    closeModal('estModal'); showToast('✅ Salvo');
+    closeModal('estModal'); showToast('Salvo');
     if(currentSec === 'a-estrategias') renderAEstrategias();
   }
 }
@@ -2660,7 +2766,7 @@ async function deletarEstrategia(){
   const r = await sheetsDelete('Estrategias', id);
   if(r.ok){
     DB.strategies = DB.strategies.filter(x => String(x.id) !== String(id));
-    closeModal('estModal'); showToast('✅ Removido');
+    closeModal('estModal'); showToast('Removido');
     if(currentSec === 'a-estrategias') renderAEstrategias();
   }
 }
@@ -2700,7 +2806,7 @@ async function salvarEvento(){
   if(r.ok){
     const idx = DB.calEvents.findIndex(x => String(x.id) === String(row.id));
     if(idx >= 0) DB.calEvents[idx] = row; else DB.calEvents.unshift(row);
-    closeModal('calModal'); showToast('✅ Salvo');
+    closeModal('calModal'); showToast('Salvo');
     renderACalendar();
   }
 }
@@ -2711,7 +2817,7 @@ async function deletarEvento(){
   const r = await sheetsDelete('Calendario', id);
   if(r.ok){
     DB.calEvents = DB.calEvents.filter(x => String(x.id) !== String(id));
-    closeModal('calModal'); showToast('✅ Removido');
+    closeModal('calModal'); showToast('Removido');
     renderACalendar();
   }
 }
@@ -2755,7 +2861,7 @@ async function salvarCampanha(){
   if(r.ok){
     const idx = DB.campaigns.findIndex(x => String(x.id) === String(row.id));
     if(idx >= 0) DB.campaigns[idx] = row; else DB.campaigns.unshift(row);
-    closeModal('campModal'); showToast('✅ Salvo');
+    closeModal('campModal'); showToast('Salvo');
     if(currentSec === 'a-campanhas') renderACampanhas();
   }
 }
@@ -2766,7 +2872,7 @@ async function deletarCampanha(){
   const r = await sheetsDelete('Campanhas', id);
   if(r.ok){
     DB.campaigns = DB.campaigns.filter(x => String(x.id) !== String(id));
-    closeModal('campModal'); showToast('✅ Removido');
+    closeModal('campModal'); showToast('Removido');
     if(currentSec === 'a-campanhas') renderACampanhas();
   }
 }
@@ -2808,7 +2914,7 @@ async function salvarMeta(){
   if(r.ok){
     const idx = DB.goals.findIndex(x => String(x.id) === String(row.id));
     if(idx >= 0) DB.goals[idx] = row; else DB.goals.unshift(row);
-    closeModal('metaModal'); showToast('✅ Salvo');
+    closeModal('metaModal'); showToast('Salvo');
     if(currentSec === 'a-metas') renderAMetas();
   }
 }
@@ -2819,7 +2925,7 @@ async function deletarMeta(){
   const r = await sheetsDelete('Metas', id);
   if(r.ok){
     DB.goals = DB.goals.filter(x => String(x.id) !== String(id));
-    closeModal('metaModal'); showToast('✅ Removido');
+    closeModal('metaModal'); showToast('Removido');
     if(currentSec === 'a-metas') renderAMetas();
   }
 }
@@ -2831,7 +2937,7 @@ async function deletarMeta(){
 function openAgenciaModal(id){
   popularSelectClientes('agCliente');
   const p = id ? DB.producaoAgencia.find(x => String(x.id) === String(id)) : null;
-  document.getElementById('agenciaModalTitle').textContent = p ? 'Editar Meta de Produção' : '🏢 Nova Meta de Produção';
+  document.getElementById('agenciaModalTitle').textContent = p ? 'Editar Meta de Produção' : 'Nova Meta de Produção';
   document.getElementById('agId').value = p ? p.id : '';
   document.getElementById('agCliente').value = p ? p.cliente : '';
   document.getElementById('agMes').value = p ? p.mes : new Date().toISOString().slice(0,7);
@@ -2856,7 +2962,7 @@ async function salvarAgenciaMeta(){
   if(r.ok){
     const idx = DB.producaoAgencia.findIndex(x => String(x.id) === String(row.id));
     if(idx >= 0) DB.producaoAgencia[idx] = row; else DB.producaoAgencia.unshift(row);
-    closeModal('agenciaModal'); showToast('✅ Salvo');
+    closeModal('agenciaModal'); showToast('Salvo');
     renderAAgencia();
   }
 }
@@ -2867,7 +2973,7 @@ async function deletarAgenciaMeta(){
   const r = await sheetsDelete('ProducaoAgencia', id);
   if(r.ok){
     DB.producaoAgencia = DB.producaoAgencia.filter(x => String(x.id) !== String(id));
-    closeModal('agenciaModal'); showToast('✅ Removido');
+    closeModal('agenciaModal'); showToast('Removido');
     renderAAgencia();
   }
 }
@@ -2907,7 +3013,7 @@ async function salvarClientInd(){
   if(r.ok){
     const idx = DB.indicators.findIndex(x => String(x.id) === String(row.id));
     if(idx >= 0) DB.indicators[idx] = row; else DB.indicators.unshift(row);
-    closeModal('clientIndModal'); showToast('✅ Salvo'); renderCIndicadores();
+    closeModal('clientIndModal'); showToast('Salvo'); renderCIndicadores();
   }
 }
 
@@ -2917,7 +3023,7 @@ async function deletarClientInd(){
   const r = await sheetsDelete('Indicadores', id);
   if(r.ok){
     DB.indicators = DB.indicators.filter(x => String(x.id) !== String(id));
-    closeModal('clientIndModal'); showToast('✅ Removido'); renderCIndicadores();
+    closeModal('clientIndModal'); showToast('Removido'); renderCIndicadores();
   }
 }
 
@@ -2951,7 +3057,7 @@ async function salvarClientMetaInd(){
   if(r.ok){
     const idx = DB.goals.findIndex(x => String(x.id) === String(row.id));
     if(idx >= 0) DB.goals[idx] = row; else DB.goals.unshift(row);
-    closeModal('clientMetaIndModal'); showToast('✅ Salvo'); renderCIndicadores(); renderCOverview();
+    closeModal('clientMetaIndModal'); showToast('Salvo'); renderCIndicadores(); renderCOverview();
   }
 }
 
@@ -2961,7 +3067,7 @@ async function deletarClientMetaInd(){
   const r = await sheetsDelete('Metas', id);
   if(r.ok){
     DB.goals = DB.goals.filter(x => String(x.id) !== String(id));
-    closeModal('clientMetaIndModal'); showToast('✅ Removido'); renderCIndicadores();
+    closeModal('clientMetaIndModal'); showToast('Removido'); renderCIndicadores();
   }
 }
 
@@ -2992,7 +3098,7 @@ async function salvarClientTop(){
   if(r.ok){
     const idx = DB.topContents.findIndex(x => String(x.id) === String(row.id));
     if(idx >= 0) DB.topContents[idx] = row; else DB.topContents.unshift(row);
-    closeModal('clientTopModal'); showToast('✅ Salvo'); renderCIndicadores();
+    closeModal('clientTopModal'); showToast('Salvo'); renderCIndicadores();
   }
 }
 
@@ -3002,7 +3108,7 @@ async function deletarClientTop(){
   const r = await sheetsDelete('TopContents', id);
   if(r.ok){
     DB.topContents = DB.topContents.filter(x => String(x.id) !== String(id));
-    closeModal('clientTopModal'); showToast('✅ Removido'); renderCIndicadores();
+    closeModal('clientTopModal'); showToast('Removido'); renderCIndicadores();
   }
 }
 
@@ -3033,7 +3139,7 @@ async function salvarClientRel(){
   if(r.ok){
     const idx = DB.reports.findIndex(x => String(x.id) === String(row.id));
     if(idx >= 0) DB.reports[idx] = row; else DB.reports.unshift(row);
-    closeModal('clientRelModal'); showToast('✅ Salvo'); renderCRelatorios();
+    closeModal('clientRelModal'); showToast('Salvo'); renderCRelatorios();
   }
 }
 
@@ -3043,7 +3149,7 @@ async function deletarClientRel(){
   const r = await sheetsDelete('Relatorios', id);
   if(r.ok){
     DB.reports = DB.reports.filter(x => String(x.id) !== String(id));
-    closeModal('clientRelModal'); showToast('✅ Removido'); renderCRelatorios();
+    closeModal('clientRelModal'); showToast('Removido'); renderCRelatorios();
   }
 }
 
@@ -3055,6 +3161,7 @@ function openClientEstModal(id){
   document.getElementById('ceStatus').value = s ? s.status || 'Ativa' : 'Ativa';
   document.getElementById('ceProg').value = s ? s.prog || 0 : 0;
   document.getElementById('ceIni').value = s && s.ini ? toISODate(s.ini) : '';
+  document.getElementById('ceLink').value = s ? s.link || '' : '';
   document.getElementById('ceDelBtn').style.display = s ? 'inline-block' : 'none';
   closeDetail();
   openModal('clientEstModal');
@@ -3069,6 +3176,7 @@ async function salvarClientEst(){
     status: document.getElementById('ceStatus').value,
     prog: Number(document.getElementById('ceProg').value || 0),
     ini: document.getElementById('ceIni').value,
+    link: document.getElementById('ceLink').value.trim(),
     clientUser: currentUser.user
   };
   if(!row.titulo){ showToast('Título obrigatório'); return; }
@@ -3076,7 +3184,7 @@ async function salvarClientEst(){
   if(r.ok){
     const idx = DB.strategies.findIndex(x => String(x.id) === String(row.id));
     if(idx >= 0) DB.strategies[idx] = row; else DB.strategies.unshift(row);
-    closeModal('clientEstModal'); showToast('✅ Salvo'); renderCEstrategias();
+    closeModal('clientEstModal'); showToast('Salvo'); renderCEstrategias();
   }
 }
 
@@ -3086,7 +3194,7 @@ async function deletarClientEst(){
   const r = await sheetsDelete('Estrategias', id);
   if(r.ok){
     DB.strategies = DB.strategies.filter(x => String(x.id) !== String(id));
-    closeModal('clientEstModal'); showToast('✅ Removido'); renderCEstrategias();
+    closeModal('clientEstModal'); showToast('Removido'); renderCEstrategias();
   }
 }
 
@@ -3109,9 +3217,9 @@ async function enviarSolicRemocao(){
     if(r.ok){
       const d = DB.demands.find(x => String(x.id) === String(id));
       if(d){ d.remocaoSolicitada='SIM'; d.remocaoMotivo=motivo; }
-      closeModal('remModal'); showToast('✅ Solicitação enviada ao admin'); renderCDemandsKanban();
-    } else { showToast('❌ '+(r.msg||'falhou')); }
-  } catch(e){ showToast('❌ '+e.message); }
+      closeModal('remModal'); showToast('Solicitação enviada ao admin'); renderCDemandsKanban();
+    } else { showToast(''+(r.msg||'falhou')); }
+  } catch(e){ showToast(''+e.message); }
 }
 </script>
 <script>
@@ -3328,11 +3436,81 @@ async function salvarBriefing(){
     if(el) data[f.id] = el.value.trim();
   }));
   try {
-    setSyncBanner('warn','⏳ Salvando briefing...');
+    setSyncBanner('warn','Salvando briefing...');
     const r = await appsFetch(null, true, {action:'saveBriefing', token:currentToken, clienteId:currentClient.id, briefing:data});
-    if(r.ok){ setSyncBanner('ok','✅ Briefing salvo'); showToast('✅ Briefing salvo'); }
-    else { setSyncBanner('err','❌ '+(r.msg||'falhou')); }
-  } catch(e){ setSyncBanner('err','❌ '+e.message); }
+    if(r.ok){ setSyncBanner('ok','Briefing salvo'); showToast('Briefing salvo'); }
+    else { setSyncBanner('err',(r.msg||'falhou')); }
+  } catch(e){ setSyncBanner('err',e.message); }
+}
+
+// ═════════════════════════════════════════════════════════════════
+//   BRIEFING ADMIN — escolhe cliente e edita briefing dele
+// ═════════════════════════════════════════════════════════════════
+
+let _adminBriefingClienteId = null;
+let _adminBriefingData = {};
+let _adminBriefingMeta = { updatedAt:'', updatedBy:'' };
+
+function renderABriefing(){
+  const sel = document.getElementById('aBriefClienteSel');
+  if(!sel) return;
+  const curr = sel.value;
+  sel.innerHTML = '<option value="">— Selecione um cliente —</option>' + DB.clients.map(c => `<option value="${esc(c.id)}">${esc(c.nome)}</option>`).join('');
+  sel.value = curr;
+  if(!curr){
+    document.getElementById('aBriefingContainer').innerHTML = '<p style="color:var(--muted);padding:30px;text-align:center">Selecione um cliente para visualizar e editar o Briefing dele.</p>';
+    document.getElementById('aBriefingFooter').style.display = 'none';
+  }
+}
+
+async function loadAdminBriefing(){
+  const cid = document.getElementById('aBriefClienteSel').value;
+  const cont = document.getElementById('aBriefingContainer');
+  const footer = document.getElementById('aBriefingFooter');
+  if(!cid){
+    cont.innerHTML = '<p style="color:var(--muted);padding:30px;text-align:center">Selecione um cliente para visualizar e editar o Briefing dele.</p>';
+    footer.style.display = 'none';
+    return;
+  }
+  _adminBriefingClienteId = cid;
+  cont.innerHTML = '<p style="color:var(--muted);padding:30px;text-align:center">Carregando briefing...</p>';
+  try {
+    const r = await appsFetch(null, true, {action:'loadBriefing', token:currentToken, clienteId:cid});
+    _adminBriefingData = (r && r.briefing) ? r.briefing : {};
+    _adminBriefingMeta = { updatedAt: r.updatedAt || '', updatedBy: r.updatedBy || '' };
+  } catch(e){ _adminBriefingData = {}; }
+  cont.innerHTML = BRIEFING_SCHEMA.map(sec => `
+    <div class="card">
+      <div class="ct"><div class="ct-left"><div class="ctd"></div>${esc(sec.title)}</div></div>
+      ${sec.fields.map(f => {
+        const val = _adminBriefingData[f.id] || '';
+        return `<div class="fg2"><label>${esc(f.label)}</label>${
+          f.type === 'textarea' ?
+            `<textarea id="abrief_${f.id}">${esc(val)}</textarea>` :
+            `<input id="abrief_${f.id}" type="text" value="${esc(val)}"/>`
+        }</div>`;
+      }).join('')}
+    </div>`).join('');
+  footer.style.display = 'flex';
+  const meta = document.getElementById('aBriefingMeta');
+  if(_adminBriefingMeta.updatedAt){
+    meta.textContent = `Última atualização: ${fmtDateTime(_adminBriefingMeta.updatedAt)} por ${esc(_adminBriefingMeta.updatedBy)}`;
+  } else { meta.textContent = 'Nunca atualizado'; }
+}
+
+async function salvarAdminBriefing(){
+  if(!_adminBriefingClienteId){ showToast('Selecione um cliente'); return; }
+  const data = {};
+  BRIEFING_SCHEMA.forEach(sec => sec.fields.forEach(f => {
+    const el = document.getElementById('abrief_' + f.id);
+    if(el) data[f.id] = el.value.trim();
+  }));
+  try {
+    setSyncBanner('warn','Salvando briefing...');
+    const r = await appsFetch(null, true, {action:'saveBriefing', token:currentToken, clienteId:_adminBriefingClienteId, briefing:data});
+    if(r.ok){ setSyncBanner('ok','Briefing salvo'); showToast('Briefing salvo'); loadAdminBriefing(); }
+    else { setSyncBanner('err',(r.msg||'falhou')); }
+  } catch(e){ setSyncBanner('err',e.message); }
 }
 
 // ═════════════════════════════════════════════════════════════════
@@ -3371,7 +3549,11 @@ function renderFilesGrid(){
   else if(_driveFilter === 'doc'){ files = files.filter(f => f.mimeType && (f.mimeType.indexOf('document')>=0 || f.mimeType.indexOf('pdf')>=0 || f.mimeType.indexOf('sheet')>=0)); }
   document.getElementById('filesGrid').innerHTML = files.length ? files.map(f => {
     const isImg = f.mimeType && f.mimeType.startsWith('image/');
-    const icon = isImg ? '🖼️' : (f.mimeType && f.mimeType.startsWith('video/') ? '🎬' : (f.mimeType && f.mimeType.indexOf('pdf')>=0 ? '📄' : '📁'));
+    const SVG_IMG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>';
+    const SVG_VID = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>';
+    const SVG_PDF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>';
+    const SVG_FOLDER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>';
+    const icon = isImg ? SVG_IMG : (f.mimeType && f.mimeType.startsWith('video/') ? SVG_VID : (f.mimeType && f.mimeType.indexOf('pdf')>=0 ? SVG_PDF : SVG_FOLDER));
     return `<div class="fc" onclick="window.open('${esc(f.webViewLink)}', '_blank')">
       <div style="font-size:24px">${icon}</div>
       <div class="fn" title="${esc(f.name)}">${esc(f.name)}</div>
@@ -3411,7 +3593,7 @@ async function uploadFile(file, folderId, listElId, extra){
   const li = document.createElement('li');
   const id = uid();
   li.id = 'upitem-' + id;
-  li.innerHTML = `<span style="font-size:14px">📎</span><span style="flex:1">${esc(file.name)} (${(file.size/1024/1024).toFixed(2)} MB)</span><span class="up-status" id="upst-${id}">aguardando...</span><div class="up-progress"><div class="up-progress-bar" id="upbar-${id}" style="width:0%"></div></div>`;
+  li.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" style="opacity:.6"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg><span style="flex:1">${esc(file.name)} (${(file.size/1024/1024).toFixed(2)} MB)</span><span class="up-status" id="upst-${id}">aguardando...</span><div class="up-progress"><div class="up-progress-bar" id="upbar-${id}" style="width:0%"></div></div>`;
   listEl.appendChild(li);
   try {
     if(file.size <= SIMPLE_UPLOAD_LIMIT){
@@ -3423,7 +3605,7 @@ async function uploadFile(file, folderId, listElId, extra){
       }, extra || {});
       const r = await appsFetch(null, true, payload);
       if(r.ok){
-        document.getElementById('upst-'+id).textContent = '✅ ok';
+        document.getElementById('upst-'+id).textContent = 'ok';
         document.getElementById('upst-'+id).classList.add('ok');
         document.getElementById('upbar-'+id).style.width = '100%';
       } else { throw new Error(r.msg || 'falhou'); }
@@ -3449,13 +3631,13 @@ async function uploadFile(file, folderId, listElId, extra){
         document.getElementById('upst-'+id).textContent = pct+'%';
         if(r.done){ break; }
       }
-      document.getElementById('upst-'+id).textContent = '✅ ok';
+      document.getElementById('upst-'+id).textContent = 'ok';
       document.getElementById('upst-'+id).classList.add('ok');
       document.getElementById('upbar-'+id).style.width = '100%';
     }
     if(currentSec === 'drive') renderCDrive();
   } catch(e){
-    document.getElementById('upst-'+id).textContent = '❌ '+e.message;
+    document.getElementById('upst-'+id).textContent = 'Erro: '+e.message;
     document.getElementById('upst-'+id).classList.add('err');
   }
 }
@@ -3504,7 +3686,7 @@ function openNotifPanel(){
   const my = getMyNotifs().sort((a,b) => new Date(b.data) - new Date(a.data));
   const body = document.getElementById('notifBody');
   if(!my.length){
-    body.innerHTML = '<div class="notif-empty">📭 Nenhuma notificação</div>';
+    body.innerHTML = '<div class="notif-empty">Nenhuma notificação</div>';
   } else {
     body.innerHTML = my.map(n => {
       const link = n.link ? (typeof n.link === 'string' ? (function(){ try { return JSON.parse(n.link); } catch(e){ return null; } })() : n.link) : null;
